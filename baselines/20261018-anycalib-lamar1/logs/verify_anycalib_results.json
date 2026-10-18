@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "sample": "95419735117.jpg",
+  "checks": [
+    "All official metrics independently recomputed exactly from saved NPZ",
+    "Raw rays and intrinsics finite",
+    "Fixed first official CSV row retained; no performance-based sample choice"
+  ],
+  "metrics": {
+    "fx_error": 39.1392822265625,
+    "rel_fx_error": 0.0245360154658556,
+    "fy_error": 38.5875244140625,
+    "rel_fy_error": 0.02419012412428856,
+    "cx_error": 0.89727783203125,
+    "rel_cx_error": 0.0012462192680686712,
+    "cy_error": 0.21990966796875,
+    "rel_cy_error": 0.0002290725678903982,
+    "max_rel_f_error": 0.0245360154658556,
+    "max_rel_c_error": 0.0012462192680686712,
+    "vfov_gt": 62.080265045166016,
+    "vfov": 60.87699890136719,
+    "vfov_error": 1.2032661437988281,
+    "hfov_gt": 48.5850715637207,
+    "hfov": 47.5518913269043,
+    "hfov_error": 1.0331802368164062,
+    "vfov_pin_error": 1.2032546997070312,
+    "reproj_error": 15.751346588134766,
+    "reproj_error@0.5": 0.00047996238572523,
+    "reproj_error@1": 0.0019122540252283216,
+    "reproj_error@3": 0.017234157770872116,
+    "reproj_error@5": 0.04785843566060066,
+    "ang_error": 0.4535922110080719,
+    "ang_med_error": 0.4844726324081421
+  }
+}

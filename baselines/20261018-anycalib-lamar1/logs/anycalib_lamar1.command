@@ -1,0 +1,1 @@
+TORCH_HOME=cache/torch OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 env/bin/python scripts/anycalib_lamar_sample.py --data-root data/lamar2k --repo sources/AnyCalib --outdir outputs/anycalib_lamar1 --index 0 --threads 4

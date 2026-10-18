@@ -1,0 +1,83 @@
+{
+  "status": "real_lamar_single_image_completed",
+  "source_commit": "027a8497d893f4b2596f23d6324c05e4b81064ed",
+  "model": "anycalib_gen",
+  "camera_family_supplied": "pinhole",
+  "sample_index": 0,
+  "selection": "First row of official images.csv; no quality-based selection",
+  "sample_id": "95419735117.jpg",
+  "source_image_sha256": "6ab47190dabd5ee438de5028ef8458c6c0b5b968cd67df16a7dcbe55d096071d",
+  "csv_row": {
+    "": "51",
+    "fname": "95419735117.jpg",
+    "roll": "-0.0240078138375894",
+    "pitch": "-0.3160744492346362",
+    "vfov": "1.0835048515254593",
+    "height": "1920.0",
+    "width": "1440.0"
+  },
+  "original_size": [
+    1920,
+    1440
+  ],
+  "ground_truth_intrinsics": [
+    1595.1767578125,
+    1595.1767578125,
+    720.0,
+    960.0
+  ],
+  "ground_truth_derivation": "Official load_csv_openpano_format: fx=fy=(H/2)/tan(vfov/2), cx=W/2, cy=H/2",
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "python": "3.12.14",
+  "torch_version": "2.14.1+cpu",
+  "seed": 0,
+  "full_benchmark": false,
+  "automatic_camera_model_selection": false,
+  "parameters": 320259771,
+  "pred_size": [
+    364,
+    280
+  ],
+  "intrinsics": [
+    1634.3160400390625,
+    1633.7642822265625,
+    719.1027221679688,
+    960.2199096679688
+  ],
+  "success": true,
+  "finite_intrinsics": true,
+  "finite_rays": true,
+  "load_seconds": 3.6395813270028157,
+  "inference_seconds": 2.5924389219981094,
+  "max_rss_mib": 2740.25390625,
+  "metrics": {
+    "fx_error": 39.1392822265625,
+    "rel_fx_error": 0.0245360154658556,
+    "fy_error": 38.5875244140625,
+    "rel_fy_error": 0.02419012412428856,
+    "cx_error": 0.89727783203125,
+    "rel_cx_error": 0.0012462192680686712,
+    "cy_error": 0.21990966796875,
+    "rel_cy_error": 0.0002290725678903982,
+    "max_rel_f_error": 0.0245360154658556,
+    "max_rel_c_error": 0.0012462192680686712,
+    "vfov_gt": 62.080265045166016,
+    "vfov": 60.87699890136719,
+    "vfov_error": 1.2032661437988281,
+    "hfov_gt": 48.5850715637207,
+    "hfov": 47.5518913269043,
+    "hfov_error": 1.0331802368164062,
+    "vfov_pin_error": 1.2032546997070312,
+    "reproj_error": 15.751346588134766,
+    "reproj_error@0.5": 0.00047996238572523,
+    "reproj_error@1": 0.0019122540252283216,
+    "reproj_error@3": 0.017234157770872116,
+    "reproj_error@5": 0.04785843566060066,
+    "ang_error": 0.4535922110080719,
+    "ang_med_error": 0.4844726324081421
+  },
+  "metric_function_sha256": "6bdfb723b7190d1a80c7a40f262de4605fbdbd1e78c706563b47832beaf0d9c3",
+  "evaluation_scope": "Single real image, supplied known pinhole family; official metric function at original resolution. Not full benchmark, crop consistency, or unknown-camera model-selection evaluation"
+}

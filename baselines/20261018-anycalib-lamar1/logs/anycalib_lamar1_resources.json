@@ -1,0 +1,24 @@
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/anycalib_lamar_sample.py",
+    "--data-root",
+    "data/lamar2k",
+    "--repo",
+    "sources/AnyCalib",
+    "--outdir",
+    "outputs/anycalib_lamar1",
+    "--index",
+    "0",
+    "--threads",
+    "4"
+  ],
+  "started_utc": "2026-10-18T17:15:12.954993+00:00",
+  "finished_utc": "2026-10-18T17:15:23.391028+00:00",
+  "elapsed_seconds": 10.436049339001329,
+  "exit_code": 0,
+  "max_rss_mib": 2758.5546875,
+  "user_cpu_seconds": 19.319944,
+  "system_cpu_seconds": 1.453565
+}
