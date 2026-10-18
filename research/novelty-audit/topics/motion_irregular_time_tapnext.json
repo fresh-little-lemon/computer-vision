@@ -1,0 +1,125 @@
+{
+  "id": "motion_irregular_time_tapnext",
+  "title": "机器人视频突发丢帧下的时间间隔感知递归点跟踪",
+  "status": "正式候选，先完成缺口实测",
+  "scenario": "无线机器人相机、共享算力视觉进程连续丢失若干帧，跟踪器收到的图像间隔不再均匀",
+  "input_output_scope": {
+    "input": "按到达顺序的RGB图像、源帧编号或时间戳、单点查询",
+    "output": "到达帧上的坐标与可见性",
+    "temporal": "纯因果；缺帧区间无RGB或事件观测；完整帧输入单列为信息量上界",
+    "resolution": "256×256；first-query；同一点与到达帧清单"
+  },
+  "baseline_paper": {
+    "name": "TAPNext: Tracking Any Point (TAP) as Next Token Prediction",
+    "venue": "ICCV 主会",
+    "year": 2025,
+    "paper_url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Zholus_TAPNext_Tracking_Any_Point_TAP_as_Next_Token_Prediction_ICCV_2025_paper.pdf",
+    "code_url": "https://github.com/google-deepmind/tapnet"
+  },
+  "latest_baseline": {
+    "name": "TAPNext++: What's Next for Tracking Any Point (TAP)?",
+    "venue": "CVPR Findings",
+    "year": 2026,
+    "paper_url": "https://openaccess.thecvf.com/content/CVPR2026F/html/Jung_TAPNext_Whats_Next_for_Tracking_Any_Point_TAP_CVPRF_2026_paper.html",
+    "checkpoint_url": "https://storage.googleapis.com/dm-tapnet/tapnextpp/tapnextpp_ckpt.pt",
+    "code_url": "https://github.com/google-deepmind/tapnet"
+  },
+  "neighbors": [
+    {
+      "name": "TAPNext++",
+      "covered": "长序列训练、重新检测、静态帧重复时状态变化",
+      "gap": "公开逐帧接口未显式输入采集时间间隔；丢帧退化幅度待实测",
+      "url": "https://arxiv.org/abs/2604.10582"
+    },
+    {
+      "name": "Track-On-R，CVPR2026主会",
+      "covered": "跨跟踪器verifier与真实视频自训练",
+      "gap": "本题改时间更新方程与短缓存",
+      "url": "https://arxiv.org/abs/2603.12217"
+    },
+    {
+      "name": "EDCPT，ICCV2025主会",
+      "covered": "RGB+事件低帧率连续点跟踪，含image-only curve消融",
+      "gap": "本题只接收RGB+时间戳；多模态完整模型单列",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Wan_Event-aided_Dense_and_Continuous_Point_Tracking_Everywhere_and_Anytime_ICCV_2025_paper.pdf"
+    }
+  ],
+  "research_question": "同样的稀疏到达图像和训练增强下，递归状态与短缓存的物理时间校正，能否减少突发缺帧后的定位误差？",
+  "proposed_steps": [
+    "将递归保留系数a改为a^(Δt/Δt0)，同步调整输入归一化；标准间隔恢复原计算",
+    "为短时卷积缓存保存源时间戳，按年龄加权或退役；每个到达帧只编码一次",
+    "冻结图像编码器与坐标头，仅适配末两层时间模块；在独立训练视频上使用相同物理时刻的教师一致性"
+  ],
+  "hypothesis": "LRU时间校正与缓存校正存在互补作用；收益应超过相同丢帧增强和清空缓存",
+  "datasets": [
+    {
+      "name": "TAP-Vid DAVIS",
+      "url": "https://storage.googleapis.com/dm-tapnet/tapvid_davis.zip",
+      "role": "真实测试；官方完整视频指标另测",
+      "license": "点标注CC-BY4.0；原视频按DAVIS条款"
+    },
+    {
+      "name": "RoboTAP",
+      "url": "https://storage.googleapis.com/dm-tapnet/robotap/robotap.zip",
+      "role": "机器人外部测试",
+      "license": "CC-BY4.0"
+    },
+    {
+      "name": "DAVIS2017 trainval480p",
+      "url": "https://data.vision.ee.ethz.ch/csergi/share/davis/DAVIS-2017-trainval-480p.zip",
+      "role": "只取官方train清单作伪标签适配，测试视频隔离",
+      "license": "按DAVIS官方数据条款"
+    }
+  ],
+  "license": {
+    "code_weights": "Apache-2.0",
+    "url": "https://github.com/google-deepmind/tapnet#license-and-disclaimer"
+  },
+  "metrics": [
+    "AJ",
+    "δ_avg",
+    "OA",
+    "突发缺帧后可见点误差",
+    "失效持续帧数",
+    "首帧/后续帧同步耗时",
+    "额外图像编码次数",
+    "峰值内存/显存"
+  ],
+  "controls": [
+    "TAPNext++原模型",
+    "相同缺帧增强适配",
+    "仅LRU校正",
+    "仅缓存校正",
+    "联合校正",
+    "重复上一帧填空",
+    "长间隔清空缓存"
+  ],
+  "stages": [
+    "真实DAVIS单点16帧smoke与轨迹可视化",
+    "固定/随机/突发缺帧小样本缺口验证",
+    "小参数适配与等资源消融",
+    "完整DAVIS及RoboTAP外部评价"
+  ],
+  "real_run": {
+    "status": "本文件只含调研与脚本语法检查；运行结果由runworker补入",
+    "script": "/workspace/shared/cv-project-proposals/novelty-audit/tapnextpp_smoke.py",
+    "command": "python tapnextpp_smoke.py --checkpoint tapnextpp_ckpt.pt --data tapvid_davis/tapvid_davis.pkl --frames 16 --out result.json"
+  },
+  "resources": {
+    "cpu": "可尝试短序列单点，实际内存及耗时待测",
+    "gpu_inference_estimate": "先按16GB卡、256²、单点规划",
+    "gpu_adaptation_estimate": "先按24GB卡、16帧、末两层时间模块规划，梯度试跑后确定"
+  },
+  "figures": [
+    {
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Zholus_TAPNext_Tracking_Any_Point_TAP_as_Next_Token_Prediction_ICCV_2025_paper.pdf",
+      "use": "TAPNext方法图，需标作者来源"
+    },
+    {
+      "url": "https://arxiv.org/pdf/2604.10582",
+      "use": "TAPNext++方法图及论文报告指标，标明论文报告"
+    }
+  ],
+  "audit_date": "2026-10-18",
+  "formal_candidate": true
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "run": "loma_hardmatch_3",
+    "status": "pass",
+    "samples": 3,
+    "recomputed_mAA_10px": 0.457731157541275
+  },
+  {
+    "run": "loma_hardmatch_official3",
+    "status": "pass",
+    "samples": 3,
+    "recomputed_mAA_10px": 0.5982517004013062
+  }
+]

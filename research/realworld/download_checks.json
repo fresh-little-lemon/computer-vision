@@ -1,0 +1,52 @@
+[
+  {
+    "key": "docunet_crop_http",
+    "url": "http://vision.cs.stonybrook.edu/~kema/docwarp/crop.zip",
+    "status": 200,
+    "length": "294741912",
+    "final_url": "http://vision.cs.stonybrook.edu/~kema/docwarp/crop.zip"
+  },
+  {
+    "key": "docunet_crop_https",
+    "url": "https://vision.cs.stonybrook.edu/~kema/docwarp/crop.zip",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "key": "docunet_scan_https",
+    "url": "https://vision.cs.stonybrook.edu/~kema/docwarp/scan.zip",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "key": "docunet_eval_https",
+    "url": "https://vision.cs.stonybrook.edu/~kema/docwarp/eval.zip",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "key": "nyuv2",
+    "url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/nyuv2_plane.zip",
+    "status": 200,
+    "length": "2528721991",
+    "final_url": "https://us.aws.cdn.hf.co/xet-bridge-us/684a8534b0e6e7c3a1c1519e/4aabcd91e4029d9dd81ab70d530ae7fc9c5aaa2ed00cdbe3a9a5e370d75f17a6"
+  },
+  {
+    "key": "zeroplane_weight",
+    "url": "https://huggingface.co/jcleo0428/ZeroPlane-Dust3R/resolve/main/dust3r_encoder_released.pth",
+    "status": 200,
+    "length": "7105876663",
+    "final_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6849c89fc00a64f1d6bb3f59/c552bee4eaf6e0733b3c1d66e1675fb86b2f8d3a6e484a09de9919ba985912ac"
+  },
+  {
+    "key": "visa",
+    "url": "https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar",
+    "status": 200,
+    "length": "1929840640",
+    "final_url": "https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar"
+  },
+  {
+    "key": "dino_small",
+    "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/main/model.safetensors",
+    "status": 200,
+    "length": "88256200",
+    "final_url": "https://us.aws.cdn.hf.co/xet-bridge-us/6765a6a5a2d41c3780972c05/b42abc477e0b4024c8c18fbd631f6a80b529ac4c66527150fcd16a72c4f0af50"
+  }
+]

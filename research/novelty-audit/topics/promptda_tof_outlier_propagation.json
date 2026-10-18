@@ -1,0 +1,112 @@
+{
+  "id": "promptda_tof_outlier_propagation",
+  "title": "手机LiDAR异常返回的局部传播控制",
+  "status": "暂缓正式立题：原改法已有直接覆盖",
+  "formal_candidate": false,
+  "scenario": "手机室内扫描中，镜面、透明物和远距离区域的低质量深度影响稠密几何",
+  "baseline_paper": {
+    "name": "Prompting Depth Anything for 4K Resolution Accurate Metric Depth Estimation",
+    "venue": "CVPR 主会",
+    "year": 2025,
+    "paper_url": "https://promptda.github.io/",
+    "code_url": "https://github.com/DepthAnything/PromptDA",
+    "checkpoint_url": "https://huggingface.co/depth-anything/prompt-depth-anything-vits/resolve/main/model.ckpt",
+    "model": "Small，25.1M；Large论文主结果与Small分开"
+  },
+  "input_output_scope": {
+    "input": "RGB+低分辨率米制提示深度",
+    "output": "稠密米制深度；demo无GT，只作有效输出检查"
+  },
+  "problem_evidence": {
+    "verified": "原版normalize以全图min/max缩放，输出sigmoid再还原；异常极值会改变全图量程。PromptDA++稀疏点版本改用中位数",
+    "hypothesis": "局部坏深度的影响范围以及合法远景被鲁棒裁剪误伤的程度待测"
+  },
+  "neighbors": [
+    {
+      "name": "PromptDA++，作者扩展论文",
+      "url": "https://github.com/DepthAnything/PromptDA/blob/main/assets/paper.pdf",
+      "covered": "点token化、任意稀疏模式、中位数归一化；代码/模型尚待发布",
+      "implication": "更换min/max归一化和泛化稀疏输入已覆盖"
+    },
+    {
+      "name": "Prior Depth Anything，ICLR2026",
+      "url": "https://openreview.net/forum?id=IROtFft9Q4",
+      "covered": "像素级量程对齐、距离加权预填充、条件网络去噪；多模式先验融合",
+      "implication": "局部尺度对齐/先验融合已有强近邻"
+    },
+    {
+      "name": "DEPTHOR，ICCV2025；DEPTHOR++，2025预印本",
+      "url": "https://arxiv.org/abs/2509.26498",
+      "code_url": "https://github.com/ShadowBbBb/Depthor",
+      "covered": "真实dToF异常模拟、无可学习参数异常检测、移除错误测量避免错误传播",
+      "implication": "本题核心异常检测与抑制传播被直接覆盖"
+    }
+  ],
+  "research_question": "剩余可检验问题是固定小模型与固定推理预算下，远近景共存时异常剔除与合法远景保留的取舍；当前机制差异尚不足以立新算法题",
+  "proposed_steps": [
+    "先跑Small真实样例核验输入与输出",
+    "使用DIODE真实RGB/深度制作受控提示污染，仅作机制诊断",
+    "比较原min/max、有效值分位数、中位数、DEPTHOR++异常筛选；再决定是否存在新的物理约束空间"
+  ],
+  "datasets": [
+    {
+      "name": "官方手机RGB样例",
+      "url": "https://raw.githubusercontent.com/DepthAnything/PromptDA/main/assets/example_images/image.jpg",
+      "role": "smoke"
+    },
+    {
+      "name": "官方ARKit深度样例",
+      "url": "https://raw.githubusercontent.com/DepthAnything/PromptDA/main/assets/example_images/arkit_depth.png",
+      "role": "192×256，PNG毫米转换米；smoke无GT"
+    },
+    {
+      "name": "DIODE validation",
+      "url": "http://diode-dataset.s3.amazonaws.com/val.tar.gz",
+      "size": "2.6GB",
+      "license": "MIT",
+      "role": "真实RGB与GT；合成提示噪声，和原生手机ToF数据分开报告"
+    }
+  ],
+  "metrics": [
+    "有效输出比例",
+    "AbsRel/RMSE/δ1",
+    "近/中/远深度分层误差",
+    "坏提示造成的误差扩散面积",
+    "干净输入质量",
+    "CPU峰值内存/耗时"
+  ],
+  "controls": [
+    "原PromptDA-Small",
+    "有效值分位数归一化",
+    "中位数归一化",
+    "DEPTHOR++筛选",
+    "PriorDA及PromptDA++，资源就绪后"
+  ],
+  "real_run": {
+    "status": "未运行；仅源码核验",
+    "entry": "PromptDA.from_pretrained('depth-anything/prompt-depth-anything-vits', model_kwargs={'encoder':'vits'}).cpu().eval()",
+    "cpu_note": "源码默认encoder=vitl，须显式传vits；load_image(...,max_size=392)。requirements锁定CUDA时代依赖，CPU环境需独立安装兼容依赖"
+  },
+  "license": {
+    "code_weights": "Apache-2.0",
+    "model_card": "https://huggingface.co/depth-anything/prompt-depth-anything-vits",
+    "data": "DIODE MIT；repo样例按作者仓库条款"
+  },
+  "resources": {
+    "cpu": "25.1M Small在392长边单图上适合首轮CPU尝试；耗时/峰值待测",
+    "gpu": "不安排训练；待新机制成立后再评估适配预算"
+  },
+  "figures": [
+    {
+      "url": "https://github.com/DepthAnything/PromptDA/blob/main/assets/paper.pdf",
+      "use": "作者扩展论文机制图，文献审计用"
+    }
+  ],
+  "stages": [
+    "CPU真实样例",
+    "受控异常机制诊断",
+    "直接竞品对齐",
+    "有独立机制差异后再立项"
+  ],
+  "audit_date": "2026-10-18"
+}

@@ -1,0 +1,135 @@
+{
+  "id": "minima_thermal_geometry",
+  "title": "异分辨率RGB–热红外匹配的成像误差传播",
+  "status": "几何适配型备选：暂缓正式新算法立题",
+  "formal_candidate": false,
+  "scenario": "双传感器建筑巡检中，RGB与热红外的像素尺寸、清晰度和纹理方向不同，匹配点误差影响相对位姿",
+  "baseline_paper": {
+    "name": "MINIMA: Modality Invariant Image Matching",
+    "venue": "CVPR 主会",
+    "year": 2025,
+    "paper_url": "https://arxiv.org/abs/2412.19412",
+    "code_url": "https://github.com/LSXI7/MINIMA",
+    "checkpoint_urls": [
+      "https://github.com/LSXI7/storage/releases/download/MINIMA/minima_lightglue.pth",
+      "https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt"
+    ]
+  },
+  "input_output_scope": {
+    "input": "RGB/TIR图像对、各自内参与分辨率；冻结匹配器输出候选点",
+    "output": "相对旋转和位移方向；平面数据另报单应变换"
+  },
+  "problem_evidence": {
+    "verified": "MINIMA输出标量matching_scores；默认几何估计没有传入每点2×2成像协方差",
+    "hypothesis": "热红外方向性模糊与分辨率差使像素定位误差呈各向异性，能否超过既有PNEC适配效果待测"
+  },
+  "neighbors": [
+    {
+      "name": "PNEC，CVPR2022；Learning Correspondence Uncertainty，CVPR2023",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Muhle_Learning_Correspondence_Uncertainty_via_Differentiable_Nonlinear_Least_Squares_CVPR_2023_paper.html",
+      "code_url": "https://github.com/tum-vision/pnec",
+      "covered": "各向异性协方差、射线传播、对称概率对极约束、通过位姿优化学习协方差",
+      "implication": "协方差加权几何本身已有完整算法覆盖"
+    },
+    {
+      "name": "AnyMatch，ECCV2026主会（作者代码标注）",
+      "url": "https://arxiv.org/abs/2606.31077",
+      "code_url": "https://github.com/MnYangs/AnyMatch",
+      "covered": "3D一致的跨模态数据生成及多匹配器适配",
+      "implication": "须纳入新强基线；当前README默认仍初始化MINIMA权重，其新训练权重入口待确认"
+    },
+    {
+      "name": "XoFTR++，Scientific Reports2026",
+      "url": "https://www.nature.com/articles/s41598-026-68975-9",
+      "covered": "热红外跨模态特征增强、金字塔及粗细注意力",
+      "implication": "普通加注意力/多尺度特征不是新切口"
+    },
+    {
+      "name": "XoFTR，CVPR2024 Workshop",
+      "url": "https://github.com/OnderT/XoFTR",
+      "covered": "专用RGB-TIR匹配与METU-VisTIR评价",
+      "implication": "作为场景专用基线，会议类别单列"
+    }
+  ],
+  "research_question": "明确传感器分辨率变换和热边缘定位误差后，现有概率几何估计在真实RGB-TIR数据上的收益是否超过标量置信度和固定像素阈值？",
+  "proposed_steps": [
+    "冻结MINIMA候选对应；保留匹配数量与几何抽样预算",
+    "从局部相似度窗口估计二维定位误差形状，经过真实缩放和反投影雅可比变换到几何空间",
+    "采用既有对称概率对极目标估计位姿；仅校正传感器分辨率与模糊相关的协方差尺度",
+    "先验证真实域收益，再考虑传感器特定改进；当前方案定位为已有概率几何的场景适配"
+  ],
+  "datasets": [
+    {
+      "name": "METU-VisTIR",
+      "url": "https://drive.google.com/file/d/1Sj_vxj-GXvDQIMSg-ZUJR0vHBLIeDrLg/view",
+      "download_file_id": "1Sj_vxj-GXvDQIMSg-ZUJR0vHBLIeDrLg",
+      "license": "CC BY-NC-SA4.0",
+      "role": "6场景真实RGB/TIR与相机位姿；使用官方val/test；主要为晴/阴天气，不等同夜间benchmark"
+    },
+    {
+      "name": "MMIM红外-光学单对",
+      "url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1a.png",
+      "paired_url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1b.png",
+      "annotation_url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1.mat",
+      "role": "跨模态CPU入口与平面诊断；与地面巡检相对位姿分开",
+      "license": "仓库开放下载，未核到统一数据再分发许可"
+    }
+  ],
+  "metrics": [
+    "相对位姿AUC@5/10/20°",
+    "epipolar matching precision",
+    "平面样例重投影误差",
+    "同候选匹配下的几何求解失败率",
+    "分辨率/模糊分层",
+    "匹配+几何端到端耗时"
+  ],
+  "controls": [
+    "MINIMA+标准RANSAC/MAGSAC",
+    "标量置信加权",
+    "标准PNEC",
+    "分辨率修正PNEC",
+    "方向性协方差与各向同性对照",
+    "XoFTR与MINIMA-LoFTR"
+  ],
+  "ablations": [
+    "同一候选点集与同一随机种子",
+    "空间均匀采样对照",
+    "原生分辨率与重采样倍率",
+    "真实热图与受控方向模糊分开",
+    "GT内参轻微扰动敏感性"
+  ],
+  "real_run": {
+    "status": "未运行；源码CPU兼容性问题已识别",
+    "command": "python demo.py --method sp_lg --ckpt weights/minima_lightglue.pth --fig1 IO1a.png --fig2 IO1b.png --save_dir results/smoke",
+    "cpu_patch": "src/utils/data_io_sp_lg.py中的两次torch.cuda.synchronize()加self.device.type == 'cuda'条件，只改计时；保留补丁diff",
+    "additional_weight": "SuperPoint特征提取权重由LightGlue官方组件加载"
+  },
+  "license": {
+    "code": "Apache-2.0",
+    "superpoint": "SuperPoint另有学术非商业限制，按官方LICENSE",
+    "metu": "CC BY-NC-SA4.0",
+    "url": "https://github.com/LSXI7/MINIMA#license"
+  },
+  "resources": {
+    "cpu": "SP+LightGlue稀疏模式可做单对尝试；当前官方计时需兼容补丁，实际内存/速度待测",
+    "gpu": "8GB级单卡批量推理初步预算；不训练大匹配器",
+    "optimization": "几何后处理CPU执行"
+  },
+  "figures": [
+    {
+      "url": "https://raw.githubusercontent.com/LSXI7/MINIMA/main/assets/infrared.png",
+      "use": "作者跨模态样例图"
+    },
+    {
+      "url": "https://arxiv.org/pdf/2412.19412",
+      "use": "作者方法图，标明CVPR2025"
+    }
+  ],
+  "stages": [
+    "CPU真实跨模态单对",
+    "固定匹配点的几何误差诊断",
+    "PNEC强对照与分辨率消融",
+    "仅在发现超出既有适配的机制后升级正式选题"
+  ],
+  "audit_date": "2026-10-18"
+}

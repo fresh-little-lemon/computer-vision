@@ -1,0 +1,42 @@
+{
+  "audit_date": "2026-10-18",
+  "inference_run": false,
+  "script_check": "py_compile passed",
+  "files": [
+    {
+      "path": "additional_scenarios.md",
+      "sha256": "faf61bc862fd9f8ccb167c83022f496aa8afe5c68d95e5b26bdd8d93e19eeb7f",
+      "bytes": 14182
+    },
+    {
+      "path": "additional_scenarios.json",
+      "sha256": "386fa0055cd9d4ab0c56f81970892c40656a953e041422652956422c6503ba7b",
+      "bytes": 21683
+    },
+    {
+      "path": "anycalib_cpu_smoke.py",
+      "sha256": "6ffc18eb12bcac38ada5776c6929b5b8f21ae906c8e23506723115bee00168d7",
+      "bytes": 1925
+    },
+    {
+      "path": "topics/anycalib_crop_model_selection.json",
+      "sha256": "9816ac6ac100b76f191c6d77e0f6f7913812c28184ce9a5c1aabc3f5d43f49c1",
+      "bytes": 8393
+    },
+    {
+      "path": "topics/motion_irregular_time_tapnext.json",
+      "sha256": "86e0e08baa9fe42599fbba7a9bef4170188fe4d285bd1a143ecb5bb28c4f0e3c",
+      "bytes": 5547
+    },
+    {
+      "path": "topics/promptda_tof_outlier_propagation.json",
+      "sha256": "f64eac00a0eeacf85cae21fed4e319426d4afb05054f98601d8c0cc2702881ef",
+      "bytes": 4893
+    },
+    {
+      "path": "topics/minima_thermal_geometry.json",
+      "sha256": "f4f7828c58782517cab08134c14976fb0235ad2c7c6b56db145ea67ca57b5627",
+      "bytes": 6669
+    }
+  ]
+}

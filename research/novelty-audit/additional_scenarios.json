@@ -1,0 +1,409 @@
+{
+  "audit_date": "2026-10-18",
+  "scope": "新增真实场景定向审计",
+  "formal_count": 1,
+  "topics": [
+    {
+      "id": "anycalib_crop_model_selection",
+      "title": "面向来源不明广角照片的裁切一致相机模型选择",
+      "status": "正式候选：优先进行CPU基线与模型选择缺口验证",
+      "scenario": "建筑巡检、房屋实景建模和二手网络照片缺少EXIF，照片还经历数字裁切与非等比缩放；后续去畸变和SfM需要稳定的像素到射线映射",
+      "input_output_scope": {
+        "input": "一张RGB图像及由该图生成、变换已知的2–3个裁切/缩放视图；无标定板，无额外真实拍摄视角",
+        "output": "候选相机族、当前图像坐标系内参、射线场与模型歧义标记",
+        "scope": "比较pinhole、radial:1、kb:4、ucm等中央相机族；评估可见图域内射线精度，原始未裁切传感器尺寸不作为恢复目标"
+      },
+      "baseline_paper": {
+        "name": "AnyCalib: On-Manifold Learning for Model-Agnostic Single-View Camera Calibration",
+        "venue": "ICCV 主会",
+        "year": 2025,
+        "paper_url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf",
+        "arxiv_url": "https://arxiv.org/abs/2503.12701",
+        "code_url": "https://github.com/javrtg/AnyCalib",
+        "checkpoint_urls": [
+          "https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_gen.pt",
+          "https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_edit.pt"
+        ]
+      },
+      "known_baseline_scope": "AnyCalib已经支持裁切/拉伸图像和任意运行时指定相机族；其predict(image, cam_id)由调用者给定cam_id。新题聚焦未知相机族时的选择及歧义，而非重新宣称支持裁切",
+      "problem_evidence": {
+        "verified": "官方predict要求cam_id；同一预测射线可分别拟合多个相机族，官方已有Gauss-Newton/LM、RANSAC与内参信息矩阵",
+        "hypothesis": "在窄视野和非中心裁切下，仅用单视图拟合残差容易偏向高自由度模型，且合成裁切后的选择可能不一致；幅度待实测"
+      },
+      "neighbors": [
+        {
+          "name": "AnyCalib，ICCV2025主会",
+          "covered": "射线学习、多相机族拟合、裁切与拉伸图像标定",
+          "gap": "显式cam_id输入；尚需研究自动选择和选择歧义的可见域几何后果",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "name": "Generalized Camera Calibration，IEEE Sensors Journal2025",
+          "covered": "标定图像采集、BIC选择相机模型",
+          "gap": "多张标定目标图像；本题仅一张自然图像及其已知数字变换",
+          "url": "https://doi.org/10.1109/JSEN.2025.3581377"
+        },
+        {
+          "name": "Automatic Reproducible Camera Intrinsic Calibration，2026预印本",
+          "covered": "标定板图像筛选、held-out图像选择畸变阶数",
+          "gap": "其独立观测来自额外标定板图；本题使用相关的合成视图，需显式检验其增益来源",
+          "url": "https://arxiv.org/abs/2609.10082"
+        },
+        {
+          "name": "AnyCam-MCT，2026硕士论文/开源模型",
+          "covered": "跨真实帧聚合AnyCalib特征进行视频标定",
+          "gap": "本题不增加真实帧，不训练跨帧Transformer",
+          "url": "https://huggingface.co/thekman17/anycam-mct"
+        },
+        {
+          "name": "Perspective Fields，CVPR2023",
+          "covered": "对裁切、缩放等编辑等变的几何表示",
+          "gap": "编辑等变性作为已知原理；拟研究的是它对未知相机族选择的约束",
+          "url": "https://arxiv.org/abs/2212.03239"
+        }
+      ],
+      "research_question": "同一张自然图像上的已知数字变换，能否帮助排除只在局部拟合良好却几何外推不稳定的相机族？",
+      "proposed_steps": [
+        "冻结AnyCalib。对原图及2–3个保留足够边界的非中心裁切生成射线预测，记录精确像素变换",
+        "把各视图射线映射回原图坐标，在共同像素区域联合拟合候选相机族；焦距和主点按已知图像变换绑定",
+        "在空间留出区域统计射线角残差与跨裁切一致误差，结合径向投影单调性、正焦距和模型复杂度选择候选",
+        "若多个模型在可见域内射线近似等价，输出模型集合与射线映射；把下游去畸变/相对位姿变化作为选择效果检验"
+      ],
+      "hypothesis": "跨裁切一致性提供对网络预测偏差的约束；与单视图BIC及普通多裁切平均相比，可改善边缘射线精度或减少不合理畸变",
+      "datasets": [
+        {
+          "name": "LaMAR2k",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip",
+          "role": "真实图像与标定信息；单图smoke及跨裁切试验",
+          "size": "官方说明解压约400MB",
+          "license": "CC BY 4.0，LaMAR官方数据许可；GeoCalib发布的2k子集",
+          "license_source": "https://docs.google.com/forms/d/e/1FAIpQLSehbzuYLkNjb8oXahsT2Bnnjzax1AQAjWIuGHb32ZbSqzjTSA/viewform"
+        },
+        {
+          "name": "LaMAR2k edited",
+          "url": "https://drive.google.com/uc?id=1h2HThhQbvqZlMw0OdpF7Y73wodeZMmdj",
+          "role": "官方裁切/拉伸测试变体",
+          "size": "官方说明约224MB",
+          "license": "CC BY 4.0，沿用LaMAR源数据许可"
+        },
+        {
+          "name": "MonoVO2k",
+          "url": "https://drive.google.com/uc?id=18rQ-WZcxXogeBqMwWvSkxVVEmZ9C12BZ",
+          "role": "真实畸变相机外部测试；按原相机/序列分组",
+          "size": "官方说明约445MB",
+          "license": "遵循TUM MonoVO源数据使用条款，归档条款待核"
+        }
+      ],
+      "license": {
+        "code_weights": "Apache-2.0",
+        "url": "https://github.com/javrtg/AnyCalib/blob/main/LICENSE",
+        "data_status": "LaMAR许可已核为CC BY4.0；MonoVO归档条款待核"
+      },
+      "metrics": [
+        "射线角误差的中位数/尾部与边缘分区",
+        "相对焦距误差",
+        "归一化主点误差",
+        "跨裁切射线一致性",
+        "物理无效模型率",
+        "可见域模型歧义率",
+        "额外推理次数及CPU峰值内存/耗时"
+      ],
+      "controls": [
+        "官方已知相机族作为oracle参考",
+        "单图最小残差选模",
+        "单图BIC选模",
+        "多裁切射线简单平均",
+        "跨裁切一致性",
+        "跨裁切一致性+物理约束",
+        "等推理预算下多尺度平均"
+      ],
+      "ablations": [
+        "裁切数1/2/3与保留视野比例",
+        "中心/非中心裁切",
+        "仅残差/加入复杂度/加入单调约束",
+        "pinhole与畸变图像分层",
+        "anycalib_gen与anycalib_edit分别报告"
+      ],
+      "stages": [
+        "官方权重+真实单图CPU运行与输出检查",
+        "20–50张真实图像验证模型选择不一致和边缘误差",
+        "训练自由的联合几何拟合原型与消融",
+        "按设备/场景划分验证和测试，完整集及下游几何评价"
+      ],
+      "real_run": {
+        "status": "源码与资源核验完成；未运行网络，待runworker结果",
+        "command": "python anycalib_cpu_smoke.py --image PATH_TO_REAL_IMAGE --model anycalib_gen --camera pinhole --out anycalib_smoke.json"
+      },
+      "resources": {
+        "cpu": "官方PyTorch路径；DINOv2-L骨干，单图约320²；10GB RAM优先试1图，内存峰值待测",
+        "gpu_inference_estimate": "单卡8–12GB用于多图批量实验的初步安排",
+        "training": "首版训练自由；缓存射线后，选模和优化在CPU运行"
+      },
+      "figures": [
+        {
+          "url": "https://raw.githubusercontent.com/javrtg/AnyCalib/main/assets/method.png",
+          "use": "作者官方方法图，署名AnyCalib/ICCV2025"
+        },
+        {
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf",
+          "use": "裁切标定示例；论文表格标为作者报告"
+        }
+      ],
+      "decision_gate": "若跨裁切仅复现简单平均/BIC效果，或收益来自oracle相机族信息，则缩为基线诊断报告；正式改进须在未知相机族及独立真实图像上成立",
+      "audit_date": "2026-10-18",
+      "formal_candidate": true,
+      "risks": [
+        "anycalib_edit只在编辑后的透视图像上训练；畸变与裁切组合需要单独检验，gen和edit分别报告",
+        "窄视野中多个相机族可能射线等价，模型名准确率只作辅助",
+        "合成裁切不增加独立场景观测，关键对照是等预算简单平均"
+      ]
+    },
+    {
+      "id": "promptda_tof_outlier_propagation",
+      "title": "手机LiDAR异常返回的局部传播控制",
+      "status": "暂缓正式立题：原改法已有直接覆盖",
+      "formal_candidate": false,
+      "scenario": "手机室内扫描中，镜面、透明物和远距离区域的低质量深度影响稠密几何",
+      "baseline_paper": {
+        "name": "Prompting Depth Anything for 4K Resolution Accurate Metric Depth Estimation",
+        "venue": "CVPR 主会",
+        "year": 2025,
+        "paper_url": "https://promptda.github.io/",
+        "code_url": "https://github.com/DepthAnything/PromptDA",
+        "checkpoint_url": "https://huggingface.co/depth-anything/prompt-depth-anything-vits/resolve/main/model.ckpt",
+        "model": "Small，25.1M；Large论文主结果与Small分开"
+      },
+      "input_output_scope": {
+        "input": "RGB+低分辨率米制提示深度",
+        "output": "稠密米制深度；demo无GT，只作有效输出检查"
+      },
+      "problem_evidence": {
+        "verified": "原版normalize以全图min/max缩放，输出sigmoid再还原；异常极值会改变全图量程。PromptDA++稀疏点版本改用中位数",
+        "hypothesis": "局部坏深度的影响范围以及合法远景被鲁棒裁剪误伤的程度待测"
+      },
+      "neighbors": [
+        {
+          "name": "PromptDA++，作者扩展论文",
+          "url": "https://github.com/DepthAnything/PromptDA/blob/main/assets/paper.pdf",
+          "covered": "点token化、任意稀疏模式、中位数归一化；代码/模型尚待发布",
+          "implication": "更换min/max归一化和泛化稀疏输入已覆盖"
+        },
+        {
+          "name": "Prior Depth Anything，ICLR2026",
+          "url": "https://openreview.net/forum?id=IROtFft9Q4",
+          "covered": "像素级量程对齐、距离加权预填充、条件网络去噪；多模式先验融合",
+          "implication": "局部尺度对齐/先验融合已有强近邻"
+        },
+        {
+          "name": "DEPTHOR，ICCV2025；DEPTHOR++，2025预印本",
+          "url": "https://arxiv.org/abs/2509.26498",
+          "code_url": "https://github.com/ShadowBbBb/Depthor",
+          "covered": "真实dToF异常模拟、无可学习参数异常检测、移除错误测量避免错误传播",
+          "implication": "本题核心异常检测与抑制传播被直接覆盖"
+        }
+      ],
+      "research_question": "剩余可检验问题是固定小模型与固定推理预算下，远近景共存时异常剔除与合法远景保留的取舍；当前机制差异尚不足以立新算法题",
+      "proposed_steps": [
+        "先跑Small真实样例核验输入与输出",
+        "使用DIODE真实RGB/深度制作受控提示污染，仅作机制诊断",
+        "比较原min/max、有效值分位数、中位数、DEPTHOR++异常筛选；再决定是否存在新的物理约束空间"
+      ],
+      "datasets": [
+        {
+          "name": "官方手机RGB样例",
+          "url": "https://raw.githubusercontent.com/DepthAnything/PromptDA/main/assets/example_images/image.jpg",
+          "role": "smoke"
+        },
+        {
+          "name": "官方ARKit深度样例",
+          "url": "https://raw.githubusercontent.com/DepthAnything/PromptDA/main/assets/example_images/arkit_depth.png",
+          "role": "192×256，PNG毫米转换米；smoke无GT"
+        },
+        {
+          "name": "DIODE validation",
+          "url": "http://diode-dataset.s3.amazonaws.com/val.tar.gz",
+          "size": "2.6GB",
+          "license": "MIT",
+          "role": "真实RGB与GT；合成提示噪声，和原生手机ToF数据分开报告"
+        }
+      ],
+      "metrics": [
+        "有效输出比例",
+        "AbsRel/RMSE/δ1",
+        "近/中/远深度分层误差",
+        "坏提示造成的误差扩散面积",
+        "干净输入质量",
+        "CPU峰值内存/耗时"
+      ],
+      "controls": [
+        "原PromptDA-Small",
+        "有效值分位数归一化",
+        "中位数归一化",
+        "DEPTHOR++筛选",
+        "PriorDA及PromptDA++，资源就绪后"
+      ],
+      "real_run": {
+        "status": "未运行；仅源码核验",
+        "entry": "PromptDA.from_pretrained('depth-anything/prompt-depth-anything-vits', model_kwargs={'encoder':'vits'}).cpu().eval()",
+        "cpu_note": "源码默认encoder=vitl，须显式传vits；load_image(...,max_size=392)。requirements锁定CUDA时代依赖，CPU环境需独立安装兼容依赖"
+      },
+      "license": {
+        "code_weights": "Apache-2.0",
+        "model_card": "https://huggingface.co/depth-anything/prompt-depth-anything-vits",
+        "data": "DIODE MIT；repo样例按作者仓库条款"
+      },
+      "resources": {
+        "cpu": "25.1M Small在392长边单图上适合首轮CPU尝试；耗时/峰值待测",
+        "gpu": "不安排训练；待新机制成立后再评估适配预算"
+      },
+      "figures": [
+        {
+          "url": "https://github.com/DepthAnything/PromptDA/blob/main/assets/paper.pdf",
+          "use": "作者扩展论文机制图，文献审计用"
+        }
+      ],
+      "stages": [
+        "CPU真实样例",
+        "受控异常机制诊断",
+        "直接竞品对齐",
+        "有独立机制差异后再立项"
+      ],
+      "audit_date": "2026-10-18"
+    },
+    {
+      "id": "minima_thermal_geometry",
+      "title": "异分辨率RGB–热红外匹配的成像误差传播",
+      "status": "几何适配型备选：暂缓正式新算法立题",
+      "formal_candidate": false,
+      "scenario": "双传感器建筑巡检中，RGB与热红外的像素尺寸、清晰度和纹理方向不同，匹配点误差影响相对位姿",
+      "baseline_paper": {
+        "name": "MINIMA: Modality Invariant Image Matching",
+        "venue": "CVPR 主会",
+        "year": 2025,
+        "paper_url": "https://arxiv.org/abs/2412.19412",
+        "code_url": "https://github.com/LSXI7/MINIMA",
+        "checkpoint_urls": [
+          "https://github.com/LSXI7/storage/releases/download/MINIMA/minima_lightglue.pth",
+          "https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt"
+        ]
+      },
+      "input_output_scope": {
+        "input": "RGB/TIR图像对、各自内参与分辨率；冻结匹配器输出候选点",
+        "output": "相对旋转和位移方向；平面数据另报单应变换"
+      },
+      "problem_evidence": {
+        "verified": "MINIMA输出标量matching_scores；默认几何估计没有传入每点2×2成像协方差",
+        "hypothesis": "热红外方向性模糊与分辨率差使像素定位误差呈各向异性，能否超过既有PNEC适配效果待测"
+      },
+      "neighbors": [
+        {
+          "name": "PNEC，CVPR2022；Learning Correspondence Uncertainty，CVPR2023",
+          "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Muhle_Learning_Correspondence_Uncertainty_via_Differentiable_Nonlinear_Least_Squares_CVPR_2023_paper.html",
+          "code_url": "https://github.com/tum-vision/pnec",
+          "covered": "各向异性协方差、射线传播、对称概率对极约束、通过位姿优化学习协方差",
+          "implication": "协方差加权几何本身已有完整算法覆盖"
+        },
+        {
+          "name": "AnyMatch，ECCV2026主会（作者代码标注）",
+          "url": "https://arxiv.org/abs/2606.31077",
+          "code_url": "https://github.com/MnYangs/AnyMatch",
+          "covered": "3D一致的跨模态数据生成及多匹配器适配",
+          "implication": "须纳入新强基线；当前README默认仍初始化MINIMA权重，其新训练权重入口待确认"
+        },
+        {
+          "name": "XoFTR++，Scientific Reports2026",
+          "url": "https://www.nature.com/articles/s41598-026-68975-9",
+          "covered": "热红外跨模态特征增强、金字塔及粗细注意力",
+          "implication": "普通加注意力/多尺度特征不是新切口"
+        },
+        {
+          "name": "XoFTR，CVPR2024 Workshop",
+          "url": "https://github.com/OnderT/XoFTR",
+          "covered": "专用RGB-TIR匹配与METU-VisTIR评价",
+          "implication": "作为场景专用基线，会议类别单列"
+        }
+      ],
+      "research_question": "明确传感器分辨率变换和热边缘定位误差后，现有概率几何估计在真实RGB-TIR数据上的收益是否超过标量置信度和固定像素阈值？",
+      "proposed_steps": [
+        "冻结MINIMA候选对应；保留匹配数量与几何抽样预算",
+        "从局部相似度窗口估计二维定位误差形状，经过真实缩放和反投影雅可比变换到几何空间",
+        "采用既有对称概率对极目标估计位姿；仅校正传感器分辨率与模糊相关的协方差尺度",
+        "先验证真实域收益，再考虑传感器特定改进；当前方案定位为已有概率几何的场景适配"
+      ],
+      "datasets": [
+        {
+          "name": "METU-VisTIR",
+          "url": "https://drive.google.com/file/d/1Sj_vxj-GXvDQIMSg-ZUJR0vHBLIeDrLg/view",
+          "download_file_id": "1Sj_vxj-GXvDQIMSg-ZUJR0vHBLIeDrLg",
+          "license": "CC BY-NC-SA4.0",
+          "role": "6场景真实RGB/TIR与相机位姿；使用官方val/test；主要为晴/阴天气，不等同夜间benchmark"
+        },
+        {
+          "name": "MMIM红外-光学单对",
+          "url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1a.png",
+          "paired_url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1b.png",
+          "annotation_url": "https://raw.githubusercontent.com/StaRainJ/Multi-modality-image-matching-database-metrics-methods/master/Multimodal_Image_Matching_Datasets/RemoteSensing/Infrared_Optical/IO1.mat",
+          "role": "跨模态CPU入口与平面诊断；与地面巡检相对位姿分开",
+          "license": "仓库开放下载，未核到统一数据再分发许可"
+        }
+      ],
+      "metrics": [
+        "相对位姿AUC@5/10/20°",
+        "epipolar matching precision",
+        "平面样例重投影误差",
+        "同候选匹配下的几何求解失败率",
+        "分辨率/模糊分层",
+        "匹配+几何端到端耗时"
+      ],
+      "controls": [
+        "MINIMA+标准RANSAC/MAGSAC",
+        "标量置信加权",
+        "标准PNEC",
+        "分辨率修正PNEC",
+        "方向性协方差与各向同性对照",
+        "XoFTR与MINIMA-LoFTR"
+      ],
+      "ablations": [
+        "同一候选点集与同一随机种子",
+        "空间均匀采样对照",
+        "原生分辨率与重采样倍率",
+        "真实热图与受控方向模糊分开",
+        "GT内参轻微扰动敏感性"
+      ],
+      "real_run": {
+        "status": "未运行；源码CPU兼容性问题已识别",
+        "command": "python demo.py --method sp_lg --ckpt weights/minima_lightglue.pth --fig1 IO1a.png --fig2 IO1b.png --save_dir results/smoke",
+        "cpu_patch": "src/utils/data_io_sp_lg.py中的两次torch.cuda.synchronize()加self.device.type == 'cuda'条件，只改计时；保留补丁diff",
+        "additional_weight": "SuperPoint特征提取权重由LightGlue官方组件加载"
+      },
+      "license": {
+        "code": "Apache-2.0",
+        "superpoint": "SuperPoint另有学术非商业限制，按官方LICENSE",
+        "metu": "CC BY-NC-SA4.0",
+        "url": "https://github.com/LSXI7/MINIMA#license"
+      },
+      "resources": {
+        "cpu": "SP+LightGlue稀疏模式可做单对尝试；当前官方计时需兼容补丁，实际内存/速度待测",
+        "gpu": "8GB级单卡批量推理初步预算；不训练大匹配器",
+        "optimization": "几何后处理CPU执行"
+      },
+      "figures": [
+        {
+          "url": "https://raw.githubusercontent.com/LSXI7/MINIMA/main/assets/infrared.png",
+          "use": "作者跨模态样例图"
+        },
+        {
+          "url": "https://arxiv.org/pdf/2412.19412",
+          "use": "作者方法图，标明CVPR2025"
+        }
+      ],
+      "stages": [
+        "CPU真实跨模态单对",
+        "固定匹配点的几何误差诊断",
+        "PNEC强对照与分辨率消融",
+        "仅在发现超出既有适配的机制后升级正式选题"
+      ],
+      "audit_date": "2026-10-18"
+    }
+  ]
+}

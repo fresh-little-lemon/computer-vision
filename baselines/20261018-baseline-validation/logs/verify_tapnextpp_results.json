@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "checks": [
+    "all metrics recomputed exactly from raw predictions",
+    "16 frames, 1 query, 15 evaluated locations",
+    "all 15 GT evaluation locations visible"
+  ],
+  "mean_error_256px": 0.4638868671448513,
+  "max_error_256px": 0.9967950857755813,
+  "gt_occluded_count": 0
+}
