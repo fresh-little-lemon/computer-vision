@@ -1,0 +1,61 @@
+{
+  "created_utc": "2026-10-18T17:07:03.948961+00:00",
+  "status": "completed",
+  "source": "https://github.com/google-deepmind/tapnet",
+  "commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "source_code_modified": false,
+  "assets": [
+    {
+      "file": "tapnextpp_ckpt.pt",
+      "url": "https://storage.googleapis.com/dm-tapnet/tapnextpp/tapnextpp_ckpt.pt",
+      "bytes": 2532282370,
+      "sha256": "cb96a43444ccb4fbdb25d800b88c7ba196179a526e78f01b021a16b1c1eff6da",
+      "license": "Apache-2.0, per official TAPNext++ README",
+      "redistributed": false
+    },
+    {
+      "file": "tapvid_davis.zip",
+      "url": "https://storage.googleapis.com/dm-tapnet/tapvid_davis.zip",
+      "bytes": 1668710491,
+      "sha256": "60eb6239c57a9877900c269d14637c2b6eece8fa280f59e4592324c6392031b6",
+      "license": "TAP-Vid annotations CC BY4.0; videos owned by original creators",
+      "redistributed": false
+    }
+  ],
+  "selection": "alphabetically first of 30 videos, first visible query, first 16 frames from its first visible frame",
+  "sample": "bike-packing",
+  "query": 0,
+  "frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "original_video": "https://www.youtube.com/watch?v=2JMcuDkvX8I",
+  "metrics": "Official compute_tapvid_metrics function executed unchanged via AST extraction to avoid unused TensorFlow import dependencies",
+  "claims": {
+    "real_forward_pass": true,
+    "real_ground_truth_evaluation": true,
+    "full_benchmark": false,
+    "redetection_test": false
+  },
+  "explanation": "Every sampled ground-truth point is visible. This tiny sample cannot assess occlusion/re-detection or reproduce the full benchmark.",
+  "excluded": [
+    "Model weights",
+    "Complete dataset",
+    "Private course material",
+    "Credentials"
+  ]
+}

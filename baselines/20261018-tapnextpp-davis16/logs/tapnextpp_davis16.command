@@ -1,0 +1,1 @@
+OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 env/bin/python scripts/tapnextpp_real_sample.py --checkpoint downloads/tapnextpp_ckpt.pt --data data/tapvid_davis/tapvid_davis.pkl --repo sources/tapnet --outdir outputs/tapnextpp_davis16 --frames 16 --threads 4

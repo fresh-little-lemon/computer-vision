@@ -1,0 +1,35 @@
+{
+  "status": "prepared",
+  "video": "bike-packing",
+  "source_frame_start": 0,
+  "source_frame_stop_exclusive": 16,
+  "source_total_frames": 69,
+  "query_index": 0,
+  "source_query_count": 25,
+  "source_resolution": [
+    480,
+    910
+  ],
+  "model_resolution": [
+    256,
+    256
+  ],
+  "frames": 16,
+  "queries": 1,
+  "query_xy": [
+    [
+      544.9508666992188,
+      112.99270629882812
+    ]
+  ],
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "seed": 0,
+  "torch_version": "2.14.1+cpu",
+  "python": "3.12.14",
+  "algorithm": "TAPNextPP.from_checkpoint + track_frame, unmodified official code",
+  "sample_selection": "Alphabetically first video, first query with any visibility, first visible frame",
+  "benchmark_claim": false,
+  "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d"
+}

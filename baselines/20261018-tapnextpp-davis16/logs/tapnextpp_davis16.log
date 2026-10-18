@@ -1,0 +1,122 @@
+Loading official DAVIS pickle
+{"status": "prepared", "video": "bike-packing", "source_frame_start": 0, "source_frame_stop_exclusive": 16, "source_total_frames": 69, "query_index": 0, "source_query_count": 25, "source_resolution": [480, 910], "model_resolution": [256, 256], "frames": 16, "queries": 1, "query_xy": [[544.9508666992188, 112.99270629882812]], "device": "cpu", "dtype": "float32", "threads": 4, "seed": 0, "torch_version": "2.14.1+cpu", "python": "3.12.14", "algorithm": "TAPNextPP.from_checkpoint + track_frame, unmodified official code", "sample_selection": "Alphabetically first video, first query with any visibility, first visible frame", "benchmark_claim": false, "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d"}
+Loaded official model in 2.819s; params=194202881
+{"local_frame": 0, "source_frame": 0, "pred_xy": [545.521728515625, 113.42943572998047], "pred_visible": true, "ground_truth_xy": [544.9508529901505, 112.99270391464233], "ground_truth_occluded": false, "seconds": 2.512776745999872}
+{"local_frame": 1, "source_frame": 1, "pred_xy": [547.5767822265625, 113.69446563720703], "pred_visible": true, "ground_truth_xy": [548.3561086654663, 113.99999856948853], "ground_truth_occluded": false, "seconds": 3.231445157001872}
+{"local_frame": 2, "source_frame": 2, "pred_xy": [550.6265258789062, 114.35399627685547], "pred_visible": true, "ground_truth_xy": [552.3570847511292, 114.8888897895813], "ground_truth_occluded": false, "seconds": 3.1234163209992403}
+{"local_frame": 3, "source_frame": 3, "pred_xy": [555.0533447265625, 115.34336853027344], "pred_visible": true, "ground_truth_xy": [555.468955039978, 115.77778100967407], "ground_truth_occluded": false, "seconds": 3.0012984439999855}
+{"local_frame": 4, "source_frame": 4, "pred_xy": [556.481689453125, 117.64630889892578], "pred_visible": true, "ground_truth_xy": [556.358060836792, 118.00000190734863], "ground_truth_occluded": false, "seconds": 2.9674148080011946}
+{"local_frame": 5, "source_frame": 5, "pred_xy": [554.9010009765625, 121.5853500366211], "pred_visible": true, "ground_truth_xy": [554.5798492431641, 121.99999809265137], "ground_truth_occluded": false, "seconds": 2.594604027999594}
+{"local_frame": 6, "source_frame": 6, "pred_xy": [550.203125, 123.99676513671875], "pred_visible": true, "ground_truth_xy": [550.5788731575012, 124.2222261428833], "ground_truth_occluded": false, "seconds": 2.93068196799868}
+{"local_frame": 7, "source_frame": 7, "pred_xy": [543.4725952148438, 118.62644958496094], "pred_visible": true, "ground_truth_xy": [543.9105796813965, 118.44444751739502], "ground_truth_occluded": false, "seconds": 2.8691172219987493}
+{"local_frame": 8, "source_frame": 8, "pred_xy": [537.3018188476562, 105.9727554321289], "pred_visible": true, "ground_truth_xy": [538.5759449005127, 106.44444465637207], "ground_truth_occluded": false, "seconds": 2.8008658119979373}
+{"local_frame": 9, "source_frame": 9, "pred_xy": [531.7499389648438, 93.4417495727539], "pred_visible": true, "ground_truth_xy": [533.6858630180359, 93.55555772781372], "ground_truth_occluded": false, "seconds": 2.285128163999616}
+{"local_frame": 10, "source_frame": 10, "pred_xy": [525.1098022460938, 83.871337890625], "pred_visible": true, "ground_truth_xy": [526.5730166435242, 84.22222137451172], "ground_truth_occluded": false, "seconds": 2.4655033510025532}
+{"local_frame": 11, "source_frame": 11, "pred_xy": [519.1640625, 81.3453598022461], "pred_visible": true, "ground_truth_xy": [518.1265115737915, 80.666663646698], "ground_truth_occluded": false, "seconds": 2.494452570001158}
+{"local_frame": 12, "source_frame": 12, "pred_xy": [512.28662109375, 84.81405639648438], "pred_visible": true, "ground_truth_xy": [510.1245594024658, 83.33333015441895], "ground_truth_occluded": false, "seconds": 2.2916313349996926}
+{"local_frame": 13, "source_frame": 13, "pred_xy": [504.3475341796875, 83.10310363769531], "pred_visible": true, "ground_truth_xy": [503.90081882476807, 82.00000047683716], "ground_truth_occluded": false, "seconds": 2.2966297159982787}
+{"local_frame": 14, "source_frame": 14, "pred_xy": [500.84454345703125, 78.59432220458984], "pred_visible": true, "ground_truth_xy": [499.45528984069824, 77.11111307144165], "ground_truth_occluded": false, "seconds": 2.06625330800307}
+{"local_frame": 15, "source_frame": 15, "pred_xy": [499.2302551269531, 73.98445129394531], "pred_visible": true, "ground_truth_xy": [497.23252534866333, 73.11110973358154], "ground_truth_occluded": false, "seconds": 2.107499858000665}
+{
+  "status": "real_davis_sample_completed",
+  "video": "bike-packing",
+  "source_frame_start": 0,
+  "source_frame_stop_exclusive": 16,
+  "source_total_frames": 69,
+  "query_index": 0,
+  "source_query_count": 25,
+  "source_resolution": [
+    480,
+    910
+  ],
+  "model_resolution": [
+    256,
+    256
+  ],
+  "frames": 16,
+  "queries": 1,
+  "query_xy": [
+    [
+      544.9508666992188,
+      112.99270629882812
+    ]
+  ],
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "seed": 0,
+  "torch_version": "2.14.1+cpu",
+  "python": "3.12.14",
+  "algorithm": "TAPNextPP.from_checkpoint + track_frame, unmodified official code",
+  "sample_selection": "Alphabetically first video, first query with any visibility, first visible frame",
+  "benchmark_claim": false,
+  "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "load_seconds": 2.8193219259992475,
+  "inference_seconds": 42.03871880800216,
+  "first_frame_seconds": 2.512776745999872,
+  "subsequent_mean_seconds": 2.6350628041334856,
+  "per_frame_seconds": [
+    2.512776745999872,
+    3.231445157001872,
+    3.1234163209992403,
+    3.0012984439999855,
+    2.9674148080011946,
+    2.594604027999594,
+    2.93068196799868,
+    2.8691172219987493,
+    2.8008658119979373,
+    2.285128163999616,
+    2.4655033510025532,
+    2.494452570001158,
+    2.2916313349996926,
+    2.2966297159982787,
+    2.06625330800307,
+    2.107499858000665
+  ],
+  "parameters": 194202881,
+  "max_rss_mib": 3676.375,
+  "finite": true,
+  "metrics": {
+    "occlusion_accuracy": 1.0,
+    "pts_within_1": 1.0,
+    "jaccard_1": 1.0,
+    "pts_within_2": 1.0,
+    "jaccard_2": 1.0,
+    "pts_within_4": 1.0,
+    "jaccard_4": 1.0,
+    "pts_within_8": 1.0,
+    "jaccard_8": 1.0,
+    "pts_within_16": 1.0,
+    "jaccard_16": 1.0,
+    "average_jaccard": 1.0,
+    "average_pts_within_thresh": 1.0
+  },
+  "metrics_scope": "One query, truncated clip; initial query frame excluded by official first-query metric; not comparable to full DAVIS benchmark",
+  "metric_function_sha256": "e21f36fa023e3f3e055a8a27350edfe1c72b9ebf9f0dd03fb2a5c3326c3d4b32"
+}
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/tapnextpp_real_sample.py",
+    "--checkpoint",
+    "downloads/tapnextpp_ckpt.pt",
+    "--data",
+    "data/tapvid_davis/tapvid_davis.pkl",
+    "--repo",
+    "sources/tapnet",
+    "--outdir",
+    "outputs/tapnextpp_davis16",
+    "--frames",
+    "16",
+    "--threads",
+    "4"
+  ],
+  "started_utc": "2026-10-18T17:03:00.431587+00:00",
+  "finished_utc": "2026-10-18T17:03:49.816099+00:00",
+  "elapsed_seconds": 49.38452453100035,
+  "exit_code": 0,
+  "max_rss_mib": 3676.375,
+  "user_cpu_seconds": 147.794939,
+  "system_cpu_seconds": 7.376969
+}

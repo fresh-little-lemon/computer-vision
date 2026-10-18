@@ -1,0 +1,77 @@
+{
+  "status": "real_davis_sample_completed",
+  "video": "bike-packing",
+  "source_frame_start": 0,
+  "source_frame_stop_exclusive": 16,
+  "source_total_frames": 69,
+  "query_index": 0,
+  "source_query_count": 25,
+  "source_resolution": [
+    480,
+    910
+  ],
+  "model_resolution": [
+    256,
+    256
+  ],
+  "frames": 16,
+  "queries": 1,
+  "query_xy": [
+    [
+      544.9508666992188,
+      112.99270629882812
+    ]
+  ],
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "seed": 0,
+  "torch_version": "2.14.1+cpu",
+  "python": "3.12.14",
+  "algorithm": "TAPNextPP.from_checkpoint + track_frame, unmodified official code",
+  "sample_selection": "Alphabetically first video, first query with any visibility, first visible frame",
+  "benchmark_claim": false,
+  "source_commit": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+  "load_seconds": 2.8193219259992475,
+  "inference_seconds": 42.03871880800216,
+  "first_frame_seconds": 2.512776745999872,
+  "subsequent_mean_seconds": 2.6350628041334856,
+  "per_frame_seconds": [
+    2.512776745999872,
+    3.231445157001872,
+    3.1234163209992403,
+    3.0012984439999855,
+    2.9674148080011946,
+    2.594604027999594,
+    2.93068196799868,
+    2.8691172219987493,
+    2.8008658119979373,
+    2.285128163999616,
+    2.4655033510025532,
+    2.494452570001158,
+    2.2916313349996926,
+    2.2966297159982787,
+    2.06625330800307,
+    2.107499858000665
+  ],
+  "parameters": 194202881,
+  "max_rss_mib": 3676.375,
+  "finite": true,
+  "metrics": {
+    "occlusion_accuracy": 1.0,
+    "pts_within_1": 1.0,
+    "jaccard_1": 1.0,
+    "pts_within_2": 1.0,
+    "jaccard_2": 1.0,
+    "pts_within_4": 1.0,
+    "jaccard_4": 1.0,
+    "pts_within_8": 1.0,
+    "jaccard_8": 1.0,
+    "pts_within_16": 1.0,
+    "jaccard_16": 1.0,
+    "average_jaccard": 1.0,
+    "average_pts_within_thresh": 1.0
+  },
+  "metrics_scope": "One query, truncated clip; initial query frame excluded by official first-query metric; not comparable to full DAVIS benchmark",
+  "metric_function_sha256": "e21f36fa023e3f3e055a8a27350edfe1c72b9ebf9f0dd03fb2a5c3326c3d4b32"
+}

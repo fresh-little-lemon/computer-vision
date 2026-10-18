@@ -1,0 +1,26 @@
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/tapnextpp_real_sample.py",
+    "--checkpoint",
+    "downloads/tapnextpp_ckpt.pt",
+    "--data",
+    "data/tapvid_davis/tapvid_davis.pkl",
+    "--repo",
+    "sources/tapnet",
+    "--outdir",
+    "outputs/tapnextpp_davis16",
+    "--frames",
+    "16",
+    "--threads",
+    "4"
+  ],
+  "started_utc": "2026-10-18T17:03:00.431587+00:00",
+  "finished_utc": "2026-10-18T17:03:49.816099+00:00",
+  "elapsed_seconds": 49.38452453100035,
+  "exit_code": 0,
+  "max_rss_mib": 3676.375,
+  "user_cpu_seconds": 147.794939,
+  "system_cpu_seconds": 7.376969
+}
