@@ -1,0 +1,66 @@
+{
+  "status": "sample_smoke_completed",
+  "split": "val",
+  "samples": 3,
+  "variant": "LoMaB128",
+  "side": null,
+  "official_preprocess": true,
+  "keypoints": 2048,
+  "device": "cpu",
+  "mAA_10px": 0.5982517004013062,
+  "scoring": "Official HardMatch symmetric epipolar errors and mean fractions over thresholds 0..10px",
+  "note": "Official path preprocessing/2048-keypoint small validation sample; not the 900-pair test benchmark or paper reproduction. No direct pointwise match-error ground truth is implied by this F evaluation.",
+  "torch_version": "2.14.1+cpu",
+  "opencv_version": "5.0.0",
+  "threads": 4,
+  "max_rss_mib": 1550.125,
+  "pairs": [
+    {
+      "index": 0,
+      "pair": "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058",
+      "categories": [
+        "outdoor",
+        "illumination",
+        "viewpoint",
+        "building"
+      ],
+      "matches": 163,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 10.493770646000485,
+      "mAA_10px": 0.06293706595897675,
+      "median_gt_epipolar_error_px": 44.27175626817822,
+      "files_prefix": "00_val000"
+    },
+    {
+      "index": 1,
+      "pair": "bell_tower/Denny_Chimes/pair_00052",
+      "categories": [
+        "outdoor",
+        "building"
+      ],
+      "matches": 722,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 9.905592588002037,
+      "mAA_10px": 0.8409090638160706,
+      "median_gt_epipolar_error_px": 0.9985599799663802,
+      "files_prefix": "01_val001"
+    },
+    {
+      "index": 2,
+      "pair": "bell_tower/Denny_Chimes/pair_00053",
+      "categories": [
+        "outdoor",
+        "building"
+      ],
+      "matches": 173,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 10.14553774199885,
+      "mAA_10px": 0.8909091353416443,
+      "median_gt_epipolar_error_px": 0.6480075675888461,
+      "files_prefix": "02_val002"
+    }
+  ]
+}

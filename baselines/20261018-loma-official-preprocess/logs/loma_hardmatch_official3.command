@@ -1,0 +1,1 @@
+TORCH_HOME=cache/torch OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 env/bin/python scripts/loma_hardmatch_sample.py --data-root data/hardmatch --out outputs/loma_hardmatch_official3 --count 3 --keypoints 2048 --threads 4 --official-preprocess

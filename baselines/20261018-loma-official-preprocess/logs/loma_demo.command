@@ -1,0 +1,1 @@
+TORCH_HOME=cache/torch OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 PYTHONPATH=sources/LoMa/src env/bin/python scripts/loma_smoke.py --variant b128 --side 224 --keypoints 256 --left sources/LoMa/assets/toronto_A.jpg --right sources/LoMa/assets/toronto_B.jpg --out outputs/loma_demo/result.json

@@ -1,0 +1,56 @@
+{
+  "created_utc": "2026-10-18T17:00:46.571579+00:00",
+  "status": "LoMa completed; TAPNext++ downloads in progress",
+  "source_commits": {
+    "LoMa": "8fb59c458f2a2ef44314f462467b229c27786bf0",
+    "tapnet": "730cda1c730877cfedbe01bf87fb1cadb78a565d",
+    "HardMatch": "13b499c9200e63bdc0eb8e647411fb300e9f6d9b"
+  },
+  "source_code_modified": false,
+  "assets": [
+    {
+      "file": "loma_B128.pth",
+      "url": "https://github.com/davnords/storage/releases/download/loma/loma_B128.pth",
+      "bytes": 127498077,
+      "sha256": "b509cb295b543e6eae37dea76185e805c4e87ff7e35e0a84cad301be1b5984fc",
+      "license": "LoMa repository MIT; no separate weight license identified",
+      "redistributed": false
+    },
+    {
+      "file": "dad.pth",
+      "url": "https://github.com/Parskatt/dad/releases/download/v0.1.0/dad.pth",
+      "bytes": 26075286,
+      "sha256": "7d827844649faf5213ba97e7adb43e16b936dd3d11ab2d0fc0d602c67fae781f",
+      "license": "Official DaD upstream checkpoint; not redistributed",
+      "redistributed": false
+    },
+    {
+      "file": "hardmatch.zip",
+      "url": "https://github.com/davnords/storage/releases/download/hardmatch/hardmatch.zip",
+      "bytes": 692335679,
+      "sha256": "a577effbdfbf64903a4540aed94054bdd42bb37cc0413ae2b98db0a4613e9b2a",
+      "license": "Per-photo Wikimedia license; sample metadata retained",
+      "redistributed": false
+    }
+  ],
+  "hardmatch_split": {
+    "actual_val": 99,
+    "actual_test": 900,
+    "readme_val": 100,
+    "difference": "Current official archive/code enumerate 99 validation pairs; no pair fabricated or duplicated"
+  },
+  "claims": {
+    "paper_reproduction": false,
+    "full_benchmark": false,
+    "real_forward_pass": true,
+    "real_validation_data": true
+  },
+  "scope": "Official LoMaB128 variant, official path preprocessing (DaD long-side1024 and DeDoDe784x784)/2048kp, first three eligible static validation pairs",
+  "excluded": [
+    "Model weights",
+    "Complete datasets",
+    "Private course data",
+    "Tokens",
+    "Unrelated files"
+  ]
+}
