@@ -1,0 +1,20 @@
+[
+  {
+    "repository": "xiaomore/D2Dewarp",
+    "sha": "1105c0f0e44404d9a8dedb78f689078dba42221c",
+    "commit_url": "https://github.com/xiaomore/D2Dewarp/commit/1105c0f0e44404d9a8dedb78f689078dba42221c",
+    "committed_at": "2026-06-25T11:40:24Z"
+  },
+  {
+    "repository": "jcliu0428/ZeroPlane",
+    "sha": "c8d7503d27738749a65f702129113b5f38c9c058",
+    "commit_url": "https://github.com/jcliu0428/ZeroPlane/commit/c8d7503d27738749a65f702129113b5f38c9c058",
+    "committed_at": "2025-10-06T09:05:03Z"
+  },
+  {
+    "repository": "CLendering/SubspaceAD",
+    "sha": "ef56d5c8ab2f1feb7dda1c93b25cc3f73f0960d7",
+    "commit_url": "https://github.com/CLendering/SubspaceAD/commit/ef56d5c8ab2f1feb7dda1c93b25cc3f73f0960d7",
+    "committed_at": "2026-08-17T12:58:47Z"
+  }
+]

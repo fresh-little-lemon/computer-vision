@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-10-18",
+  "checks": "Source/interface review; JSON parsing and asset-path checks. LoMa run evidence only is transcribed from independent actual baseline execution. Three expansion topics remain unrun.",
+  "files": {
+    "geometry.md": {
+      "bytes": 13172,
+      "sha256": "75bf383a585c4b47fad04b1a3c85b68948db85262aa281b74287533d37e34fc0"
+    },
+    "geometry-new.md": {
+      "bytes": 11757,
+      "sha256": "2c88f4d75c94d6a13712b321d438e89d11b585246fdf8eb5fda55d24e42e30b7"
+    },
+    "loma_smoke.py": {
+      "bytes": 2535,
+      "sha256": "7efb41ddfa97c96822c30083f582c46b251429c781de8d106104266855ff8f03"
+    },
+    "loma_hardmatch_sample.py": {
+      "bytes": 5989,
+      "sha256": "f95df16762b0faa5583010b0f2a6abd997042ebc3a5dc71bfad9d7152f4570f2"
+    },
+    "topics/loma_repetition.json": {
+      "bytes": 11800,
+      "sha256": "fe2e4690ccde7b129a6c561f7b33259dc9f9fb861d0c4aaa77366fda2a48e524"
+    },
+    "geometry-expansion.md": {
+      "bytes": 31000,
+      "sha256": "dcfa153725aee27f9a4008f60dc9d9372176054291d2ab1b64ed9e85916c51fc"
+    },
+    "topics/seegroup_surface_sets.json": {
+      "bytes": 10871,
+      "sha256": "d0c8f3e841492e98022a9896bc5b175cb586512e90fd64afb7b16e61b894185f"
+    },
+    "topics/conceptpose_observable_concepts.json": {
+      "bytes": 11962,
+      "sha256": "62eb438eafb0fdee5fa2200075b5a218fac77087e9822f80b2bd2dd5eb89318f"
+    },
+    "topics/unreflect_observation_constraint.json": {
+      "bytes": 10522,
+      "sha256": "ef0fa936d0be6552ab1f6c2da1e019c7860df42f320cacf1be6ec596c0b88872"
+    },
+    "assets/seegroup_official_method.png": {
+      "bytes": 280088,
+      "sha256": "89051ee8b18b51d41873c9cb5783c34a7b3b83a8895e81297cf611b4715991d1"
+    },
+    "assets/conceptpose_official_pipeline.jpg": {
+      "bytes": 78704,
+      "sha256": "dfed1fced10d708ed9045ba7c5dbde0c54d7d7e78521851627805fd4e690b5b1"
+    },
+    "assets/unreflect_official_architecture.png": {
+      "bytes": 440771,
+      "sha256": "95b4e7f423c44a3b0594fdfff6303e281032c37521a4cc0661aa074478656ee4"
+    },
+    "/workspace/shared/cv-decks/topics/seegroup_surface_sets.slides.json": {
+      "bytes": 12214,
+      "sha256": "8f14983ff640e43f94ce8dacf8633a153fcba8b1c477507b9cd74fcbe2bd94d9"
+    },
+    "/workspace/shared/cv-decks/topics/conceptpose_observable_concepts.slides.json": {
+      "bytes": 13472,
+      "sha256": "cd07783ef866468d4d4f724be5ac8e757dae6ef8291d0813d46ee095e8d2f926"
+    },
+    "/workspace/shared/cv-decks/topics/unreflect_observation_constraint.slides.json": {
+      "bytes": 13771,
+      "sha256": "0afb5bf22102c3046c3b07c3e9cc0cedf12bd2d3a029b4a54f2930753f7a18ca"
+    }
+  }
+}

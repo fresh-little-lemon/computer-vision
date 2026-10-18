@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/fh2019ustc/DocGeoNet/main/ssim_ld_eval_DocUNet.m",
+    "status": 200,
+    "size": 1122
+  },
+  {
+    "url": "https://raw.githubusercontent.com/fh2019ustc/DocGeoNet/main/ssim_ld_eval_DIR300.m",
+    "status": 200,
+    "size": 725
+  },
+  {
+    "url": "https://raw.githubusercontent.com/fh2019ustc/DocGeoNet/main/OCR_eval_DocUNet.py",
+    "status": 200,
+    "size": 1605
+  },
+  {
+    "url": "https://raw.githubusercontent.com/fh2019ustc/DocGeoNet/main/OCR_eval_DIR300.py",
+    "status": 200,
+    "size": 1460
+  },
+  {
+    "url": "https://raw.githubusercontent.com/CLendering/SubspaceAD/main/scripts/benchmark_few_shot.sh",
+    "status": 200,
+    "size": 1889
+  },
+  {
+    "url": "https://raw.githubusercontent.com/amazon-science/spot-diff/main/LICENSE-DATASET",
+    "status": 200,
+    "size": 18656
+  },
+  {
+    "url": "https://raw.githubusercontent.com/CLendering/SubspaceAD/main/LICENSE",
+    "status": 200,
+    "size": 11357
+  },
+  {
+    "url": "https://raw.githubusercontent.com/jcliu0428/ZeroPlane/main/LICENSE",
+    "status": 200,
+    "size": 1066
+  },
+  {
+    "url": "https://raw.githubusercontent.com/xiaomore/D2Dewarp/main/LICENSE",
+    "error": "HTTP Error 404: Not Found"
+  }
+]

@@ -1,7 +1,7 @@
 {
   "id": "anycalib_crop_model_selection",
   "title": "面向来源不明广角照片的裁切一致相机模型选择",
-  "status": "正式候选：优先进行CPU基线与模型选择缺口验证",
+  "status": "正式候选：官方已知pinhole单图CPU运行完成，未知相机族选择缺口待验证",
   "scenario": "建筑巡检、房屋实景建模和二手网络照片缺少EXIF，照片还经历数字裁切与非等比缩放；后续去畸变和SfM需要稳定的像素到射线映射",
   "input_output_scope": {
     "input": "一张RGB图像及由该图生成、变换已知的2–3个裁切/缩放视图；无标定板，无额外真实拍摄视角",
@@ -126,11 +126,26 @@
     "按设备/场景划分验证和测试，完整集及下游几何评价"
   ],
   "real_run": {
-    "status": "源码与资源核验完成；未运行网络，待runworker结果",
-    "command": "python anycalib_cpu_smoke.py --image PATH_TO_REAL_IMAGE --model anycalib_gen --camera pinhole --out anycalib_smoke.json"
+    "status": "官方gen在LaMAR真实首图上完成CPU推理与官方指标重算",
+    "source_commit": "027a8497d893f4b2596f23d6324c05e4b81064ed",
+    "sample": "LaMAR2k images.csv首条95419735117.jpg，index0，已知pinhole，无crop",
+    "device": "CPU FP32，4线程，Python3.12.14，torch2.14.1+cpu",
+    "inference_seconds": 2.592438922,
+    "load_seconds": 3.639581327,
+    "process_peak_rss_mib": 2758.5546875,
+    "metrics": {
+      "max_relative_focal_error": 0.0245360154658556,
+      "fitted_camera_mean_ray_angular_error_deg": 0.453592211,
+      "vfov_error_deg": 1.203266144
+    },
+    "metric_scope": "官方函数在1920×1440完整像素网格上计算拟合pinhole相机相对GT的角误差；网络射线场直接误差另评",
+    "research_scope": "单图已知相机族；未知相机族选择与裁切一致性尚待实验",
+    "local_result": "/workspace/shared/cv-baseline-runs/outputs/anycalib_lamar1/result.json",
+    "publication_prefix": "baselines/20261018-anycalib-lamar1/",
+    "command": "env/bin/python -u scripts/anycalib_lamar_sample.py --data-root data/lamar2k --repo sources/AnyCalib --outdir outputs/anycalib_lamar1 --index 0 --threads 4"
   },
   "resources": {
-    "cpu": "官方PyTorch路径；DINOv2-L骨干，单图约320²；10GB RAM优先试1图，内存峰值待测",
+    "cpu": "官方PyTorch单图已实测：Gen约320M参数，输入1920×1440，内部364×280，CPU4线程，前向2.592s，进程峰值2759MiB",
     "gpu_inference_estimate": "单卡8–12GB用于多图批量实验的初步安排",
     "training": "首版训练自由；缓存射线后，选模和优化在CPU运行"
   },

@@ -1,0 +1,226 @@
+{
+  "id": "subspacead_microdefect_phase",
+  "title": "少样本PCB微缺陷检测：面向Patch采样相位的残差保留与预算化复检",
+  "priority": "B：2026新主会+CPU小样本可起步；创新风险中高，先做相位失效诊断",
+  "real_scenario": "小批量PCB换型后只有1–4张正常板照片可用。细小缺口、焊点异物或短裂纹在缩放和14像素Patch分块后可能跨越token边界，出现同一个缺陷稍微平移就热图大变的情况。任务是稳定定位这些微缺陷，避免靠扩大主干或全图高分辨率增加算力。",
+  "target_users": [
+    "小批量电子产线视觉质检人员",
+    "低标注成本工业异常检测研发者"
+  ],
+  "input_output_scope": {
+    "input": "1–4张确认正常的参考图及一张待检PCB RGB图；不使用异常标签训练主干",
+    "output": "缺陷热图、低预算复检区域、跨相位映射后的残差稳定性图",
+    "excluded": "不检测需要电路功能知识才能定义的逻辑错误，不作实际安全生产放行决定，不把基准性能当部署保证"
+  },
+  "baselinepaper": {
+    "name": "SubspaceAD: Training-Free Few-Shot Anomaly Detection via Subspace Modeling",
+    "conference": "CVPR 2026 主会",
+    "year": 2026,
+    "status": "CVF主会确认，pp.28557–28566",
+    "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html",
+    "pdf": "https://openaccess.thecvf.com/content/CVPR2026/papers/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.pdf",
+    "code": "https://github.com/CLendering/SubspaceAD",
+    "weights": "https://huggingface.co/facebook/dinov2-with-registers-giant",
+    "cpu_smoke_weights": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/main/model.safetensors",
+    "weights_note": "训练free算法只有冻结DINOv2权重，PCA由正常支持图拟合；不需要寻找另一个不存在的SubspaceAD神经网络checkpoint",
+    "source_snapshot": {
+      "repository": "CLendering/SubspaceAD",
+      "sha": "ef56d5c8ab2f1feb7dda1c93b25cc3f73f0960d7",
+      "commit_url": "https://github.com/CLendering/SubspaceAD/commit/ef56d5c8ab2f1feb7dda1c93b25cc3f73f0960d7",
+      "committed_at": "2026-08-17T12:58:47Z"
+    }
+  },
+  "known_failure": {
+    "evidence": "原论文Supplement Appendix F指出逻辑缺陷和背景/正常变化的失败，PCB3/Macaroni2较难；它没有明确量化patch相位问题。本文相位敏感性是待实测推断，不能冒充作者结论。",
+    "source": "https://openaccess.thecvf.com/content/CVPR2026/supplemental/Lendering_SubspaceAD_Training-Free_Few-Shot_CVPR_2026_supplemental.pdf",
+    "first_gate": "固定正常参考图和PCA，将真实测试图作0/3/7像素整图平移并逆映射热图；测微缺陷召回和分数波动。若波动很小，则放弃本切口。"
+  },
+  "recent_competitors_gap": [
+    {
+      "name": "SubspaceAD当前官方代码",
+      "year": 2026,
+      "url": "https://github.com/CLendering/SubspaceAD/blob/main/src/subspacead/config.py",
+      "covered": "已提供重叠patch、背景mask、镜面过滤、CLAHE、数据增强；都不是本题创新",
+      "gap": "需检查固定计算预算下，跨token采样相位复检是否比普通重叠切块/平移平均更有效"
+    },
+    {
+      "name": "SPARC",
+      "year": 2026,
+      "status": "2026-08 arXiv预印本；未确认已接收主会",
+      "url": "https://arxiv.org/abs/2608.18585",
+      "covered": "每个空间cell的正常子空间校正，消除照明/装夹等分布变化；本题不以该机制为新贡献"
+    },
+    {
+      "name": "ShiftSplit-AD",
+      "year": 2026,
+      "status": "2026-08 arXiv预印本",
+      "url": "https://arxiv.org/abs/2608.27610",
+      "covered": "低秩/行稀疏残差分解已存在，且报告会损害真实缺陷；本题不再次提出泛低秩去噪"
+    },
+    {
+      "name": "AnomalyDINO",
+      "year": 2025,
+      "status": "WACV主会，作近邻非本题顶会主基线",
+      "url": "https://openaccess.thecvf.com/content/WACV2025/html/Damm_AnomalyDINO_Boosting_Patch-Based_Few-Shot_Anomaly_Detection_With_DINOv2_WACV_2025_paper.html",
+      "covered": "冻结DINOv2局部特征异常检测已成熟；单纯更换距离或多尺度不够"
+    },
+    {
+      "name": "FB-CLIP",
+      "year": 2026,
+      "status": "CVPR主会",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Hu_FB-CLIP_Fine-Grained_Zero-Shot_Anomaly_Detection_with_Foreground-Background_Disentanglement_CVPR_2026_paper.html",
+      "covered": "前背景分离/背景抑制已覆盖，不纳入拟议创新"
+    }
+  ],
+  "research_question": "正常子空间已冻结时，PCB微缺陷的检测残差会不会因为相对Patch网格的相位变化而被稀释？能否用少量选区复检保留局部缺陷证据，在同等特征提取预算下超过普通平移TTA与重叠切块？",
+  "proposed_steps": [
+    {
+      "step": 1,
+      "mechanism": "用正常支持图拟合原SubspaceAD PCA；先记录各相位输入映射回原像素坐标后的残差，不修改主干或PCA算法",
+      "why": "把采样网格现象与模型/数据变化分离"
+    },
+    {
+      "step": 2,
+      "mechanism": "首遍由残差局部峰值及高频结构提取候选小窗口；只对这些窗口用半Patch偏移和更高采样率复检",
+      "why": "将额外计算集中在微缺陷候选区，而不是全图统一提分辨率"
+    },
+    {
+      "step": 3,
+      "mechanism": "构造逆映射后的组件级证据合并：对跨相位位置一致但峰值被摊薄的残差保留峰值邻域证据；对仅出现在填充边界的响应剔除",
+      "why": "区别真实小组件持续性与平移padding伪影；不直接平均所有热图导致再次抹平"
+    },
+    {
+      "step": 4,
+      "mechanism": "以总处理像素/token数相同为预算，和固定四相位平均、max、重叠切块、统一高分辨率逐一比较",
+      "why": "收益必须来自选择和组件对应机制，不能来自多算几次"
+    }
+  ],
+  "hypothesis": "微缺陷跨Patch边界造成残差稀释时，跨相位原坐标组件一致性可在少量复检中保留异常证据。新颖性及性能都待验证；简单TTA若同样好则不成立。",
+  "datasets": [
+    {
+      "name": "VisA真实工业异常集",
+      "real": true,
+      "download_url": "https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar",
+      "size_bytes": 1929840640,
+      "source": "https://github.com/amazon-science/spot-diff",
+      "use": "主评估PCB1–4；使用官方split并报告所有PCB类别，不挑单一有利类别",
+      "license": "CC BY 4.0，已读取原仓LICENSE-DATASET确认；注意同仓代码LICENSE为Apache2.0，不混淆。",
+      "license_url": "https://github.com/amazon-science/spot-diff/blob/main/LICENSE-DATASET",
+      "download_verification": "HEAD200，1,929,840,640 bytes；未下载与解压"
+    },
+    {
+      "name": "MVTec AD真实异常集",
+      "real": true,
+      "download_url": "https://www.mvtec.com/company/research/datasets/mvtec-ad/downloads",
+      "use": "screw/grid/cable等微结构跨类验证；需从官方选相应类别下载，不伪造单文件直链",
+      "license": "CC BY-NC-SA4.0，非商业研究使用"
+    },
+    {
+      "name": "相位扰动评测子集",
+      "real": "由真实VisA图像和mask同步变换派生",
+      "download_url": null,
+      "use": "平移/裁切仅作机制诊断；不能冒充新增真实采集数据；原始真实测试集仍是主结果"
+    }
+  ],
+  "evaluation": {
+    "official_metrics": [
+      "图像AUROC↑",
+      "图像AUPR↑",
+      "像素AUROC↑",
+      "AU-PRO@FPR≤0.3↑"
+    ],
+    "official_scripts": [
+      "https://github.com/CLendering/SubspaceAD/blob/main/main.py",
+      "https://github.com/CLendering/SubspaceAD/blob/main/scripts/benchmark_few_shot.sh"
+    ],
+    "additional_metrics": [
+      "微缺陷组件召回@固定正常误报率",
+      "平移逆映射后的热图一致性",
+      "每组件异常分数CV/方差",
+      "总token/图像处理像素预算",
+      "CPU时延/GPU峰值内存"
+    ],
+    "protocol": "支持图按官方seed重复5次；微缺陷面积分组阈值预注册（例如GT面积≤图像0.1%）；不得用测试异常GT决定复检窗口。每一种方法用相同输入/支持图/预算/输出分辨率。禁止混用few-shot正常支持与batched-zero-shot测试集拟合PCA两种协议。",
+    "controls": [
+      "原SubspaceAD",
+      "SubspaceAD+官方重叠patch",
+      "固定4相位均值TTA",
+      "固定4相位max TTA",
+      "等token统一高分辨率",
+      "候选窗口复检+组件保留"
+    ],
+    "ablation": [
+      "无相位偏移",
+      "无逆映射组件匹配",
+      "均值替代组件保留",
+      "残差候选vs高频候选vs均匀候选",
+      "1/2/4参考图",
+      "相同token预算曲线"
+    ],
+    "phase_definition": "相位扰动在固定预处理尺寸后施加；GT最近邻同步变换。逆映射后仅比较共同有效区域，剔除padding。第一阶段固定采样尺度，若使用高分辨率复检则单独控制尺度与正常参考特征预处理。"
+  },
+  "baseline_minimal_command": "git clone https://github.com/CLendering/SubspaceAD.git\ncd SubspaceAD\npip install -r requirements.txt\npip install -e .\npython main.py --dataset_name mvtec_ad --dataset_path /path/mvtec-ad --categories bottle --model_ckpt facebook/dinov2-with-registers-giant --image_res 672 --k_shot 1 --aug_count 30 --pca_ev 0.99 --outdir results/official",
+  "cpu_smoke_command": "python main.py --dataset_name visa --dataset_path /path/micro_visA --categories pcb1 --model_ckpt facebook/dinov2-with-registers-small --image_res 224 --layers=-4,-5,-6,-7 --k_shot 1 --aug_count 0 --batch_size 1 --pca_ev 0.99 --seed 42 --agg_method mean --outdir results/cpu_smoke",
+  "resources": {
+    "cpu_status": "实际源码自动选择CPU；DINOv2-S权重88,256,200 bytes直链HEAD200；224小样本接口烟测可尝试，仍未实际运行。小模型/层/分辨率改动需标非论文配置",
+    "official_compute": "论文实验使用单张H100，主要开销为DINOv2-G特征；训练free不等于低推理算力",
+    "course_plan": "CPU小样本调通数据/PCA/评估→固定同一small/base主干完成受控实验；若需复现论文绝对数值再借GPU用G/672。不能把small结果当论文复现",
+    "full_training_required": false,
+    "license": "DINOv2模型卡/代码许可独立核查；PCA参数从授权正常样本生成",
+    "code_license": "官方SubspaceAD LICENSE已GET200，Apache2.0；DINOv2权重和数据仍按各自许可。",
+    "official_scheduler_request": "官方benchmark_few_shot.sh申请1张H100、4CPU、128GB主机内存、24小时；这是作者调度请求，不代表最低必要资源。",
+    "cpu_protocol": "微型目录固定1张官方train正常图、1张官方test正常图与1张官方test异常图及mask。完整VisA直接debug_limit2可能按路径排序取到两个bad，导致单类图像AUROC；因此使用预先确定且含两类的输入清单。"
+  },
+  "course_algorithms": [
+    "采样与混叠",
+    "图像金字塔/局部裁块",
+    "PCA与低秩子空间",
+    "残差统计和异常评分",
+    "连通域与组件匹配",
+    "视觉Transformer特征",
+    "精确率召回/AUROC/公平算力比较"
+  ],
+  "phases": [
+    {
+      "time": "第1周",
+      "deliverable": "CPU小模型smoke和相位敏感性诊断；若没有明显微缺陷相位问题则停止"
+    },
+    {
+      "time": "第2周",
+      "deliverable": "候选区域复检与逆映射组件融合"
+    },
+    {
+      "time": "第3周",
+      "deliverable": "五seed、等token对照、组件级消融"
+    },
+    {
+      "time": "第4周",
+      "deliverable": "原始真实集与扰动集分开报告，整理误报/漏检案例"
+    }
+  ],
+  "visual_assets": [
+    {
+      "url": "https://raw.githubusercontent.com/CLendering/SubspaceAD/main/assets/subspacead_overview.png",
+      "caption": "SubspaceAD冻结特征→PCA→残差流程，Lendering et al., CVPR2026",
+      "local_path": "/workspace/shared/cv-new-topics/realworld/figures/subspace_overview.png"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/CLendering/SubspaceAD/main/assets/visa_examples.png",
+      "caption": "官方VisA定性基线结果，非本次复现",
+      "local_path": "/workspace/shared/cv-new-topics/realworld/figures/subspace_visa.png"
+    },
+    {
+      "local_path": "/workspace/shared/cv-new-topics/realworld/sources/subspace_supp.pdf",
+      "caption": "官方Supplement Appendix F失败案例"
+    }
+  ],
+  "figure_logic": "左：PCB小缺陷跨在14×14Patch边界示意；中：原采样网格与半Patch偏移，箭头映射回原坐标；右：同一缺陷组件的残差保留 vs 朴素平均。只画算法原理，未实测前不画假柱状性能。",
+  "run_evidence": {
+    "status": "未跑",
+    "verified": "官方论文、main/config/extractor源代码、VisA下载和small权重HEAD可达",
+    "unknown": "CPU耗时与峰值内存、相位失效大小、新方法提升未测"
+  },
+  "novelty_caveat": "相位TTA本身并不新。新贡献若成立，应是微缺陷的相位失效证据＋相同计算预算下的组件证据保留；仅多跑几次取平均/最大值不构成充分创新。",
+  "research_checked_at": "2026-10-18 UTC",
+  "evidence_boundary": "论文与源码阅读/公开资源可达性核验；未运行模型，未验证拟议创新有效性。HTTP 200不等于文件完整性校验或成功复现。"
+}

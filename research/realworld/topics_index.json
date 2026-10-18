@@ -1,0 +1,32 @@
+[
+  {
+    "id": "d2dewarp_target_page",
+    "title": "复杂桌面背景下的目标文档去弯曲：基于页面条件化线图与拓扑约束的D2Dewarp改进",
+    "conference": "CVPR 2026 主会",
+    "topic_json": "/workspace/shared/cv-new-topics/realworld/d2dewarp_target_page.topic.json",
+    "research_markdown": "/workspace/shared/cv-new-topics/realworld/d2dewarp_target_page.md",
+    "slidespec": "/workspace/shared/cv-decks/content-specs/d2dewarp_target_page/source/slides.json",
+    "status": "开题计划，方法效果待验证",
+    "priority": "A：最新主会、失败案例明确、场景可解释；创新为待验证假设"
+  },
+  {
+    "id": "subspacead_microdefect_phase",
+    "title": "少样本PCB微缺陷检测：面向Patch采样相位的残差保留与预算化复检",
+    "conference": "CVPR 2026 主会",
+    "topic_json": "/workspace/shared/cv-new-topics/realworld/subspacead_microdefect_phase.topic.json",
+    "research_markdown": "/workspace/shared/cv-new-topics/realworld/subspacead_microdefect_phase.md",
+    "slidespec": "/workspace/shared/cv-decks/content-specs/subspacead_microdefect_phase/source/slides.json",
+    "status": "开题计划，方法效果待验证",
+    "priority": "B：2026新主会+CPU小样本可起步；创新风险中高，先做相位失效诊断"
+  },
+  {
+    "id": "zeroplane_visible_boundaries",
+    "title": "室内数字化中的有限平面边界恢复：基于遮挡关系与投影交线的ZeroPlane改进",
+    "conference": "CVPR 2025 主会 Highlight",
+    "topic_json": "/workspace/shared/cv-new-topics/realworld/zeroplane_visible_boundaries.topic.json",
+    "research_markdown": "/workspace/shared/cv-new-topics/realworld/zeroplane_visible_boundaries.md",
+    "slidespec": "/workspace/shared/cv-decks/content-specs/zeroplane_visible_boundaries/source/slides.json",
+    "status": "开题计划，方法效果待验证",
+    "priority": "B：课程几何关系强，资源公开；必须先验证窄切口，避免与2026像素平面性方法重复"
+  }
+]

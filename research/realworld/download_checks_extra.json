@@ -1,0 +1,29 @@
+[
+  {
+    "key": "d2weights",
+    "url": "https://drive.google.com/drive/folders/1gv0lLaZWlUt1tX7EJDaVhtFhmV-ewQox?usp=sharing",
+    "status": 200,
+    "length": null,
+    "title": [
+      "D2Dewarp - Google Drive"
+    ],
+    "matching_names": []
+  },
+  {
+    "key": "docreal",
+    "url": "https://drive.google.com/file/d/1fxdUMMCQoTxc-THv1LmO-Ye8XjMyPK--/view?usp=drive_link",
+    "error": "HTTP Error 429: Too Many Requests"
+  },
+  {
+    "key": "docunet_eval",
+    "url": "http://vision.cs.stonybrook.edu/~kema/docwarp/eval.zip",
+    "status": 200,
+    "length": "1347652"
+  },
+  {
+    "key": "docunet_scan",
+    "url": "http://vision.cs.stonybrook.edu/~kema/docwarp/scan.zip",
+    "status": 200,
+    "length": "436458210"
+  }
+]

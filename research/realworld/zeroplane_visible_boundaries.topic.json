@@ -20,7 +20,15 @@
     "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html",
     "pdf": "https://openaccess.thecvf.com/content/CVPR2025/papers/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.pdf",
     "code": "https://github.com/jcliu0428/ZeroPlane",
-    "weights": "https://huggingface.co/jcleo0428/ZeroPlane-Dust3R/resolve/main/dust3r_encoder_released.pth"
+    "weights": "https://huggingface.co/jcleo0428/ZeroPlane-Dust3R/resolve/main/dust3r_encoder_released.pth",
+    "weights_size_bytes": 7105876663,
+    "weights_download_verification": "HEAD200，7,105,876,663 bytes；未下载与运行",
+    "source_snapshot": {
+      "repository": "jcliu0428/ZeroPlane",
+      "sha": "c8d7503d27738749a65f702129113b5f38c9c058",
+      "commit_url": "https://github.com/jcliu0428/ZeroPlane/commit/c8d7503d27738749a65f702129113b5f38c9c058",
+      "committed_at": "2025-10-06T09:05:03Z"
+    }
   },
   "known_failure": {
     "evidence": "原论文的显式limitations主要是户外真实数据不足，不能冒充作者已报告室内遮挡失败。本题有限轮廓/遮挡错连是从输出表示与应用需求提出的待诊断问题，必须先在NYUv2难例验证。2026 Pixel-wise Planarity原文报告既有方法分组不精确与GT几何不一致，支持需要检查几何边界但不直接证明本方法有效。",
@@ -90,7 +98,9 @@
       "real": true,
       "download_url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/nyuv2_plane.zip",
       "source": "https://github.com/jcliu0428/ZeroPlane",
-      "license": "作者公开处理数据；底层NYUv2图像/深度许可仍适用，不能仅因代码MIT而称所有数据MIT"
+      "license": "作者公开处理数据；底层NYUv2图像/深度许可仍适用，不能仅因代码MIT而称所有数据MIT",
+      "size_bytes": 2528721991,
+      "download_verification": "HEAD200；未下载与解压"
     },
     {
       "name": "7Scenes真实室内平面标注（ZeroPlane发布）",
@@ -145,9 +155,10 @@
   "official_eval_command": "python train_net.py --eval-only --num-gpus 1 --config-file configs/ZeroPlaneNYUV2/dust3r_large_dpt_bs16_50ep.yaml MODEL.WEIGHTS ./checkpoints/dust3r_encoder_released.pth OUTPUT_DIR ./visualizations/nyuv2_test_vis INPUT.LARGE_RESOLUTION_INPUT False INPUT.LARGE_RESOLUTION_EVAL False TEST.NO_VIS True",
   "resources": {
     "course_plan": "冻结模型批量推理+CPU线段检测/小图优化，不从零重训DUSt3R",
-    "gpu": "官方单卡推理可执行；模型显存下限未实测，不能保证8GB卡。建议先借单卡16–24GB做640×480验证（规划估计非作者最低要求）",
+    "gpu": "作者给出单卡demo入口；本次未执行。显存下限未知，16–24GB单卡仅为待验证规划建议，不是已证实最低配置。",
     "cpu_status": "存在Detectron2/MSDeformAttn编译依赖，非当前9CPU/10GB无GPU环境的优先烟测题",
-    "code_license": "官方仓MIT；预训练权重/源数据应分别检查其条款"
+    "code_license": "官方仓MIT；预训练权重/源数据应分别检查其条款",
+    "weight_size": "7.106GB（6.62GiB）checkpoint，载入峰值与推理还需额外内存；不建议当前10GB内存CPU环境作为首跑"
   },
   "course_algorithms": [
     "针孔成像与投影几何",
@@ -180,16 +191,19 @@
     {
       "url": "https://raw.githubusercontent.com/jcliu0428/ZeroPlane/main/imgs/teaser.png",
       "caption": "ZeroPlane跨域单图平面恢复，Liu et al., CVPR2025",
-      "usage": "仅基线展示，不标为本题结果"
+      "usage": "仅基线展示，不标为本题结果",
+      "local_path": "/workspace/shared/cv-new-topics/realworld/figures/zeroplane_teaser.png"
     },
     {
       "url": "https://raw.githubusercontent.com/jcliu0428/ZeroPlane/main/demo/cvpr_demo.png",
-      "caption": "官方单图demo输入；需检查实际图像后使用"
+      "caption": "官方单图demo输入；需检查实际图像后使用",
+      "local_path": "/workspace/shared/cv-new-topics/realworld/figures/zeroplane_input.png"
     },
     {
       "local_path": "/workspace/shared/cv-new-topics/realworld/sources/zeroplane_paper.pdf",
       "page_1based": 1,
-      "caption": "Fig.1真实室内外平面示意"
+      "caption": "Fig.1真实室内外平面示意",
+      "rendered_local_path": "/workspace/shared/cv-new-topics/realworld/figures/zeroplane_p1.png"
     }
   ],
   "figure_logic": "左：桌面被椅子/显示器遮挡的输入图；中上：两相交平面→墙角投影线；中下：前景遮挡→T型接点及深度序；右：有限可见多边形图，红色虚线表示禁止连接区域。拟议图是机制示意，无性能改善图。",
@@ -198,5 +212,7 @@
     "verified": "官方论文、代码README、权重直链、NYUv2和7Scenes下载入口已核对",
     "unknown": "GPU运行、显存、独立失败统计、新机制增益未测"
   },
-  "novelty_caveat": "这是课程可操作的窄研究假设，不是已确认新颖成果。2026 PixelwisePlanarity已覆盖平面性+区域生长，PlaneRAS已覆盖显式平面几何；若最终只做平面拟合/平滑，应淘汰。"
+  "novelty_caveat": "这是课程可操作的窄研究假设，不是已确认新颖成果。2026 PixelwisePlanarity已覆盖平面性+区域生长，PlaneRAS已覆盖显式平面几何；若最终只做平面拟合/平滑，应淘汰。",
+  "research_checked_at": "2026-10-18 UTC",
+  "evidence_boundary": "论文与源码阅读/公开资源可达性核验；未运行模型，未验证拟议创新有效性。HTTP 200不等于文件完整性校验或成功复现。"
 }

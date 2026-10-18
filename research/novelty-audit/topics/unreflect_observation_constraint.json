@@ -1,0 +1,198 @@
+{
+  "id": "unreflect_observation_constraint",
+  "title": "面向亮面商品拍摄的观测约束高光去除",
+  "subtitle": "用未饱和颜色测量约束 UnReflectAnything 的纹理恢复",
+  "language": "zh-CN",
+  "checked_at": "2026-10-18",
+  "project_type": "正式研究候选；方案假设，尚未实跑",
+  "scene_user": "商品摄影人员拍摄带印刷纹理的亮面包装，希望去掉反光时保留原有颜色和细小图案。",
+  "input_output": {
+    "input": [
+      "单张普通RGB图像",
+      "UnReflectAnything公开权重"
+    ],
+    "output": [
+      "去高光的漫反射图像",
+      "像素级高光残差与饱和区域标记"
+    ],
+    "boundary": "核心对象为不透明电介质亮面材质；透明折射、金属彩色镜面和完全饱和区域单独分析。",
+    "application": "亮面包装、塑料商品和釉面器皿的商品拍摄"
+  },
+  "baseline": {
+    "paper": "UnReflectAnything: RGB-Only Highlight Removal by Rendering Synthetic Specular Supervision",
+    "authors": "Alberto Rota, Mert Kiray, Mert Asim Karaoglu, Patrick Ruhkamp, Elena De Momi, Nassir Navab, Benjamin Busam",
+    "venue": "CVPR 2026 Oral",
+    "year": 2026,
+    "first_paper_date": "2025-12-10",
+    "paper_version_used": "arXiv:2512.09583v2，2025-12-11",
+    "url": "https://arxiv.org/abs/2512.09583",
+    "code_url": "https://github.com/alberto-rota/UnReflectAnything",
+    "implementation_url": "https://github.com/alberto-rota/UnReflectAnything/tree/363ebb5c87d9f4f49b63f744fded8d3786a051b3",
+    "variants": "冻结DINOv3编码器、高光预测、token修复与漫反射解码",
+    "weights": [
+      {
+        "url": "https://huggingface.co/AlbeRota/UnReflectAnything/resolve/main/weights/full_model_weights.pt",
+        "bytes": 3441741454,
+        "sha256_lfs": "12c0cf4518a39325b7bfe2bed04a96395189f2643c2f90b7b79360a659dc739b"
+      }
+    ],
+    "license": "项目代码MIT；DINOv3预训练部分另见仓库LICENSE_DINO.txt与模型许可",
+    "mechanism": "利用单目几何合成镜面高光监督，通过高光定位和特征token修复产生漫反射图像。"
+  },
+  "nearest_work": [
+    {
+      "name": "One-Step Specular Highlight Removal with Adapted Diffusion Models / ProbLoRA",
+      "status": "ICCV 2025；CVF全文公开，作者代码与权重本轮未核到",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Atmis_One-Step_Specular_Highlight_Removal_with_Adapted_Diffusion_Models_ICCV_2025_paper.pdf",
+      "code_url": null,
+      "covered": "SD-Turbo单步生成和ProbLoRA适配已能进行高光去除。",
+      "our_question": "利用仍可观测的未饱和通道，约束生成先验对颜色与纹理的修改。",
+      "comparison": "原文数字受数据划分、分辨率和掩码定义影响；同协议实现后进入定量表。"
+    },
+    {
+      "name": "StableDelight",
+      "status": "作者公开代码与Torch Hub模型；仓库未标正式会议",
+      "url": "https://github.com/Stable-X/StableDelight",
+      "code_url": "https://github.com/Stable-X/StableDelight",
+      "covered": "单步扩散、多尺度SSIM和随机条件尺度已覆盖纹理锐度增强。",
+      "our_question": "本题把RGB测量作为显式约束，与仅优化感知或结构相似性的路线比较。",
+      "comparison": "同一PSD留出图像、统一尺寸与色彩空间，资源成本单列。"
+    },
+    {
+      "name": "UnReflectAnything当前composite选项及2026 MM-SHR",
+      "status": "作者源码已有掩码外原图合成；MM-SHR发表于Optics & Laser Technology 2026",
+      "url": "https://github.com/alberto-rota/UnReflectAnything/blob/main/endpoints/model_.py",
+      "code_url": "https://github.com/alberto-rota/UnReflectAnything",
+      "covered": "原图合成已经保留掩码外区域；MM-SHR使用频率和注意力结构改善亮度及过处理。",
+      "our_question": "研究掩码内部、未饱和通道的观测一致性及饱和通道的截断约束。",
+      "comparison": "必须包含公开composite与阈值/膨胀半径扫描；MM-SHR来源https://doi.org/10.1016/j.optlastec.2026.115171。"
+    }
+  ],
+  "gap": "原文记录了非高光细节损失及平缓高光边缘的接缝。当前公开合成选项保留掩码外原图，而掩码内仍同时包含完整测量的未饱和通道和信息丢失的饱和通道，两者适合不同的重建约束。",
+  "testable_question": "在冻结UnReflectAnything、相同高光掩码下，按通道饱和状态施加二色反射观测约束，能否在PSD真实图像上减少颜色与细纹理误差，同时保持高光消除效果？",
+  "mathematical_object": "近似线性RGB中I=clip(D+s·l)，s≥0，l为局部照明色度。优化D对冻结先验D0的偏离、未饱和通道的测量残差、饱和通道的单侧截断损失，以及可见纹理梯度一致性。",
+  "proposed_steps": [
+    {
+      "step": "分离可观测颜色与截断颜色",
+      "method": "保存原始RGB、作者高光图和漫反射预测；逐通道识别饱和，按高光强度与边缘平缓程度分层。",
+      "hypothesis": "同一高光区域内仍有未饱和通道携带可利用的颜色与纹理信息。"
+    },
+    {
+      "step": "观测约束残差重建",
+      "method": "以预测D0为先验，在局部共享照明色度下估计非负镜面残差；未饱和通道使用稳健等式残差，饱和通道使用单侧下界。",
+      "hypothesis": "观测约束减少生成先验对可见细节的改写。"
+    },
+    {
+      "step": "验证边缘与颜色保留",
+      "method": "对照作者composite、简单混合、传统二色分解和StableDelight；固定掩码与尺寸，分别统计高光内部、边界、外部。",
+      "hypothesis": "收益来自掩码内部的测量利用，而非仅扩大原图保留范围。"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "PSD / Paired Specular-Diffuse",
+      "url": "https://github.com/jianweiguo/SpecularityNet-PSD",
+      "download_url": "https://drive.google.com/file/d/1PUrUyUd1ys6pue8jPGchCGVdFBAf8eqg/view?usp=sharing",
+      "size": "作者提供13,380张真实图像，2,210个场景；1,010组固定偏振角序列和1,200组随机偏振图像对",
+      "split": "按物理场景ID隔离开发与留出组；作者公开标准test清单若归档含有则单独沿用",
+      "evaluation_subset": "先选不透明亮面材质的100个固定留出场景，再扩完整适用测试组",
+      "license": "作者公开下载；仓库README未见独立数据许可证，使用及再分发条款待归档说明核验",
+      "version_control": "记录归档hash、场景ID、图像对和排除材质清单",
+      "scoring_url": "https://github.com/jianweiguo/SpecularityNet-PSD"
+    }
+  ],
+  "evaluation": {
+    "primary": [
+      "PSNR与SSIM：全图、高光内、边界带、掩码外分别报告",
+      "ΔE00颜色误差与可见纹理边缘保留"
+    ],
+    "secondary": [
+      "高光残差能量",
+      "亮度与色偏分组",
+      "单图延迟和峰值显存"
+    ],
+    "baselines": [
+      "作者原始diffuse输出",
+      "作者composite输出",
+      "阈值与膨胀半径扫描",
+      "简单线性混合/Poisson融合",
+      "传统二色反射分解",
+      "StableDelight"
+    ],
+    "ablations": [
+      "统一等式约束与按饱和状态分开约束",
+      "白光假设与局部照明色度",
+      "去掉先验D0",
+      "去掉可见纹理梯度项",
+      "线性RGB与直接sRGB计算"
+    ],
+    "controls": [
+      "所有方法相同RGB输入和图像对",
+      "掩码阈值在开发集选择；真实高光评价掩码单独固定",
+      "同一色彩空间和数据范围计算指标",
+      "参考漫反射由偏振采集得到，其残余误差在案例分析中记录"
+    ],
+    "readout": "按场景bootstrap置信区间，并单列近白漫反射、彩色照明和完全饱和失败组。"
+  },
+  "stages": [
+    {
+      "stage": "1 真实图像推理",
+      "goal": "两张PSD图像跑通公开权重，保存原始预测",
+      "deliverable": "原图/高光/漫反射和资源日志"
+    },
+    {
+      "stage": "2 观测模型诊断",
+      "goal": "核验未饱和残差与颜色误差的关系",
+      "deliverable": "高光分组及模型适用性分析"
+    },
+    {
+      "stage": "3 约束求解原型",
+      "goal": "实现先验引导的截断观测优化",
+      "deliverable": "独立后处理模块和物理约束测试"
+    },
+    {
+      "stage": "4 同协议对照",
+      "goal": "完成留出真实场景和消融",
+      "deliverable": "区域指标表、失败样例与商品图像演示"
+    }
+  ],
+  "resources": {
+    "status": "未安装、未下载权重、未运行",
+    "planned_inference": "公开权重3.44GB；拟单16GB GPU、batch1、模型默认约448输入。实际显存/速度待测；官方CLI另有CPU选项。",
+    "training": "第一阶段冻结模型，仅优化轻量观测约束模块",
+    "smoke_commands": [
+      "git clone https://github.com/alberto-rota/UnReflectAnything.git",
+      "cd UnReflectAnything && git checkout 363ebb5c87d9f4f49b63f744fded8d3786a051b3",
+      "pip install -e .",
+      "unreflectanything download --weights",
+      "unreflectanything inference /path/to/psd_input.png -o output/ --device cuda --batch-size 1",
+      "CPU接口测试可将--device cuda改为--device cpu，耗时与内存尚未实测"
+    ],
+    "dependencies": "Python>=3.11；PyTorch/transformers等按官方包安装，作者使用Python3.12。"
+  },
+  "assets": [
+    {
+      "path": "/workspace/shared/cv-project-proposals/novelty-audit/assets/unreflect_official_architecture.png",
+      "caption": "UnReflectAnything作者架构图：高光检测、token修复和漫反射重建",
+      "source_url": "https://raw.githubusercontent.com/alberto-rota/UnReflectAnything/main/assets/architecture.png",
+      "paper_url": "https://arxiv.org/abs/2512.09583",
+      "scope": "作者基线流程；本题拟在输出后加入观测约束",
+      "license": "按作者图源署名引用"
+    }
+  ],
+  "run_evidence": {
+    "status": "未实跑",
+    "scope": "论文与源码已审查；HF当前权重文件元数据核验成功"
+  },
+  "suggested_slide_sequence": [
+    "亮面商品图案保留问题",
+    "输入输出与成像约束",
+    "UnReflectAnything原方法",
+    "最新近邻与具体缺口",
+    "饱和分通道观测模型",
+    "残差重建流程",
+    "真实数据与下载",
+    "指标消融",
+    "资源与实施阶段"
+  ]
+}
