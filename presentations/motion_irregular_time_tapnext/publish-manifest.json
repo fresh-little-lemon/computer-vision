@@ -1,0 +1,140 @@
+{
+  "id": "motion_irregular_time_tapnext",
+  "title": "机器人视频突发丢帧下的时间间隔感知递归点跟踪",
+  "slide_count": 9,
+  "revision": "v1",
+  "package_root": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext",
+  "recommended_repository_prefix": "presentations/motion_irregular_time_tapnext",
+  "primary_files": [
+    "presentations/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pptx",
+    "presentations/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/README.md",
+      "relative_path": "presentations/motion_irregular_time_tapnext/README.md",
+      "size_bytes": 1637,
+      "sha256": "5416d44f7a977d89bdfbaf1195007245fa420951399063c29a247280f052c8c9"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/assets/credits.json",
+      "relative_path": "presentations/motion_irregular_time_tapnext/assets/credits.json",
+      "size_bytes": 1183,
+      "sha256": "63f037ff14b44daffe3e779eb4ca53cc8111006e033880742ab2f4b652c728a2"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/assets/tapnext-figure2-hires.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/assets/tapnext-figure2-hires.png",
+      "size_bytes": 333527,
+      "sha256": "e9980143811c32b2b0732b375001302465c087e913b609288b23b613c311fc4f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/assets/tracking_four_frames_clean.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/assets/tracking_four_frames_clean.png",
+      "size_bytes": 1767166,
+      "sha256": "d3a73b7702759f0980630412ffb4c45c6a09f3cfae48f284137bf1d4d1730c67"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/evidence/clean_figures_manifest.json",
+      "relative_path": "presentations/motion_irregular_time_tapnext/evidence/clean_figures_manifest.json",
+      "size_bytes": 740,
+      "sha256": "3db16ac6512ed0a3090c139dad88638eb51b97c2d47b22a5326abacb8459a29a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/evidence/result.json",
+      "relative_path": "presentations/motion_irregular_time_tapnext/evidence/result.json",
+      "size_bytes": 2075,
+      "sha256": "95a656558ead4b44696ef71c897683b5086db6072452821db3794bd0579f6b66"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pdf",
+      "relative_path": "presentations/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pdf",
+      "size_bytes": 891997,
+      "sha256": "d42ae5b91e20878de9b18b886a028b37955609b29e681aaeb914daa418690f69"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pptx",
+      "relative_path": "presentations/motion_irregular_time_tapnext/motion_irregular_time_tapnext.pptx",
+      "size_bytes": 2150593,
+      "sha256": "73731a2c7205d19de7320cc21ce906a2f27f85798bdc791431e8447d91e01cb5"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/preview.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/preview.png",
+      "size_bytes": 454310,
+      "sha256": "26c5a776a1ae903cfe3203a57839258ddd9e782724ebc2c4c60cfdd31472afce"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-01.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-01.png",
+      "size_bytes": 97862,
+      "sha256": "c8b43d4bdf0c8afd5f2500bfd6f29ea97244236f00ce00eae44470cad0ce3986"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-02.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-02.png",
+      "size_bytes": 173305,
+      "sha256": "6ed0343591ceadb8ce4751dede17c1a0b1d9005a8aa9f4323a96f38ab6c6126f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-03.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-03.png",
+      "size_bytes": 455983,
+      "sha256": "cd64c954d933906932fcda490e2447a0a9188da9ab8565ffa6bc29cbfa840a62"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-04.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-04.png",
+      "size_bytes": 229890,
+      "sha256": "79fa6d74117855f73798b15f28b8240f0b5c4893909cc555033d16fe7e39e210"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-05.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-05.png",
+      "size_bytes": 204093,
+      "sha256": "2673590c3e5f89aead407f793fd3463d7b0025fc48a9a07947c09f5cd25401dd"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-06.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-06.png",
+      "size_bytes": 211439,
+      "sha256": "39f2af5169d9748bf0e0cb650a0bacc5abdd56759e5ab49c84cd1dadedf04eb8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-07.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-07.png",
+      "size_bytes": 1500666,
+      "sha256": "5d0779e4260f35e17a2359b5d7dd5291dcb8bda279352587db015d9404aa0c75"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-08.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-08.png",
+      "size_bytes": 223643,
+      "sha256": "dd14b32cd0d98a4818f52d69bbb975614df054fbcbf706128d426ac75660c7c0"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/previews/slide-09.png",
+      "relative_path": "presentations/motion_irregular_time_tapnext/previews/slide-09.png",
+      "size_bytes": 217188,
+      "sha256": "d48c2eb109d5ede25b8525428a857afcbb448508f6e9e2ae335709db2bbde3f2"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/source/build.mjs",
+      "relative_path": "presentations/motion_irregular_time_tapnext/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/source/slides.json",
+      "relative_path": "presentations/motion_irregular_time_tapnext/source/slides.json",
+      "size_bytes": 16334,
+      "sha256": "8b481224f4b65bb11af4f834d5808acf66ba933b127b8d0feca24fa0e7b2857d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/motion_irregular_time_tapnext/source/topic.json",
+      "relative_path": "presentations/motion_irregular_time_tapnext/source/topic.json",
+      "size_bytes": 6567,
+      "sha256": "c63eceef3f6c22c55ac8b10ab1f8170e2fbdc8e74ad7554fe68e37a9c8f319f1"
+    }
+  ]
+}

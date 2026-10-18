@@ -1,0 +1,29 @@
+[
+  {
+    "file": "tapnext-figure2-hires.png",
+    "author": "Zholus et al.",
+    "title": "TAPNext Figure 2, ICCV 2025",
+    "source": "https://openaccess.thecvf.com/content/ICCV2025/papers/Zholus_TAPNext_Tracking_Any_Point_TAP_as_Next_Token_Prediction_ICCV_2025_paper.pdf",
+    "modification": "官方PDF Figure2区域高清渲染，图内容未改"
+  },
+  {
+    "file": "tracking_four_frames_clean.png",
+    "video": "bike-packing",
+    "source_frame_indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "query_index": 0,
+    "gt_marker": "green cross",
+    "prediction_marker": "red circle",
+    "layout": "2x2 row-major:0,5,10,15",
+    "source": "Official TAP-Vid DAVIS archive",
+    "original_video": "https://www.youtube.com/watch?v=2JMcuDkvX8I",
+    "original_video_provenance": "Official archive tapvid_davis/SOURCES.md",
+    "annotation_license": "CC BY 4.0",
+    "video_license": "Original video owned by its creator; official TAPNet README states DAVIS source videos have creator-specific Creative Commons licenses. No exact YouTube license variant independently reverified.",
+    "scope": "Research result illustration, not dataset or video redistribution"
+  }
+]

@@ -1,0 +1,441 @@
+{
+  "id": "motion_irregular_time_tapnext",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "机器人视频突发丢帧下的\n时间间隔感知递归点跟踪",
+      "titleSize": 58,
+      "subtitle": "基于 TAPNext++ 的递归状态与短缓存校正",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "本题为研究计划，拟研究机器人视频不规则到达时的单点跟踪。以TAPNext ICCV 2025主会工作为方法基础，实际实现基线为TAPNext++（CVPR 2026 Findings，非CVPR主会）。",
+      "sources": [
+        {
+          "title": "TAPNext, ICCV 2025",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Zholus_TAPNext_Tracking_Any_Point_TAP_as_Next_Token_Prediction_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "TAPNext++, CVPR 2026 Findings",
+          "url": "https://arxiv.org/abs/2604.10582"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "突发丢帧改变了两次观测的时间间隔",
+      "subtitle": "无线机器人相机或共享算力进程，可能连续缺失若干帧",
+      "texts": [
+        {
+          "text": "输入",
+          "x": 66,
+          "y": 188,
+          "w": 180,
+          "h": 45,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "到达的 RGB 图像、源时间戳、初始查询点",
+          "x": 260,
+          "y": 188,
+          "w": 940,
+          "h": 55,
+          "size": 29
+        },
+        {
+          "text": "输出",
+          "x": 66,
+          "y": 263,
+          "w": 180,
+          "h": 45,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "每个到达帧上的坐标与可见性",
+          "x": 260,
+          "y": 263,
+          "w": 940,
+          "h": 55,
+          "size": 29
+        },
+        {
+          "text": "评测协议示例",
+          "x": 66,
+          "y": 357,
+          "w": 1140,
+          "h": 45,
+          "size": 26,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "纯因果处理；缺帧区间没有 RGB 或事件观测",
+          "x": 66,
+          "y": 596,
+          "w": 1140,
+          "h": 65,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "table": {
+        "headers": [
+          "到达次序",
+          "第 1 次",
+          "第 2 次",
+          "第 3 次",
+          "第 4 次"
+        ],
+        "rows": [
+          [
+            "源帧编号",
+            "0",
+            "1",
+            "5",
+            "6"
+          ],
+          [
+            "距上次源帧间隔",
+            "初始",
+            "1",
+            "4",
+            "1"
+          ]
+        ],
+        "x": 64,
+        "y": 414,
+        "height": 148,
+        "fontSize": 25,
+        "widths": [
+          280,
+          216,
+          216,
+          216,
+          216
+        ]
+      },
+      "notes": "表中0、1、5、6是拟评测协议示例，用于说明源帧编号与到达次序的差异，不是实测机器人掉帧记录。所有比较方法收到相同的稀疏图像、相同查询和相同到达帧清单。完整帧输入具有更多信息，仅单列为信息量上界。输出只评估在实际到达帧上，缺帧区间不提供RGB或事件观测。",
+      "sources": [
+        {
+          "title": "TAPNet官方在线逐帧接口",
+          "url": "https://github.com/google-deepmind/tapnet"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "TAPNext 的空间注意力与递归时序建模",
+      "subtitle": "TAPNext：ICCV 2025 主会；实现基线 TAPNext++：CVPR 2026 Findings",
+      "images": [
+        {
+          "path": "assets/tapnext-figure2-hires.png",
+          "caption": "TAPNext官方Figure 2，Zholus et al. ICCV 2025",
+          "x": 64,
+          "y": 183,
+          "w": 1144,
+          "h": 408
+        }
+      ],
+      "texts": [
+        {
+          "text": "拟保持图像编码与坐标预测，研究时序更新的物理时间含义",
+          "x": 66,
+          "y": 616,
+          "w": 1140,
+          "h": 48,
+          "size": 27,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "原论文方法图：Zholus et al., TAPNext, ICCV 2025，Figure 2",
+      "notes": "图为TAPNext原论文Figure 2，用于介绍已有架构，不是本项目新方法。TAPNext使用空间ViT块和时间SSM块交替处理图像token与点查询token。TAPNext++在该框架上扩展长序列训练及重检测能力。拟修改末两层时序模块，冻结图像编码器与坐标头。图从CVF官方PDF第3页Figure 2区域渲染，内容未改。",
+      "sources": [
+        {
+          "title": "TAPNext论文",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Zholus_TAPNext_Tracking_Any_Point_TAP_as_Next_Token_Prediction_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "TAPNext++论文",
+          "url": "https://arxiv.org/abs/2604.10582"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "近期方法与本题的切入点",
+      "headers": [
+        "方法",
+        "已经处理的问题",
+        "本题的比较边界"
+      ],
+      "rows": [
+        [
+          "TAPNext++\nCVPR 2026 Findings",
+          "长序列训练与重检测\n重复静态帧下的状态变化",
+          "公开接口未显式输入间隔\n突发丢帧退化幅度待测"
+        ],
+        [
+          "Track-On-R\nCVPR 2026",
+          "跨跟踪器验证器\n真实视频自训练",
+          "本题修改时序状态与缓存\n训练数据和预算匹配"
+        ],
+        [
+          "EDCPT\nICCV 2025",
+          "RGB + 事件\n低帧率连续点跟踪",
+          "本题限定 RGB + 时间戳\n多模态模型单列比较"
+        ]
+      ],
+      "widths": [
+        300,
+        422,
+        422
+      ],
+      "y": 173,
+      "height": 372,
+      "fontSize": 24,
+      "takeaway": "研究问题：相同稀疏图像与训练增强下，\n物理时间校正能否降低缺帧后的定位误差？",
+      "takeawayY": 580,
+      "notes": "TAPNext++是最新实际运行基线，已解决长序列训练与重检测等问题，不把这些作为本题新贡献。当前公开track_frame逐帧调用未显式传入采集时间间隔，但不据此断言模型在真实突发缺帧中必定失败，缺口需先实测。EDCPT有image-only curve消融，不能声称所有低帧率已有方法都依赖事件传感器。",
+      "sources": [
+        {
+          "title": "TAPNext++",
+          "url": "https://arxiv.org/abs/2604.10582"
+        },
+        {
+          "title": "Track-On-R",
+          "url": "https://arxiv.org/abs/2603.12217"
+        },
+        {
+          "title": "EDCPT",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Wan_Event-aided_Dense_and_Continuous_Point_Tracking_Everywhere_and_Anytime_ICCV_2025_paper.pdf"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究方法：状态和缓存同时校正",
+      "subtitle": "假设：递归状态校正与缓存校正存在互补作用",
+      "items": [
+        {
+          "label": "递归状态",
+          "text": "保留系数 a 改为 a^(Δt / Δt₀)\n同步调整输入归一化，标准间隔恢复原计算"
+        },
+        {
+          "label": "短时缓存",
+          "text": "为卷积缓存保存源时间戳，按年龄加权或退役\n每个到达帧只编码一次"
+        },
+        {
+          "label": "小参数适配",
+          "text": "冻结图像编码器与坐标头，适配末两层时序模块\n在独立训练视频上约束相同物理时刻的输出"
+        }
+      ],
+      "rowOptions": {
+        "y": 197,
+        "gap": 145,
+        "labelW": 225,
+        "bodySize": 28
+      },
+      "notes": "以上是拟议方法，尚无改进结果。Δt为两次到达观测的源时间间隔，Δt₀为标准采样间隔。a为递归保留系数，拟做a^(Δt/Δt₀)校正并同步调整输入归一化，使Δt=Δt₀时回到原计算。短时卷积缓存中的条目附带源时间戳，按年龄加权或退役。教师一致性只在独立训练视频、相同物理时刻计算。基础对照也使用相同丢帧增强，以分离增强收益与结构收益。",
+      "sources": [
+        {
+          "title": "TAPNet官方TAPNext++实现",
+          "url": "https://github.com/google-deepmind/tapnet"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "数据划分与评价目标",
+      "left": {
+        "title": "数据与输入协议",
+        "text": "TAP-Vid DAVIS：真实视频主测试\nRoboTAP：机器人外部测试\n\nDAVIS 官方 train 视频用于适配\n与测试视频隔离\n\n固定、随机、突发三种缺帧协议\n相同查询、分辨率和到达帧清单"
+      },
+      "right": {
+        "title": "精度与代价",
+        "text": "AJ、δ_avg、OA\n报告完整视频和缺帧协议结果\n\n缺帧后可见点误差\n失效持续帧数与恢复速度\n\n同步耗时、额外图像编码次数\n峰值内存与显存"
+      },
+      "bodySize": 26,
+      "sourceLabel": "TAP-Vid 点标注与 RoboTAP：CC BY 4.0；原视频沿用各自授权",
+      "notes": "TAP-Vid DAVIS官方完整视频评价与自定义缺帧协议分别报告，不能将只在到达帧上评分的结果直接当成完整官方benchmark。DAVIS2017 trainval480p只使用官方train清单进行伪标签适配，同时检查与测试视频隔离。RoboTAP作为机器人域外部评价。主指标AJ/δ_avg/OA遵循对应官方定义；额外报告突发缺帧后可见点误差与失效持续帧数。",
+      "sources": [
+        {
+          "title": "TAP-Vid官方数据",
+          "url": "https://github.com/google-deepmind/tapnet/tree/main/tapnet/tapvid"
+        },
+        {
+          "title": "RoboTAP",
+          "url": "https://robotap.github.io/"
+        },
+        {
+          "title": "TAPNet数据许可说明",
+          "url": "https://github.com/google-deepmind/tapnet#license-and-disclaimer"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "TAPNext++ 已完成真实视频单点推理",
+      "subtitle": "TAP-Vid DAVIS，bike-packing，固定查询点，源视频前 16 帧",
+      "images": [
+        {
+          "path": "assets/tracking_four_frames_clean.png",
+          "caption": "真实TAPNext++运行，帧0、5、10、15，绿十字GT、红圆预测",
+          "x": 64,
+          "y": 178,
+          "w": 785,
+          "h": 414
+        }
+      ],
+      "texts": [
+        {
+          "text": "16 帧 / 1 点",
+          "x": 885,
+          "y": 195,
+          "w": 320,
+          "h": 54,
+          "size": 32,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "连续可见的短片段\nCPU，256 × 256",
+          "x": 885,
+          "y": 260,
+          "w": 320,
+          "h": 100,
+          "size": 27
+        },
+        {
+          "text": "42.04 秒",
+          "x": 885,
+          "y": 388,
+          "w": 320,
+          "h": 55,
+          "size": 32,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "全部 16 帧推理\n后续帧均值约 2.64 秒",
+          "x": 885,
+          "y": 453,
+          "w": 320,
+          "h": 110,
+          "size": 26
+        },
+        {
+          "text": "帧 0、5、10、15（从左到右、从上到下）；红圆：预测，绿十字：GT",
+          "x": 66,
+          "y": 617,
+          "w": 1140,
+          "h": 47,
+          "size": 24
+        }
+      ],
+      "sourceLabel": "基线可行性证据；突发丢帧与重检测能力将在后续实验检验",
+      "notes": "实际官方TAPNextPP.from_checkpoint与track_frame代码未改，commit730cda1c730877cfedbe01bf87fb1cadb78a565d，194202881参数。按字母顺序第一条视频、首个含可见帧的查询、首个可见帧固定选择，源视频69帧中取前16帧、25查询中取query0。CPU4线程float32，推理42.038718808秒，首帧2.512776746秒，后续均值2.635062804秒，峰值RSS3676.375MiB。官方first-query指标排除初始查询帧，仅余15个全可见评测点，AJ/δ_avg/OA均为1.0；该极小容易片段只验证运行链路，不能代表完整DAVIS、突发丢帧或重检测效果，因此主页面不突出这些指标。图片为真实视频帧与实际预测叠加。TAP-Vid标注CC BY 4.0，原视频依创作者授权，官方SOURCES.md指向下列原视频。",
+      "sources": [
+        {
+          "title": "TAPNet官方代码与数据说明",
+          "url": "https://github.com/google-deepmind/tapnet"
+        },
+        {
+          "title": "TAP-Vid DAVIS官方数据",
+          "url": "https://storage.googleapis.com/dm-tapnet/tapvid_davis.zip"
+        },
+        {
+          "title": "bike-packing原视频来源",
+          "url": "https://www.youtube.com/watch?v=2JMcuDkvX8I"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "对照实验识别真正的时间校正收益",
+      "headers": [
+        "对照",
+        "设置",
+        "验证目标"
+      ],
+      "rows": [
+        [
+          "原模型与相同增强",
+          "TAPNext++ 原模型\n仅使用同样的丢帧增强适配",
+          "区分数据增强收益\n与结构校正收益"
+        ],
+        [
+          "模块消融",
+          "仅递归校正 / 仅缓存校正\n联合校正",
+          "两类时间信息\n是否互补"
+        ],
+        [
+          "简单处理策略",
+          "重复上一帧填空\n长间隔清空缓存",
+          "校正是否优于\n更简单的缺帧处理"
+        ],
+        [
+          "协议与资源",
+          "固定 / 随机 / 突发缺帧\n同到达帧与编码次数",
+          "缺帧类型下的泛化\n精度与时间代价"
+        ]
+      ],
+      "widths": [
+        260,
+        460,
+        424
+      ],
+      "y": 174,
+      "height": 400,
+      "fontSize": 24,
+      "takeaway": "保持同样的可见图像、训练增强、查询点与计算预算",
+      "takeawayY": 605,
+      "notes": "完整帧输入单列为信息量上界，不作为与缺帧方法公平对比的主基线。相同丢帧增强适配是必要对照。重复上一帧填空会增加图像编码次数，因此必须记录实际代价并给同预算结果。冻结编码器和坐标头，适配模块范围一致。缺帧长度和间隔分布在验证集定参数，跨视频重复试验。",
+      "sources": [
+        {
+          "title": "TAPNext++方法与评价",
+          "url": "https://arxiv.org/abs/2604.10582"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "实施安排与预期结果",
+      "items": [
+        {
+          "label": "基线与诊断",
+          "text": "扩展已跑通的 DAVIS 单点短片段\n测量固定、随机与突发缺帧的退化幅度"
+        },
+        {
+          "label": "时间模块",
+          "text": "实现递归系数与缓存时间戳校正\n检查标准间隔是否恢复原模型计算"
+        },
+        {
+          "label": "适配与消融",
+          "text": "完成小参数适配和同增强对照\n比较精度、恢复速度与额外计算"
+        },
+        {
+          "label": "外部评价",
+          "text": "在完整 DAVIS 与 RoboTAP 上测试\n分析运动幅度、遮挡与缺帧长度的影响"
+        }
+      ],
+      "rowOptions": {
+        "y": 173,
+        "gap": 107,
+        "labelW": 224,
+        "bodySize": 27
+      },
+      "sourceLabel": "预期产物：缺帧评价协议、时间感知跟踪模块、真实视频轨迹演示",
+      "notes": "以上为研究实施顺序，不虚构课程日期。拟先实测缺帧退化，再判断时间模块的适用范围。预期结果包括可复现缺帧协议、状态与缓存校正的独立作用、真实机器人视频外部评价。现阶段CPU短序列单点推理已成功，GPU训练资源与峰值需小规模实测后再确定。",
+      "sources": [
+        {
+          "title": "TAPNet代码与模型",
+          "url": "https://github.com/google-deepmind/tapnet"
+        }
+      ]
+    }
+  ]
+}
