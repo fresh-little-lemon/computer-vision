@@ -1,0 +1,287 @@
+{
+  "id": "loma_repetition",
+  "title": "面向建筑立面复拍的重复数量感知匹配",
+  "subtitle": "基于 LoMa 的类级归一化与几何分配研究",
+  "language": "zh-CN",
+  "checked_at": "2026-10-18",
+  "project_type": "研究计划",
+  "scene_user": "楼宇巡检人员对同一立面跨时段复拍，希望在窗格数量、遮挡和取景范围变化时，仍找到同一物理位置的图像对应。",
+  "input_output": {
+    "input": "同一建筑的两张普通 RGB 照片；允许视角、光照、裁剪和遮挡变化。",
+    "output": "两图中的局部对应点、候选支持分数，以及由对应点估计的两视几何。",
+    "boundary": "双视图、冻结特征主干；HardMatch 使用基础矩阵 F 评价，独立采集的近似平面立面使用单应矩阵 H 评价。两套指标分别报告。",
+    "application": "为巡检照片对齐和旧照片重定位提供对应关系；实际形变测量另需标定与测量真值。"
+  },
+  "baseline": {
+    "paper": "LoMa: Local Feature Matching Revisited",
+    "authors": "David Nordström, Johan Edstedt, Georg Bökman, Jonathan Astermark et al.",
+    "venue": "ECCV 2026 Oral",
+    "year": 2026,
+    "first_paper_date": "2026-04-06",
+    "paper_version_used": "v2, 2026-07-06",
+    "url": "https://arxiv.org/abs/2604.04931",
+    "code_url": "https://github.com/davnords/LoMa",
+    "implementation_url": "https://github.com/davnords/LoMa/blob/main/src/loma/loma.py",
+    "variants": [
+      "LoMa-B128：轻量实施基线",
+      "LoMa-B：正式强基线"
+    ],
+    "weights": [
+      {
+        "model": "LoMa-B128",
+        "url": "https://github.com/davnords/storage/releases/download/loma/loma_B128.pth"
+      },
+      {
+        "model": "LoMa-B",
+        "url": "https://github.com/davnords/storage/releases/download/loma/loma_B.pt"
+      }
+    ],
+    "license": "作者代码 MIT；继承自 LightGlue 的 matcher 部分 Apache-2.0；依赖按各自许可证记录。",
+    "mechanism": "DaD 检测、DeDoDe 描述、上下文匹配；推理对相似度做行列双 softmax 乘积，随后互为最大筛选与 0.1 阈值。"
+  },
+  "nearest_work": [
+    {
+      "name": "Preserve, Then Resolve",
+      "status": "2026 年预印本；首版 2026-04-26，v3 2026-08-30",
+      "url": "https://arxiv.org/abs/2604.23670",
+      "code_url": "https://github.com/LIAS-CUHKSZ/preserve_then_resolve",
+      "covered": "保留多对多 top-k 候选，通过概率边权、HCM/MCM 与 LO-RANSAC 做几何消歧。",
+      "our_question": "在同一 LoMa 候选图上比较：按重复等价类归一化，能否减少候选数量变化导致的分数偏移，并在同候选预算下获得额外收益？",
+      "comparison": "直接近邻；移植其候选与求解规则到相同 LoMa 特征。"
+    },
+    {
+      "name": "MiHo / MOP / NCC",
+      "status": "首版 2024-11-14",
+      "url": "https://arxiv.org/abs/2411.09484",
+      "code_url": "https://github.com/fb82/MiHo",
+      "covered": "通过多平面分组、双向几何检查和局部相关细化改进已有匹配。",
+      "our_question": "类级候选保留在几何后处理之前发生，研究被阈值删去的真对应能否保留；相同求解预算下测试两者的独立作用。",
+      "comparison": "几何后处理对照。"
+    },
+    {
+      "name": "RoMa v2",
+      "status": "ECCV 2026；首版 2025-11-19",
+      "url": "https://arxiv.org/abs/2511.15706",
+      "code_url": "https://github.com/Parskatt/romav2",
+      "covered": "稠密匹配与预测局部精度矩阵，用于更精确的几何估计。",
+      "our_question": "作为不同匹配范式的效果参照；记录完整提取、匹配与几何估计成本。",
+      "comparison": "强效果参照；其稠密模型与 LoMa 稀疏模型分列算力成本。"
+    }
+  ],
+  "gap": "重复窗格在两图中出现次数不同，会改变双 softmax 的归一化分母。研究同一真实对应的保留率是否因此下降，以及类级存在支持与类内物理分配的分开表示能否缓解这一效应。",
+  "testable_question": "在冻结 LoMa、固定点数、候选边数和几何求解预算后，重复数量感知的类级归一化，能否比调阈值、温度调整及 Preserve, Then Resolve 更稳定地保留真对应，并改善建筑重复结构的两视几何？",
+  "mathematical_object": {
+    "baseline_score": "P_ij = softmax_row(S)_ij × softmax_col(S)_ij",
+    "controlled_case": "等相似度的 m×n 重复块、块外相似度可忽略时，P_ij ≈ 1/(mn)；4×4 时为 0.0625。",
+    "interpretation": "上述结论描述评分算子；完整网络中，注意力、位置编码和非均匀相似度的作用通过真实照片实验测量。",
+    "candidate_class_score": "拟以类间 log-mean-exp 相似度作为存在支持：Q_CD = log[(1/(|C||D|)) Σ_{i∈C,j∈D} exp(S_ij/τ)]。同一重复证据均匀复制时，类大小归一化保持 Q_CD 不变。",
+    "status": "拟研究机制与可检验假设，尚无新方法实验结果。"
+  },
+  "proposed_steps": [
+    {
+      "step": "定位数量效应",
+      "method": "冻结最终相似度或描述子，增删相似候选；再对真实照片做裁剪与遮挡并完整重跑网络。分别测评分算子与完整链路。",
+      "hypothesis": "可见重复数量会产生超出真实对应正确性变化的分数偏移。"
+    },
+    {
+      "step": "建立重复等价类",
+      "method": "从同图描述子相似性与重复结构关系构建候选类；类划分阈值在 validation 确定。",
+      "hypothesis": "类级证据可近似表达重复部件在另一图中的存在支持。"
+    },
+    {
+      "step": "类级归一化保留候选",
+      "method": "对类间相似度做大小归一化聚合，独立标记无匹配状态；在固定边数预算内保留类内候选。",
+      "hypothesis": "同等候选数量下，真对应保留率对重复次数更稳定。"
+    },
+    {
+      "step": "几何分配与评价",
+      "method": "用相同的几何求解器与计算预算完成类内一对一分配；对比 PTR、top-k + MAGSAC 与原 LoMa。",
+      "hypothesis": "候选保留的收益能够转化为 F/H 估计精度提升。"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "HardMatch 公开版",
+      "url": "https://github.com/davnords/HardMatch",
+      "download_url": "https://github.com/davnords/storage/releases/download/hardmatch/hardmatch.zip",
+      "size": "作者标注约 660 MB",
+      "split": "1000 对、100 类、9 个困难组；官方种子 1337 按类别分为 100 对 validation 与 900 对 test。",
+      "evaluation_subset": "官方评分排除 dynamic 和不足 8 个 GT 对应的 pair；另报告实际有效数量。重复结构分组规则在 validation 上固定。",
+      "license": "图片来自 Wikimedia，逐图授权；读取每对元数据并保留作者、来源和许可证。评分代码 MIT。",
+      "version_control": "保存代码 commit、数据 ZIP SHA-256 与实际有效 pair 清单。",
+      "scoring_url": "https://github.com/davnords/HardMatch/blob/main/src/hardmatch/benchmark.py"
+    },
+    {
+      "name": "建筑立面与印刷重复平面补充集（拟采集）",
+      "download_url": null,
+      "split": "按物理建筑或印刷板划分，隔离参数选择集与测试集；保留原图、裁剪变换和遮挡掩码。",
+      "ground_truth": "人工标注相同物理位置；近似平面样本标注单应几何。",
+      "license": "自行拍摄并记录授权；发布前逐图确认。"
+    }
+  ],
+  "evaluation": {
+    "primary": [
+      "HardMatch 官方 mAA@10px：GT 对称极线距离在 0 至 10 px 阈值下的平均通过比例",
+      "重复数量变化下的真对应候选保留率与错误候选增量"
+    ],
+    "secondary": [
+      "补充平面集的单应角点误差与 AUC@1/3/5px",
+      "候选数、几何失败率、完整推理时间、峰值内存"
+    ],
+    "baselines": [
+      "LoMa-B128 与 LoMa-B 原始推理",
+      "同 LoMa 特征的阈值/温度扫描",
+      "同 LoMa 特征恢复 matchability 分支",
+      "同 LoMa 特征 top-k + MAGSAC",
+      "同 LoMa 候选图的 Preserve, Then Resolve",
+      "MiHo 几何后处理",
+      "RoMa v2 效果与资源参照"
+    ],
+    "ablations": [
+      "类大小归一化开/关",
+      "类级存在支持与直接点级分数",
+      "类内几何分配开/关",
+      "固定相似度干预与完整图像干预",
+      "重复次数、裁剪率、遮挡率分层"
+    ],
+    "controls": "同主干、同点数、同候选边数、同几何求解预算；参数只在 validation 选取。统计使用 pair/category 层级的置信区间。",
+    "readout": "重复组精度、全体静态组精度与资源成本同时呈现。"
+  },
+  "stages": [
+    {
+      "stage": "第 1 阶段",
+      "goal": "跑通官方基线和数据评分",
+      "deliverable": "环境清单、原始匹配、F 与 GT 误差、资源日志"
+    },
+    {
+      "stage": "第 2 阶段",
+      "goal": "完成数量效应的控制实验",
+      "deliverable": "重复次数与分数/保留率关系图、真实裁剪遮挡实验"
+    },
+    {
+      "stage": "第 3 阶段",
+      "goal": "实现类级支持与几何分配",
+      "deliverable": "冻结主干推理模块、同预算近邻对照与消融"
+    },
+    {
+      "stage": "第 4 阶段",
+      "goal": "锁定参数并完成测试",
+      "deliverable": "公开 test 分组结果、补充实景验证、误差分析与演示"
+    }
+  ],
+  "resources": {
+    "initial": "CPU 可运行官方预处理的 LoMa-B128 小样本，已由独立实跑记录验证。",
+    "planned": "正式 B128/B 比较预留单张 8–12 GB GPU 与约 20 GB 磁盘；GPU 峰值和全量时间待测。",
+    "training": "初期冻结检测器、描述器与 matcher，只修改推理归一化和分配规则。"
+  },
+  "assets": [
+    {
+      "path": "assets/02_val002_A.png",
+      "caption": "HardMatch公开建筑双视图，图A，Kai NeSmith，CC BY 4.0",
+      "sources": [
+        {
+          "title": "HardMatch数据集",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "Snow Day 2原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_2.jpg"
+        },
+        {
+          "title": "Snow Day 4原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_4.jpg"
+        },
+        {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      ]
+    },
+    {
+      "path": "assets/02_val002_B.png",
+      "caption": "HardMatch公开建筑双视图，图B，Kai NeSmith，CC BY 4.0",
+      "sources": [
+        {
+          "title": "HardMatch数据集",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "Snow Day 2原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_2.jpg"
+        },
+        {
+          "title": "Snow Day 4原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_4.jpg"
+        },
+        {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      ]
+    },
+    {
+      "path": "assets/loma-figure2-hires.png",
+      "caption": "LoMa Figure 2，Nordström et al.，CC BY 4.0",
+      "sources": [
+        {
+          "title": "LoMa论文与Figure 2",
+          "url": "https://arxiv.org/abs/2604.04931"
+        },
+        {
+          "title": "LoMa代码与许可",
+          "url": "https://github.com/davnords/LoMa"
+        }
+      ]
+    },
+    {
+      "path": "assets/00_val000_gt_residual_clean.png",
+      "caption": "样本0全部13个GT对应对LoMa-B128预测F的残差，绿色≤10px，红色>10px",
+      "sources": [
+        {
+          "title": "HardMatch数据及官方评分",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "CC BY-SA 4.0（图像及其叠加标注派生图）",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        {
+          "title": "Михайло Потупчик / File:Дзвіниця Покровської церкви, с. Лозова DSC00141 07.jpg",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/%D0%94%D0%B7%D0%B2%D1%96%D0%BD%D0%B8%D1%86%D1%8F_%D0%9F%D0%BE%D0%BA%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%BE%D1%97_%D1%86%D0%B5%D1%80%D0%BA%D0%B2%D0%B8%2C_%D1%81._%D0%9B%D0%BE%D0%B7%D0%BE%D0%B2%D0%B0_DSC00141_07.jpg"
+        },
+        {
+          "title": "Secret ua / File:Дзвіниця з новим храмом.jpg",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/%D0%94%D0%B7%D0%B2%D1%96%D0%BD%D0%B8%D1%86%D1%8F_%D0%B7_%D0%BD%D0%BE%D0%B2%D0%B8%D0%BC_%D1%85%D1%80%D0%B0%D0%BC%D0%BE%D0%BC.jpg"
+        }
+      ]
+    }
+  ],
+  "run_evidence": {
+    "summary_path": "evidence/summary.json",
+    "resources_path": "evidence/resources.json",
+    "status": "3 对真实 validation 图像的基线可行性验证完成",
+    "model": "LoMa-B128",
+    "preprocess": "官方路径接口",
+    "keypoints": 2048,
+    "device": "CPU，4 线程",
+    "samples": 3,
+    "sample_mAA_10px": 0.5982517004013062,
+    "match_seconds": [
+      10.493770646000485,
+      9.905592588002037,
+      10.14553774199885
+    ],
+    "max_rss_mib": 1550.125,
+    "scope": "以上数值仅描述这 3 对 validation 图像的 baseline 运行；正式 test 与新方法对照安排在后续研究阶段。"
+  },
+  "suggested_slide_sequence": [
+    "题目与楼宇巡检复拍场景",
+    "输入输出与 LoMa 基线",
+    "重复数量如何影响评分：理想块分析",
+    "近期工作与具体研究问题",
+    "拟研究方法：等价类支持到几何分配",
+    "数据下载、划分与评价协议",
+    "基线运行可行性与真实图像示例",
+    "对照消融、实施阶段与预期产物"
+  ]
+}

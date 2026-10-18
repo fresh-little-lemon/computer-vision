@@ -1,0 +1,469 @@
+{
+  "id": "loma_repetition",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "面向建筑立面复拍的\n重复数量感知匹配",
+      "subtitle": "基于 LoMa 的类级归一化与几何分配研究",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "本题为研究计划。研究场景是楼宇巡检复拍与旧照片重定位，拟研究重复部件数量变化对局部匹配评分和几何估计的影响。",
+      "sources": [
+        {
+          "title": "LoMa, Nordström et al., ECCV 2026 Oral",
+          "url": "https://arxiv.org/abs/2604.04931"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "复拍照片需要找到同一物理位置",
+      "subtitle": "楼宇巡检中的取景、遮挡与可见重复数量会发生变化",
+      "images": [
+        {
+          "path": "assets/02_val002_A.png",
+          "caption": "HardMatch公开建筑双视图，图A，Kai NeSmith，CC BY 4.0",
+          "x": 64,
+          "y": 192,
+          "w": 560,
+          "h": 286
+        },
+        {
+          "path": "assets/02_val002_B.png",
+          "caption": "HardMatch公开建筑双视图，图B，Kai NeSmith，CC BY 4.0",
+          "x": 650,
+          "y": 192,
+          "w": 560,
+          "h": 286
+        }
+      ],
+      "texts": [
+        {
+          "text": "输入",
+          "x": 66,
+          "y": 505,
+          "w": 160,
+          "h": 45,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "同一建筑的两张 RGB 照片",
+          "x": 230,
+          "y": 505,
+          "w": 980,
+          "h": 50,
+          "size": 28
+        },
+        {
+          "text": "输出",
+          "x": 66,
+          "y": 568,
+          "w": 160,
+          "h": 45,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "局部对应点与两视几何，用于照片对齐和位置回溯",
+          "x": 230,
+          "y": 568,
+          "w": 980,
+          "h": 70,
+          "size": 28
+        }
+      ],
+      "sourceLabel": "公开建筑双视图样例：HardMatch / Kai NeSmith，CC BY 4.0",
+      "notes": "场景为拟研究应用。两图只是公开建筑双视图样例，不作为数量效应已存在的实验证据。双视图范围内冻结特征主干。实际形变测量需要额外标定与测量真值。原图：Kai NeSmith，2025-01-10 Tuscaloosa Alabama Snow Day 2 / Snow Day 4，CC BY 4.0；原图经基线脚本调整尺寸，未改变场景内容。",
+      "sources": [
+        {
+          "title": "HardMatch数据集",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "Snow Day 2原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_2.jpg"
+        },
+        {
+          "title": "Snow Day 4原图",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/2025-01-10_-_Tuscaloosa%2C_Alabama%2C_USA_-_Snow_Day_4.jpg"
+        },
+        {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "LoMa 提供可冻结的强基线",
+      "subtitle": "ECCV 2026 Oral，局部特征匹配",
+      "images": [
+        {
+          "path": "assets/loma-figure2-hires.png",
+          "caption": "LoMa Figure 2，Nordström et al.，CC BY 4.0",
+          "x": 64,
+          "y": 192,
+          "w": 1144,
+          "h": 377
+        }
+      ],
+      "texts": [
+        {
+          "text": "LoMa-B128 用于快速实验，LoMa-B 用于正式对照",
+          "x": 66,
+          "y": 593,
+          "w": 1140,
+          "h": 50,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "Nordström et al., LoMa, ECCV 2026，Figure 2",
+      "notes": "图为LoMa原论文Figure 2，描述作者的baseline，不是本项目方法或结果。图源以arXiv PDF第5页的Figure 2区域渲染，未修改图内内容。论文v2注明CC BY 4.0。当前实现以DaD检测、DeDoDe描述和上下文匹配构成。后续实验初期冻结检测器、描述器与matcher，仅修改推理归一化和几何分配。",
+      "sources": [
+        {
+          "title": "LoMa论文与Figure 2",
+          "url": "https://arxiv.org/abs/2604.04931"
+        },
+        {
+          "title": "LoMa代码与许可",
+          "url": "https://github.com/davnords/LoMa"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "重复数量可能改变匹配分数",
+      "subtitle": "评分算子的理想化分析，完整网络效应将在真实照片上验证",
+      "texts": [
+        {
+          "text": "P(i,j) = softmax_row(S)(i,j) × softmax_col(S)(i,j)",
+          "x": 66,
+          "y": 181,
+          "w": 1140,
+          "h": 57,
+          "size": 31,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "等相似度的 m × n 重复块，且块外相似度可忽略时：P ≈ 1 / (m × n)",
+          "x": 66,
+          "y": 259,
+          "w": 1140,
+          "h": 65,
+          "size": 27
+        },
+        {
+          "text": "研究切入点：同一真实对应是否会随可见重复数量增加而被筛掉？",
+          "x": 66,
+          "y": 594,
+          "w": 1140,
+          "h": 65,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "table": {
+        "headers": [
+          "理想重复块",
+          "单个候选分数",
+          "与 0.1 阈值的关系"
+        ],
+        "rows": [
+          [
+            "2 × 2",
+            "0.2500",
+            "高于阈值"
+          ],
+          [
+            "4 × 4",
+            "0.0625",
+            "低于阈值"
+          ],
+          [
+            "8 × 8",
+            "0.0156",
+            "低于阈值"
+          ]
+        ],
+        "x": 64,
+        "y": 349,
+        "height": 213,
+        "fontSize": 24,
+        "widths": [
+          330,
+          330,
+          484
+        ]
+      },
+      "sourceLabel": "公式分析；原始 LoMa 推理使用双 softmax、互为最大和 0.1 阈值",
+      "notes": "本页数字来自评分算子的解析计算，不是实验结果。定义：S为最终相似度矩阵。等相似度m×n块且块外可忽略时，每行softmax为1/n，每列softmax为1/m，乘积为1/(mn)。8×8显示到四位小数，精确值0.015625。完整LoMa网络的注意力、位置编码和非均匀相似度可能改变该现象，因此拟分别做固定最终相似度干预和真实照片裁剪遮挡后完整重跑。0.1阈值来源于当前官方推理实现。",
+      "sources": [
+        {
+          "title": "LoMa当前推理代码",
+          "url": "https://github.com/davnords/LoMa/blob/main/src/loma/loma.py"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "已有方法与本题的具体问题",
+      "headers": [
+        "方法",
+        "已有处理",
+        "本题比较重点"
+      ],
+      "rows": [
+        [
+          "Preserve, Then Resolve\n2026 预印本",
+          "保留多对多候选\n概率边权与几何消歧",
+          "同 LoMa 候选图下\n检验类级数量归一化"
+        ],
+        [
+          "MiHo / MOP / NCC",
+          "多平面分组\n双向几何与局部细化",
+          "候选保留与后处理\n分别贡献多少收益"
+        ],
+        [
+          "RoMa v2\nECCV 2026",
+          "稠密匹配\n预测局部精度矩阵",
+          "强效果参照\n同时记录算力成本"
+        ]
+      ],
+      "widths": [
+        300,
+        410,
+        434
+      ],
+      "y": 174,
+      "height": 372,
+      "fontSize": 25,
+      "takeaway": "研究问题：在相同候选和求解预算下，\n类级归一化能否更稳定地保留真对应？",
+      "takeawayY": 580,
+      "notes": "本题不把多候选或几何消歧本身当作新贡献。直接近邻Preserve, Then Resolve（PTR）已经覆盖多对多top-k候选、概率边权、HCM/MCM和LO-RANSAC。本题拟在同一LoMa候选图上检验按重复等价类归一化是否减少候选数量变化导致的分数偏移。MiHo作为几何后处理对照，RoMa v2作为稠密匹配强效果参照，成本分列。PTR目前为预印本，未标主会录用。",
+      "sources": [
+        {
+          "title": "Preserve, Then Resolve",
+          "url": "https://arxiv.org/abs/2604.23670"
+        },
+        {
+          "title": "MiHo",
+          "url": "https://arxiv.org/abs/2411.09484"
+        },
+        {
+          "title": "RoMa v2",
+          "url": "https://arxiv.org/abs/2511.15706"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究方法：类级支持与几何分配",
+      "subtitle": "冻结主干，分开表示“这类部件存在”与“对应哪一个物理部件”",
+      "items": [
+        {
+          "label": "重复等价类",
+          "text": "根据同图描述子相似性与重复结构关系分组\n类划分参数仅在验证集选择"
+        },
+        {
+          "label": "类级存在支持",
+          "text": "类间分数采用 log mean exp(S / τ)\n按类大小归一化，单列无匹配状态"
+        },
+        {
+          "label": "候选保留",
+          "text": "在固定边数预算内保留类内候选\n测量真对应保留率及错误候选增量"
+        },
+        {
+          "label": "几何分配",
+          "text": "使用相同求解器与预算完成类内一对一分配\n检验候选收益能否转化为 F / H 精度收益"
+        }
+      ],
+      "rowOptions": {
+        "y": 190,
+        "gap": 111,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "以上均为拟研究机制，尚无新方法实验结果。拟采用 Q_CD = log[(1/(|C||D|)) Σ(i∈C,j∈D) exp(S_ij/τ)]。若相同重复证据均匀复制，类大小归一化保持Q_CD不变。该性质是聚合算子的解析性质，能否在真实图像与不完美类划分中产生收益需实验验证。候选保留和类内几何分配分别做消融，以免将额外候选数量或额外求解预算误当成改进。",
+      "sources": [
+        {
+          "title": "本研究基于LoMa的推理表示",
+          "url": "https://github.com/davnords/LoMa/blob/main/src/loma/loma.py"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "数据与评价分为两条独立路径",
+      "left": {
+        "title": "HardMatch 公开评价",
+        "text": "100 对验证，900 对测试\n按类别隔离，沿用官方划分\n\n主指标：mAA@10px\n由 GT 对称极线距离计算\n\n重复组与全体静态组分列\n同时记录候选数与失败率"
+      },
+      "right": {
+        "title": "补充立面和平面采集",
+        "text": "拟采集建筑立面与印刷重复板\n按物理场景隔离验证和测试\n\n标注同一物理位置及平面几何\n测单应角点误差、AUC@1/3/5px\n\n裁剪率、遮挡率、重复次数分层\n按图像记录来源与授权"
+      },
+      "bodySize": 26,
+      "sourceLabel": "HardMatch 图片逐图授权，评分代码 MIT；补充数据为拟采集",
+      "notes": "HardMatch公开版1000对、100类、9个困难组，官方种子1337按类别分成100对validation和900对test。官方评分排除dynamic及不足8个GT对应的pair，实际有效数量另外报告。mAA@10px使用官方GT对称极线距离在0至10px阈值下的平均通过比例。拟补充集使用单应矩阵H评价，与HardMatch基础矩阵F指标分别报告。类别/图像对层级置信区间用于统计。数据约660MB为作者标注，图片来自Wikimedia且逐图许可证不同。",
+      "sources": [
+        {
+          "title": "HardMatch数据与划分",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "HardMatch官方评分",
+          "url": "https://github.com/davnords/HardMatch/blob/main/src/hardmatch/benchmark.py"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "LoMa-B128 小样本推理与失败案例",
+      "subtitle": "固定的 3 对 HardMatch 验证图像，官方预处理，每图 2048 点，CPU 4 线程",
+      "images": [
+        {
+          "path": "assets/00_val000_gt_residual_clean.png",
+          "caption": "样本0全部13个GT对应对LoMa-B128预测F的残差，绿色≤10px，红色>10px",
+          "x": 64,
+          "y": 181,
+          "w": 1144,
+          "h": 381
+        }
+      ],
+      "texts": [
+        {
+          "text": "样本 0：mAA = 0.0629，GT 中位残差 44.27 px",
+          "x": 66,
+          "y": 581,
+          "w": 1140,
+          "h": 48,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "其余两对：0.8409、0.8909    三对均值：0.5983    约 10 秒 / 对",
+          "x": 66,
+          "y": 628,
+          "w": 1140,
+          "h": 36,
+          "size": 24
+        }
+      ],
+      "sourceLabel": "GT 对应对预测 F 的残差：绿 ≤ 10px，红 > 10px；小样本基线可行性验证",
+      "notes": "本页为实际运行输出，不是论文报告结果。LoMa-B128，源码commit8fb59c4，官方路径预处理，2048关键点，CPU 4线程，验证集固定前3对合格静态图像，未按效果挑选。三对mAA@10px分别为0.06293706596、0.8409090638、0.8909091353，均值0.5982517004。匹配耗时分别10.493770646、9.905592588、10.145537742秒。图为第0对真实失败案例，全部13个稀疏GT对应按其对预测F的官方对称极线残差着色，1个≤10px，中位残差44.271756268px。这里的颜色不是对每条模型预测匹配的真值正确性标签。该小样本不能代表900对test性能，也不能证明新方法有效。最高RSS1550.125MiB。图A原作者Михайло Потупчик，图B原作者Secret ua，均CC BY-SA 4.0。原图缩放并叠加GT残差线，派生图继续采用CC BY-SA 4.0。可追溯运行记录：cv-baseline-runs/outputs/loma_hardmatch_official3/summary.json。",
+      "sources": [
+        {
+          "title": "HardMatch数据及官方评分",
+          "url": "https://github.com/davnords/HardMatch"
+        },
+        {
+          "title": "CC BY-SA 4.0（图像及其叠加标注派生图）",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        {
+          "title": "Михайло Потупчик / File:Дзвіниця Покровської церкви, с. Лозова DSC00141 07.jpg",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/%D0%94%D0%B7%D0%B2%D1%96%D0%BD%D0%B8%D1%86%D1%8F_%D0%9F%D0%BE%D0%BA%D1%80%D0%BE%D0%B2%D1%81%D1%8C%D0%BA%D0%BE%D1%97_%D1%86%D0%B5%D1%80%D0%BA%D0%B2%D0%B8%2C_%D1%81._%D0%9B%D0%BE%D0%B7%D0%BE%D0%B2%D0%B0_DSC00141_07.jpg"
+        },
+        {
+          "title": "Secret ua / File:Дзвіниця з новим храмом.jpg",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/%D0%94%D0%B7%D0%B2%D1%96%D0%BD%D0%B8%D1%86%D1%8F_%D0%B7_%D0%BD%D0%BE%D0%B2%D0%B8%D0%BC_%D1%85%D1%80%D0%B0%D0%BC%D0%BE%D0%BC.jpg"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "实验将区分评分效应与几何收益",
+      "headers": [
+        "实验",
+        "比较设置",
+        "回答的问题"
+      ],
+      "rows": [
+        [
+          "数量效应",
+          "固定相似度增删候选\n真实照片裁剪与遮挡",
+          "评分算子与完整网络\n是否出现同类退化"
+        ],
+        [
+          "近邻对照",
+          "阈值 / 温度 / top-k\nPTR 与 MiHo",
+          "收益能否超越\n已有候选与后处理方法"
+        ],
+        [
+          "机制消融",
+          "类大小归一化开 / 关\n类内几何分配开 / 关",
+          "各模块是否独立有效\n候选收益是否传到几何"
+        ],
+        [
+          "泛化与成本",
+          "重复组 / 全体静态组\n时间 / 内存 / 失败率",
+          "收益是否集中于目标组\n其他场景是否退化"
+        ]
+      ],
+      "widths": [
+        220,
+        480,
+        444
+      ],
+      "y": 173,
+      "height": 402,
+      "fontSize": 24,
+      "takeaway": "固定主干、点数、候选边数与求解预算；参数仅在验证集确定",
+      "takeawayY": 605,
+      "notes": "完整对照还包括恢复matchability分支、LoMa-B128与LoMa-B、RoMa v2强效果与资源参照。主要比较使用同LoMa特征和候选图；不同稠密匹配模型单列其提取、匹配与几何估计成本。检验重复组精度、全体静态组精度与资源成本，避免仅凭候选数量增加解释性能。",
+      "sources": [
+        {
+          "title": "PTR对照",
+          "url": "https://arxiv.org/abs/2604.23670"
+        },
+        {
+          "title": "MiHo对照",
+          "url": "https://github.com/fb82/MiHo"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "实施安排与预期贡献",
+      "items": [
+        {
+          "label": "基线与协议",
+          "text": "锁定官方评分、数据划分和参数选择流程\n扩展现有小样本到正式对照"
+        },
+        {
+          "label": "数量效应",
+          "text": "完成固定相似度与真实图像两类干预\n得到重复数量与分数、保留率的关系"
+        },
+        {
+          "label": "方法与消融",
+          "text": "实现类级支持与几何分配模块\n比较同预算近邻，定位收益来源"
+        },
+        {
+          "label": "测试与分析",
+          "text": "完成公开测试及补充实景评价\n总结有效条件、失败场景与运行成本"
+        }
+      ],
+      "rowOptions": {
+        "y": 168,
+        "gap": 107,
+        "labelW": 224,
+        "bodySize": 27
+      },
+      "sourceLabel": "预期产物：可复现评价、冻结主干的匹配模块、建筑复拍对齐演示",
+      "notes": "阶段表示研究顺序，不代表教师规定的日期。预期贡献是对重复数量评分效应的可检验证据，以及在相同候选与几何求解预算下评价类级归一化机制。方法收益尚待实验。若完整网络未呈现稳定的数量效应，应据实报告条件与失败边界，并把对照诊断作为研究结果。",
+      "sources": [
+        {
+          "title": "LoMa基线",
+          "url": "https://github.com/davnords/LoMa"
+        }
+      ]
+    }
+  ]
+}

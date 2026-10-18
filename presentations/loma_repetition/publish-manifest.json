@@ -1,0 +1,158 @@
+{
+  "id": "loma_repetition",
+  "title": "面向建筑立面复拍的重复数量感知匹配",
+  "slide_count": 10,
+  "revision": "v3",
+  "package_root": "/workspace/shared/cv-decks/publish/loma_repetition",
+  "recommended_repository_prefix": "presentations/loma_repetition",
+  "primary_files": [
+    "presentations/loma_repetition/loma_repetition.pptx",
+    "presentations/loma_repetition/loma_repetition.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/README.md",
+      "relative_path": "presentations/loma_repetition/README.md",
+      "size_bytes": 1618,
+      "sha256": "933f7cb3d1491132d1c5ceb5e93b2af4b069470c906caf93c7bff4aef8478797"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/assets/00_val000_gt_residual_clean.png",
+      "relative_path": "presentations/loma_repetition/assets/00_val000_gt_residual_clean.png",
+      "size_bytes": 816523,
+      "sha256": "0320759fc0aa3699d7c132f5518d104e068f37d0545b78f2c42791c0d5648693"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/assets/02_val002_A.png",
+      "relative_path": "presentations/loma_repetition/assets/02_val002_A.png",
+      "size_bytes": 1109501,
+      "sha256": "e223922f6eb1eff00bcbee6dde1ec2ea18f6b275be9ad10af80be1d5b4b8b4cc"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/assets/02_val002_B.png",
+      "relative_path": "presentations/loma_repetition/assets/02_val002_B.png",
+      "size_bytes": 1111912,
+      "sha256": "41741cd3da8e91d09c67235f5273a5abd1bcdba3326d551b9b4d8111a8e55ee8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/assets/credits.json",
+      "relative_path": "presentations/loma_repetition/assets/credits.json",
+      "size_bytes": 2231,
+      "sha256": "57057fa0c6ea5acfba3be4f79b1fd1caa32c5e7dbf772eb83844ab10e79f785b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/assets/loma-figure2-hires.png",
+      "relative_path": "presentations/loma_repetition/assets/loma-figure2-hires.png",
+      "size_bytes": 213335,
+      "sha256": "0a6d8a3f06ebad5f5fa564bfb68e32df14d457261545ef3b03c5c933a2d6d7bc"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/evidence/resources.json",
+      "relative_path": "presentations/loma_repetition/evidence/resources.json",
+      "size_bytes": 264,
+      "sha256": "5e9dde33ea62d4b51a5c05891ef6354062fb095f06d8aea726a90669db4b9ccd"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/evidence/summary.json",
+      "relative_path": "presentations/loma_repetition/evidence/summary.json",
+      "size_bytes": 1985,
+      "sha256": "8dae5c06d98ed69989b4447979df9332c9c2cc1c07debcad385140610bd481cc"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/loma_repetition.pdf",
+      "relative_path": "presentations/loma_repetition/loma_repetition.pdf",
+      "size_bytes": 1044047,
+      "sha256": "6508f8918494f8adbcefd78be0e3d5961c9ed62d9b2807b6c124807f444da8b5"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/loma_repetition.pptx",
+      "relative_path": "presentations/loma_repetition/loma_repetition.pptx",
+      "size_bytes": 3305281,
+      "sha256": "72b77710a30a80b767798d02e456467ec860a88cc16b8b4759e6357333f4a717"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/preview.png",
+      "relative_path": "presentations/loma_repetition/previews/preview.png",
+      "size_bytes": 536690,
+      "sha256": "9128185f68ded8c4b46a760b3826fb37f443129be2f6d9a3613305b51e5bd4d8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-01.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-01.png",
+      "size_bytes": 81970,
+      "sha256": "942bed008c752d0ff374456fdaea4d31cd41e4a673dfae97f4a563591955b28a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-02.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-02.png",
+      "size_bytes": 908171,
+      "sha256": "49c35485d0071e7e97a9c689bfa83e15c11da52b537664678ee7bc4645626838"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-03.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-03.png",
+      "size_bytes": 603573,
+      "sha256": "63e6fe04fe87e3d8a229a3efb0da9cfd28ef1805b58ef52a6ac0aa2b7f5fd830"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-04.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-04.png",
+      "size_bytes": 204803,
+      "sha256": "f337556ec4cb58bdc6380edd67f41f193e6eaebbcb8597197488afbd488f5942"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-05.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-05.png",
+      "size_bytes": 208615,
+      "sha256": "1721637ad40db3744ae382d3464e254121061c2b521964112d3b9dad86b3cc80"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-06.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-06.png",
+      "size_bytes": 241650,
+      "sha256": "85c9ad236e15ed7dad518c00061e952934b853eaf8680a2251ed9ca51c95f3da"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-07.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-07.png",
+      "size_bytes": 230823,
+      "sha256": "63b7acc0123c733b31050bb000493e24acaf193c3e3c3ad00d1411ef33d4610f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-08.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-08.png",
+      "size_bytes": 1663405,
+      "sha256": "4f7d171f77d93443f8be244b50fd35d9b46b763c0b9bcba839f2f913e4391150"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-09.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-09.png",
+      "size_bytes": 238915,
+      "sha256": "b425a5b113cad364a8cc63c9e2646583a30019e077a0314aeda338ff4fd31855"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/previews/slide-10.png",
+      "relative_path": "presentations/loma_repetition/previews/slide-10.png",
+      "size_bytes": 222974,
+      "sha256": "40c5999c650ef988a402951aa18d28c46b70bc0febf802e48b96494a1f187f95"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/source/build.mjs",
+      "relative_path": "presentations/loma_repetition/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/source/slides.json",
+      "relative_path": "presentations/loma_repetition/source/slides.json",
+      "size_bytes": 18598,
+      "sha256": "2acb2bc8e8cebbe5a941c5fa861d5ccab4dde261fd392536a1eadd7fbd81cc1a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/loma_repetition/source/topic.json",
+      "relative_path": "presentations/loma_repetition/source/topic.json",
+      "size_bytes": 14162,
+      "sha256": "4a8d837e859f1f70b1ca262b863e4fe7da6b0608be15f3486289de010a1272ac"
+    }
+  ]
+}

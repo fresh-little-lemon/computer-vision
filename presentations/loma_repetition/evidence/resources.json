@@ -1,0 +1,9 @@
+{
+  "started_utc": "2026-10-18T16:57:54.405632+00:00",
+  "finished_utc": "2026-10-18T16:58:32.756832+00:00",
+  "elapsed_seconds": 38.351215149999916,
+  "exit_code": 0,
+  "max_rss_mib": 1550.125,
+  "user_cpu_seconds": 109.08922,
+  "system_cpu_seconds": 17.876582
+}
