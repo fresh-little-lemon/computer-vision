@@ -1,0 +1,20 @@
+[
+  {
+    "path": "assets/conceptpose_official_pipeline.jpg",
+    "caption": "ConceptPose作者流程图",
+    "sources": [
+      {
+        "title": "ConceptPose，CVPR 2026",
+        "url": "https://arxiv.org/abs/2512.09056"
+      },
+      {
+        "title": "官方代码",
+        "url": "https://github.com/StevenKuang/concept-pose"
+      },
+      {
+        "title": "作者流程图",
+        "url": "https://raw.githubusercontent.com/StevenKuang/concept-pose/master/assets/pipeline.jpg"
+      }
+    ]
+  }
+]

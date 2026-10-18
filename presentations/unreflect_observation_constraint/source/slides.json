@@ -1,0 +1,390 @@
+{
+  "id": "unreflect_observation_constraint",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "面向亮面商品拍摄的\n观测约束高光去除",
+      "subtitle": "用未饱和颜色测量约束 UnReflectAnything 的纹理恢复",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "研究计划。核心对象为不透明电介质亮面材质，如印刷包装、塑料商品与釉面器皿。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "亮面商品的高光与图案保留",
+      "items": [
+        {
+          "label": "应用场景",
+          "text": "商品图中的反光遮住颜色与细纹理\n修复结果需要保留原有图案"
+        },
+        {
+          "label": "输入",
+          "text": "单张普通 RGB 图像\n冻结的 UnReflectAnything 模型"
+        },
+        {
+          "label": "输出",
+          "text": "去高光的漫反射图像\n高光残差和饱和区域标记"
+        },
+        {
+          "label": "成像范围",
+          "text": "以不透明亮面材质为核心\n透明折射与金属镜面单独分组"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "本题关注可见测量的保持。完全饱和通道只提供截断下界，纹理恢复仍依赖模型先验。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "UnReflectAnything 的高光去除流程",
+      "subtitle": "CVPR 2026 Oral，合成高光监督与 token 修复",
+      "images": [
+        {
+          "path": "assets/unreflect_official_architecture.png",
+          "caption": "UnReflectAnything作者架构图",
+          "x": 64,
+          "y": 180,
+          "w": 1144,
+          "h": 370
+        }
+      ],
+      "texts": [
+        {
+          "text": "冻结原模型，拟在漫反射输出后加入观测约束",
+          "x": 66,
+          "y": 582,
+          "w": 1138,
+          "h": 95,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "Rota et al.，UnReflectAnything，CVPR 2026，作者架构图",
+      "notes": "作者模型使用冻结DINOv3编码器、高光预测头、token修复与漫反射解码。训练通过单目几何合成镜面高光。图为作者架构，本题改动为输出端的测量约束优化。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        },
+        {
+          "title": "作者架构图",
+          "url": "https://raw.githubusercontent.com/alberto-rota/UnReflectAnything/main/assets/architecture.png"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "近期方法与本题的测量约束",
+      "headers": [
+        "方法",
+        "已有处理",
+        "本题区别"
+      ],
+      "rows": [
+        [
+          "ProbLoRA\nICCV 2025",
+          "单步SD-Turbo高光去除\n低秩适配",
+          "对生成结果施加\n未饱和观测约束"
+        ],
+        [
+          "StableDelight\n作者开源模型",
+          "单步扩散与多尺度SSIM\n提升结构与锐度",
+          "测量残差与色度\n作为显式优化项"
+        ],
+        [
+          "UnReflectAnything\n当前公开实现",
+          "composite保留掩码外原图\n高光区域使用预测",
+          "处理掩码内部的\n分通道饱和信息"
+        ]
+      ],
+      "widths": [
+        280,
+        425,
+        439
+      ],
+      "y": 180,
+      "height": 380,
+      "fontSize": 25,
+      "notes": "ProbLoRA官方论文可读，本轮未核到作者代码权重。StableDelight代码和Torch Hub公开，仓库未标正式会议。2026 MM-SHR已研究频率/注意力与过处理，详细卡列入近邻。本题核心是冻结先验与逐通道截断观测的联合约束。",
+      "sources": [
+        {
+          "title": "ProbLoRA",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Atmis_One-Step_Specular_Highlight_Removal_with_Adapted_Diffusion_Models_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "StableDelight",
+          "url": "https://github.com/Stable-X/StableDelight"
+        },
+        {
+          "title": "作者composite实现",
+          "url": "https://github.com/alberto-rota/UnReflectAnything/blob/main/endpoints/model_.py"
+        }
+      ]
+    },
+    {
+      "layout": "question",
+      "title": "研究问题：高光内部还保留了什么信息？",
+      "question": "同一高光区域里，未饱和通道\n能否约束颜色与细纹理的恢复？",
+      "hypothesis": "拟检验：将完整测量与截断测量分别建模，\n可以减少生成输出对仍可见细节的改写",
+      "definition": "固定模型、高光掩码与图像尺寸\n高光内部、边界带和外部区域分别评价",
+      "notes": "原文报告非高光细节损失及低梯度高光边界接缝。当前composite已保持掩码外原图，因此研究变量聚焦掩码内部的观测信息。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "按通道饱和状态建立成像约束",
+      "subtitle": "在近似线性 RGB 中使用二色反射模型",
+      "texts": [
+        {
+          "text": "I = clip(D + s · ℓ)，  s ≥ 0",
+          "x": 66,
+          "y": 185,
+          "w": 1138,
+          "h": 95,
+          "size": 38,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "未饱和通道：D + s · ℓ 应接近观测 I\n饱和通道：D + s · ℓ 应满足截断下界",
+          "x": 66,
+          "y": 292,
+          "w": 1138,
+          "h": 95,
+          "size": 30,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "D：漫反射颜色       s：镜面强度\nℓ：局部共享照明色度",
+          "x": 66,
+          "y": 422,
+          "w": 1138,
+          "h": 95,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "冻结输出 D₀ 提供先验，可见纹理提供梯度约束",
+          "x": 66,
+          "y": 574,
+          "w": 1138,
+          "h": 95,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "notes": "拟优化D对D0的偏离、未饱和测量稳健残差、饱和通道单侧hinge损失与梯度项。sRGB线性化作为成像近似单独消融，JPEG和白平衡误差由稳健损失吸收。二色反射模型是已有物理模型，本题研究其与冻结语义修复输出及逐通道截断测量的组合。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究流程：先验与测量共同约束",
+      "items": [
+        {
+          "label": "保存原始输出",
+          "text": "缓存原图、高光图与漫反射预测\n按通道记录饱和与非饱和状态"
+        },
+        {
+          "label": "局部成像估计",
+          "text": "估计照明色度与非负镜面残差\n保留冻结模型给出的漫反射先验"
+        },
+        {
+          "label": "约束优化",
+          "text": "未饱和通道匹配观测\n饱和通道施加单侧截断约束"
+        },
+        {
+          "label": "纹理与边界",
+          "text": "可见纹理梯度参与局部优化\n检查平缓高光边缘和颜色过渡"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "方案为研究假设。先在近白反光、不透明塑料和釉面器皿上检验；彩色镜面、折射和多光源切换作为分组失败边界。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "真实成对数据与场景隔离评价",
+      "left": {
+        "title": "PSD 真实偏振采集",
+        "text": "13,380 张图像\n2,210 个真实场景\n\n1,010 组固定偏振角序列\n1,200 组随机偏振图像对\n\n输入与漫反射参考图配对\n按高光、边界及外部分区评价"
+      },
+      "right": {
+        "title": "场景隔离评价",
+        "text": "按物理场景固定开发与留出组\n同一场景的偏振角不跨组\n\n先评价100个留出场景\n再扩展完整适用测试组\n\n不透明亮面材质为主\n参考漫反射误差单独检查"
+      },
+      "bodySize": 26,
+      "sourceLabel": "数据：Guo et al., PSD；同一物理场景的偏振角不跨数据组",
+      "notes": "官方数据下载入口：https://drive.google.com/file/d/1PUrUyUd1ys6pue8jPGchCGVdFBAf8eqg/view?usp=sharing。数据规模来自作者README。独立数据许可README未标，下载归档后核验使用及再分发声明。课程评价拟保存场景级清单和hash；原文标准split若归档提供则另列完整对照。",
+      "sources": [
+        {
+          "title": "PSD作者仓库及下载",
+          "url": "https://github.com/jianweiguo/SpecularityNet-PSD"
+        },
+        {
+          "title": "PSD归档",
+          "url": "https://drive.google.com/file/d/1PUrUyUd1ys6pue8jPGchCGVdFBAf8eqg/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "对照实验与区域指标",
+      "headers": [
+        "实验",
+        "比较设置",
+        "指标"
+      ],
+      "rows": [
+        [
+          "直接对照",
+          "原始预测 / composite\n阈值及膨胀半径扫描",
+          "全图及分区\nPSNR / SSIM"
+        ],
+        [
+          "其他方法",
+          "简单混合 / 二色分解\nStableDelight",
+          "颜色误差 ΔE00\n纹理边缘保留"
+        ],
+        [
+          "机制消融",
+          "饱和分通道建模开关\n先验与梯度项开关",
+          "高光残差\n边界接缝误差"
+        ],
+        [
+          "成像与成本",
+          "线性RGB / 直接sRGB\n白光 / 局部照明色度",
+          "失败材质分组\n时延与峰值显存"
+        ]
+      ],
+      "widths": [
+        280,
+        425,
+        439
+      ],
+      "y": 180,
+      "height": 380,
+      "fontSize": 25,
+      "notes": "所有方法使用同输入、同分辨率及固定评价掩码。参数在开发集确定。高光内、边界带、掩码外分别报告，按物理场景bootstrap置信区间。论文表格数字与本项目实测表分开。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        },
+        {
+          "title": "PSD评价数据",
+          "url": "https://github.com/jianweiguo/SpecularityNet-PSD"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "实施安排与预期产物",
+      "items": [
+        {
+          "label": "基线与样本",
+          "text": "单卡 GPU 完成冻结模型推理\n固定高光掩码与预处理尺度"
+        },
+        {
+          "label": "成像诊断",
+          "text": "完成两张真实图像推理\n分析颜色误差与未饱和残差"
+        },
+        {
+          "label": "方法与消融",
+          "text": "实现观测约束后处理\n固定掩码比较简单融合与物理约束"
+        },
+        {
+          "label": "项目产物",
+          "text": "区域评价与失败案例集\n亮面商品高光去除演示"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "尚未实跑。16GB是计划预算，实际峰值显存和延迟待smoke记录。官方CLI支持CPU。项目代码MIT，DINOv3遵循独立许可。权重直链https://huggingface.co/AlbeRota/UnReflectAnything/resolve/main/weights/full_model_weights.pt。",
+      "sources": [
+        {
+          "title": "UnReflectAnything，CVPR 2026 Oral",
+          "url": "https://arxiv.org/abs/2512.09583"
+        },
+        {
+          "title": "作者代码",
+          "url": "https://github.com/alberto-rota/UnReflectAnything"
+        },
+        {
+          "title": "公开模型",
+          "url": "https://huggingface.co/AlbeRota/UnReflectAnything"
+        }
+      ]
+    }
+  ]
+}

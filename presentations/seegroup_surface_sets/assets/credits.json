@@ -1,0 +1,16 @@
+[
+  {
+    "path": "assets/seegroup_official_method.png",
+    "caption": "SeeGroup作者方法图，Hongyu Wen与Jia Deng",
+    "sources": [
+      {
+        "title": "作者方法图",
+        "url": "https://raw.githubusercontent.com/princeton-vl/SeeGroup/main/imgs/method.png"
+      },
+      {
+        "title": "SeeGroup论文",
+        "url": "https://arxiv.org/abs/2605.28735"
+      }
+    ]
+  }
+]

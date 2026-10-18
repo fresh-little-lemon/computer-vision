@@ -1,0 +1,20 @@
+[
+  {
+    "path": "assets/unreflect_official_architecture.png",
+    "caption": "UnReflectAnything作者架构图",
+    "sources": [
+      {
+        "title": "UnReflectAnything，CVPR 2026 Oral",
+        "url": "https://arxiv.org/abs/2512.09583"
+      },
+      {
+        "title": "作者代码",
+        "url": "https://github.com/alberto-rota/UnReflectAnything"
+      },
+      {
+        "title": "作者架构图",
+        "url": "https://raw.githubusercontent.com/alberto-rota/UnReflectAnything/main/assets/architecture.png"
+      }
+    ]
+  }
+]

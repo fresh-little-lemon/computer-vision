@@ -1,0 +1,233 @@
+{
+  "id": "conceptpose_observable_concepts",
+  "title": "面向遮挡物体重定位的几何可观测概念选择",
+  "subtitle": "冻结 ConceptPose，在有限概念查询预算下保留有效6D位姿信息",
+  "language": "zh-CN",
+  "checked_at": "2026-10-18",
+  "project_type": "正式研究候选；免训练预算受限协议，尚未实跑",
+  "scene_user": "桌面物体重新摆放后，操作人员用一张已存RGB-D参考图，在物体部分被遮挡的情况下恢复它的相对位置与朝向。",
+  "input_output": {
+    "input": [
+      "一张参考RGB-D与一张查询RGB-D",
+      "相机内参、目标类别、两视图目标掩码",
+      "参考图可预先缓存概念热图；查询阶段最多K次概念热图计算"
+    ],
+    "output": [
+      "查询物体相对于参考的刚体变换R,t",
+      "被选概念、三维支撑范围及配准对应点"
+    ],
+    "boundary": "基准主协议使用GT mask隔离位姿误差；真实使用可由人工选区或已有分割提供mask。三维CAD只参与指标计算。",
+    "application": "小批量桌面物体重定位、AR装配标注和物体盘点"
+  },
+  "baseline": {
+    "paper": "ConceptPose: Training-Free Zero-Shot Object Pose Estimation using Concept Vectors",
+    "authors": "Liming Kuang, Yordanka Velikova, Mahdi Saleh, Jan-Nico Zaech, Danda Pani Paudel, Benjamin Busam",
+    "venue": "CVPR 2026",
+    "year": 2026,
+    "first_paper_date": "2025-12-09",
+    "paper_version_used": "arXiv:2512.09056v3，2026-04-12",
+    "url": "https://arxiv.org/abs/2512.09056",
+    "code_url": "https://github.com/StevenKuang/concept-pose",
+    "implementation_url": "https://github.com/StevenKuang/concept-pose/tree/9b1deece942bb14373874c71033c841d146a3809",
+    "variants": "SigLIP2-giant-opt-patch16-384，FP16，类别概念库+3D配准",
+    "weights": [
+      {
+        "url": "https://huggingface.co/google/siglip2-giant-opt-patch16-384",
+        "download_urls": [
+          "https://huggingface.co/google/siglip2-giant-opt-patch16-384/resolve/main/model-00001-of-00002.safetensors",
+          "https://huggingface.co/google/siglip2-giant-opt-patch16-384/resolve/main/model-00002-of-00002.safetensors"
+        ],
+        "note": "无额外ConceptPose训练checkpoint；使用公开VLM预训练权重及仓库缓存概念。"
+      }
+    ],
+    "license": "ConceptPose代码MIT；SigLIP2模型Apache-2.0",
+    "mechanism": "把语义部件热图投影到RGB-D点云，为每点构造归一化概念向量，匹配后以RANSAC/Umeyama和ICP求位姿。"
+  },
+  "nearest_work": [
+    {
+      "name": "UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image",
+      "status": "CVPR 2025；官方代码和训练权重入口公开",
+      "url": "https://github.com/shanice-l/UNOPose",
+      "code_url": "https://github.com/shanice-l/UNOPose",
+      "covered": "单RGB-D参考、语义与SE(3)几何联合匹配已是成熟强基线。",
+      "our_question": "冻结VLM、无任务训练条件下，概念查询预算如何转化成可观测位姿信息？",
+      "comparison": "训练方法作为强精度参照单列；重跑时与本题统一mask、配对与指标。"
+    },
+    {
+      "name": "OPT-Pose",
+      "status": "CVPR 2026；2026-03-24首稿；官方代码和rel_pose.pt公开",
+      "url": "https://arxiv.org/abs/2603.23370",
+      "code_url": "https://github.com/colin-de/OPT-Pose",
+      "covered": "通过物体中心三维表征进行单参考位姿估计。",
+      "our_question": "本题研究显式可解释概念子集的免训练预算配置，不替换成训练位姿网络。",
+      "comparison": "输入、mask和配对统一后列为有任务训练的精度/推理资源参照。"
+    },
+    {
+      "name": "Learning Cross-View Semantic Priors / LCVSP",
+      "status": "2026-06-20 arXiv首稿；v2 2026-06-25；作者仓库说明代码、数据和模型将在论文接收后发布，当前主要为项目网页，未核到正式venue",
+      "url": "https://arxiv.org/abs/2606.22076",
+      "code_url": "https://github.com/chenjiahongbq/LCVSP",
+      "covered": "早期跨视图语义交互、结构保持与几何训练约束；明确处理大视角和噪声mask。",
+      "our_question": "概念预算与遮挡后的几何可观测性是本题目标；跨视图注意力本身已有覆盖。",
+      "comparison": "作者TableII同Oryon/Horyon RGB-D+GT mask协议报告REAL275 ADD(-S)86.2、ConceptPose71.5，均为作者报告；资源和训练设定分别列示。"
+    }
+  ],
+  "gap": "固定类别概念会在不同物体上产生不同三维支撑。若热图集中在同一小部件，概念虽语义清晰，位姿旋转仍可能欠约束。原文已研究概念数量，本题进一步测量有限查询预算下的支撑互补性和遮挡后可观测性。",
+  "testable_question": "对K=5/10/15的查询概念预算，基于参考RGB-D三维支撑和单部件失效的稳健可观测性选择，能否比随机、热图强度和纯语义多样性选择得到更好的ADD(-S)与旋转误差？",
+  "mathematical_object": "把物体点坐标按中心和半径归一；每概念c产生信息近似A_c=Σ_p w_cp J_pᵀJ_p，J_p=[I,-[p]×]。选择|S|≤K以最大化min_{j∈S} log det(εI+Σ_{c∈S\\{j}}A_c)，检验一个部件被遮挡时的几何冗余。",
+  "proposed_steps": [
+    {
+      "step": "缓存参考概念的三维支撑",
+      "method": "用作者现有类别概念词表计算参考热图并投影点云；统计空间聚集、非共线程度及概念间重叠。",
+      "hypothesis": "语义多样性与几何互补性不完全一致。"
+    },
+    {
+      "step": "预算内稳健选择",
+      "method": "使用归一化位姿信息矩阵和单概念失效目标贪心选择K个概念；查询图仅计算该子集，保持原RANSAC和ICP。",
+      "hypothesis": "同K下保留互补三维支撑可降低遮挡导致的旋转退化。"
+    },
+    {
+      "step": "真实遮挡和预算曲线检验",
+      "method": "在固定RGB-D配对上比较K=5/10/15/20，按可见比例、重叠和对称性分组；参考预计算与在线查询耗时分开。",
+      "hypothesis": "性能增益主要来自几何可观测性，在线热图计算减少是否转化为时延下降由实测确定。"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "LINEMOD-Occlusion / BOP LMO",
+      "url": "https://huggingface.co/datasets/bop-benchmark/lmo",
+      "download_url": "https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_test_all.zip",
+      "additional_download_urls": [
+        "https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_base.zip",
+        "https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_models.zip"
+      ],
+      "size": "真实桌面遮挡场景，8个物体；下载体积以HF文件清单为准",
+      "split": "作者oneshot_lmo_full.yaml：1000对same_scene、seed42、BOP targets，固定生成的pair清单",
+      "evaluation_subset": "按物体ID和可见率分层选200对开发/留出；完整配置评估另列。",
+      "license": "CC-BY-SA-4.0，BOP HF数据卡",
+      "version_control": "固定HF revision、scene/image/object ID与pair清单",
+      "scoring_url": "https://github.com/thodan/bop_toolkit",
+      "protocol_role": "额外same-scene遮挡评估，对应作者rebuttal协议；不是Oryon跨场景主表协议。"
+    },
+    {
+      "name": "REAL275 + Oryon固定配对",
+      "url": "https://github.com/hughw19/NOCS_CVPR2019",
+      "download_url": "http://download.cs.stanford.edu/orion/nocs/real_test.zip",
+      "additional_download_urls": [
+        "http://download.cs.stanford.edu/orion/nocs/gts.zip",
+        "http://download.cs.stanford.edu/orion/nocs/obj_models.zip",
+        "https://github.com/jcorsetti/oryon/releases/download/v1.0.0-data/oryon_data.zip"
+      ],
+      "size": "真实测试RGB-D及标注；官方Oryon cross_scene_test 2000对",
+      "split": "与ConceptPose、LCVSP报告使用的Oryon/Horyon配对协议对齐",
+      "evaluation_subset": "2000对完整评估；开发用独立预定配对子集并单列",
+      "license": "NOCS代码MIT；数据归档许可单独待核，正式再分发前读取归档声明",
+      "version_control": "固定2000对文件和数据hash",
+      "scoring_url": "https://github.com/StevenKuang/concept-pose"
+    }
+  ],
+  "evaluation": {
+    "primary": [
+      "ADD(-S) recall at 0.1 object diameter",
+      "对称性分层的旋转/平移误差"
+    ],
+    "secondary": [
+      "BOP AR：VSD/MSSD/MSPD",
+      "K–accuracy曲线与K–latency曲线",
+      "在线推理峰值显存；参考预计算独立计费"
+    ],
+    "baselines": [
+      "原ConceptPose完整20概念",
+      "公开配置15概念",
+      "随机K",
+      "热图能量top-K",
+      "语义多样性K",
+      "几何可观测选择K",
+      "UNOPose/OPT-Pose有训练强基线单列"
+    ],
+    "ablations": [
+      "去掉单部件失效稳健目标",
+      "去掉三维信息项",
+      "仅三维均匀采样",
+      "关闭ICP",
+      "固定K与相同实际壁钟预算分别比较"
+    ],
+    "controls": [
+      "同一SigLIP2、同mask、同pair、同RANSAC种子和迭代数",
+      "类别概念库固定；测试GT只用于评分和遮挡分组",
+      "主协议使用真实RGB-D；RGB-only wild demo另列",
+      "预计算与在线计算成本分开；训练成本另列",
+      "LMO是额外same-scene遮挡评估；Oryon为cross-scene主协议，两组结果独立报告，不混排为同一协议。"
+    ],
+    "readout": "关注低可见率与非对称物体；自然对称方向按BOP/ADD-S评估。"
+  },
+  "stages": [
+    {
+      "stage": "1 两对smoke与配对锁定",
+      "goal": "固定类别缓存、模型和RGB-D路径",
+      "deliverable": "原始位姿、对应点、指标与时延日志"
+    },
+    {
+      "stage": "2 可观测性诊断",
+      "goal": "检验热图聚集是否伴随旋转退化",
+      "deliverable": "概念三维支撑图和分组错误统计"
+    },
+    {
+      "stage": "3 子集选择原型",
+      "goal": "固定K实现几何与遮挡稳健目标",
+      "deliverable": "选择器及消融开关"
+    },
+    {
+      "stage": "4 同协议比较",
+      "goal": "完成留出配对与强基线资源表",
+      "deliverable": "准确率–预算曲线和失败边界"
+    }
+  ],
+  "resources": {
+    "status": "未安装、未下载权重、未运行",
+    "author_report": "原文使用RTX4060Ti 16GB、48GB RAM，FP16；平均7.65秒/图对，体素化6.80秒/图对",
+    "planned_inference": "单16GB GPU；参考概念可离线缓存；本题不训练VLM",
+    "smoke_commands": [
+      "git clone https://github.com/StevenKuang/concept-pose.git",
+      "cd concept-pose && git checkout 9b1deece942bb14373874c71033c841d146a3809",
+      "pip install -e . && pip install -r requirements.txt",
+      "pip install grad-cam",
+      "按作者安装指引配置与PyTorch/CUDA兼容的PyTorch3D，填写configs/datasets/lmo.json的数据路径",
+      "python test_oneshot.py --config configs/evaluations/oneshot_lmo_full.yaml --max_pairs 2 --device cuda --cpu-ransac"
+    ],
+    "dependencies": "PyTorch、transformers、open3d、grad-cam、PyTorch3D（VSD渲染）；仓库已带基准类别概念缓存。"
+  },
+  "assets": [
+    {
+      "path": "assets/conceptpose_official_pipeline.jpg",
+      "caption": "ConceptPose作者流程图",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        },
+        {
+          "title": "作者流程图",
+          "url": "https://raw.githubusercontent.com/StevenKuang/concept-pose/master/assets/pipeline.jpg"
+        }
+      ]
+    }
+  ],
+  "run_evidence": {
+    "status": "未实跑",
+    "scope": "作者论文、源码依赖、公开VLM和基准数据入口已核验"
+  },
+  "suggested_slide_sequence": [
+    "桌面遮挡物体重定位",
+    "一张参考与查询输入",
+    "ConceptPose与公开资源",
+    "最新强对照及预算问题",
+    "几何可观测概念选择",
+    "真实数据和指标",
+    "消融与实施阶段"
+  ]
+}

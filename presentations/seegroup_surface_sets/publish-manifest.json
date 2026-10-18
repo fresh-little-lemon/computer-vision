@@ -1,0 +1,128 @@
+{
+  "id": "seegroup_surface_sets",
+  "title": "玻璃隔断场景中的多层表面连续解码",
+  "slide_count": 10,
+  "revision": "v2",
+  "package_root": "/workspace/shared/cv-decks/publish/seegroup_surface_sets",
+  "recommended_repository_prefix": "presentations/seegroup_surface_sets",
+  "primary_files": [
+    "presentations/seegroup_surface_sets/seegroup_surface_sets.pptx",
+    "presentations/seegroup_surface_sets/seegroup_surface_sets.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/README.md",
+      "relative_path": "presentations/seegroup_surface_sets/README.md",
+      "size_bytes": 1428,
+      "sha256": "68a1a1a8b428ebfcd8bed13c18220d6d67bbb29a72170b5b1dd412d5966c7b3a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/assets/credits.json",
+      "relative_path": "presentations/seegroup_surface_sets/assets/credits.json",
+      "size_bytes": 400,
+      "sha256": "5a34b312b155931b97fea2e5cc12462e4b9d50c05115a627dac1c69fc3fcbb37"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/assets/seegroup_official_method.png",
+      "relative_path": "presentations/seegroup_surface_sets/assets/seegroup_official_method.png",
+      "size_bytes": 280088,
+      "sha256": "89051ee8b18b51d41873c9cb5783c34a7b3b83a8895e81297cf611b4715991d1"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/preview.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/preview.png",
+      "size_bytes": 358261,
+      "sha256": "c815317d96b0e601a38051c4d23064a230c7d4abdeb844c7d010f43268f1bd4e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-01.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-01.png",
+      "size_bytes": 95064,
+      "sha256": "9580d6df7beb3b7c14710367bd656cf50183fd7718696d197dbd792baf63f12a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-02.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-02.png",
+      "size_bytes": 175185,
+      "sha256": "a90f7423b0382f103fc4bc19e26140d97ed70b8a78a522cf84253ecf1f5fa803"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-03.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-03.png",
+      "size_bytes": 308080,
+      "sha256": "1f0287ddbb708146c076510207f907673c6a02896c50439fbfe7d5a7d6c554dd"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-04.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-04.png",
+      "size_bytes": 178696,
+      "sha256": "54e862ce4a3899aea41592b60f573891e665bc147abaee7f2c68c5cd837c5905"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-05.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-05.png",
+      "size_bytes": 164038,
+      "sha256": "b5dde13625c7b1765a92056c862d051c6929a816dc50388f74c4e67b840e02a9"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-06.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-06.png",
+      "size_bytes": 220605,
+      "sha256": "d4321e23c6b38355b4ce6fdd3da0c0138e599a17a8d9e15f6bd37145e9932ecb"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-07.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-07.png",
+      "size_bytes": 190002,
+      "sha256": "158196ca2029dc69120398ed69cb26cd39d3547a347a1a2b846a2bd94a9861e8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-08.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-08.png",
+      "size_bytes": 191553,
+      "sha256": "f602c22fabca009b09e5c9f926fcf87a95efab39370e51d5464d5cccc73c2f41"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-09.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-09.png",
+      "size_bytes": 169862,
+      "sha256": "7f18e49e8f9832c236820588287c749a025f1c17b8c66896a2e0cd5923b835fd"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/previews/slide-10.png",
+      "relative_path": "presentations/seegroup_surface_sets/previews/slide-10.png",
+      "size_bytes": 179847,
+      "sha256": "421502851b4c50820af410a23569d96819bb407241834ad0e01955ed87e1d36e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/seegroup_surface_sets.pdf",
+      "relative_path": "presentations/seegroup_surface_sets/seegroup_surface_sets.pdf",
+      "size_bytes": 422325,
+      "sha256": "029b53349a839842bf537a0111f3047c03564f34d8063602e410eed1482e66df"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/seegroup_surface_sets.pptx",
+      "relative_path": "presentations/seegroup_surface_sets/seegroup_surface_sets.pptx",
+      "size_bytes": 327978,
+      "sha256": "5c5857b673953bcb16d3c140c4ae36703be2d759360b636820a04a587836b5ee"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/source/build.mjs",
+      "relative_path": "presentations/seegroup_surface_sets/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/source/slides.json",
+      "relative_path": "presentations/seegroup_surface_sets/source/slides.json",
+      "size_bytes": 12559,
+      "sha256": "6893fb8cbf761e8cac541854a87152f75dfc4b28199b593a759c643e2b88faf6"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/seegroup_surface_sets/source/topic.json",
+      "relative_path": "presentations/seegroup_surface_sets/source/topic.json",
+      "size_bytes": 11179,
+      "sha256": "4015b4c4c7cc0ac82ac0a65f923c2ab97304208a8e325c4121abf50ef040a2d6"
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "id": "conceptpose_observable_concepts",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "面向遮挡物体重定位的\n几何可观测概念选择",
+      "subtitle": "冻结 ConceptPose，在有限查询预算下保留6D位姿信息",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "研究计划。目标为免任务训练、有限概念查询预算下的单参考RGB-D相对位姿估计。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "桌面物体重定位的输入与输出",
+      "items": [
+        {
+          "label": "应用场景",
+          "text": "物体重新摆放或被局部遮挡\n使用已存参考图恢复相对位置与朝向"
+        },
+        {
+          "label": "输入",
+          "text": "参考与查询 RGB-D、相机内参\n目标类别和两视图物体掩码"
+        },
+        {
+          "label": "输出",
+          "text": "刚体变换 R、t\n概念选择及三维对应点"
+        },
+        {
+          "label": "预算设定",
+          "text": "参考概念图允许提前缓存\n查询阶段最多计算 K 个概念"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "主实验使用GT mask隔离位姿误差。真实应用中物体掩码可由人工选区或已有分割提供。CAD模型用于指标计算，不作为位姿模型输入。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "ConceptPose：语义概念构成三维描述",
+      "subtitle": "CVPR 2026，SigLIP2 概念热图与 RGB-D 几何配准",
+      "images": [
+        {
+          "path": "assets/conceptpose_official_pipeline.jpg",
+          "caption": "ConceptPose作者流程图",
+          "x": 64,
+          "y": 180,
+          "w": 1144,
+          "h": 370
+        }
+      ],
+      "texts": [
+        {
+          "text": "本题保留 VLM 与配准器，研究查询概念的选择",
+          "x": 66,
+          "y": 582,
+          "w": 1138,
+          "h": 95,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "Kuang et al.，ConceptPose，CVPR 2026，作者流程图",
+      "notes": "作者方法将概念热图投影到点云，以每点概念向量建立对应，经RANSAC、Umeyama和ICP求相对位姿。原文实验用20概念，当前公开yaml默认15概念，两者都列入对照。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        },
+        {
+          "title": "作者流程图",
+          "url": "https://raw.githubusercontent.com/StevenKuang/concept-pose/master/assets/pipeline.jpg"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "最新方法已能处理单参考位姿",
+      "headers": [
+        "方法",
+        "已有能力",
+        "本题比较范围"
+      ],
+      "rows": [
+        [
+          "UNOPose\nCVPR 2025",
+          "语义与SE(3)几何匹配\n作者训练权重公开",
+          "相同RGB-D和mask\n训练方法精度参照"
+        ],
+        [
+          "OPT-Pose\nCVPR 2026",
+          "物体中心三维表征\n作者相对位姿权重公开",
+          "精度与推理成本\n任务训练成本单列"
+        ],
+        [
+          "LCVSP\n2026 预印本",
+          "跨视图语义交互\n结构与几何训练约束",
+          "同配对论文结果参照\n代码模型待作者发布"
+        ]
+      ],
+      "widths": [
+        280,
+        425,
+        439
+      ],
+      "y": 180,
+      "height": 380,
+      "fontSize": 25,
+      "notes": "LCVSP TableII在Oryon/Horyon单参考RGB-D+GT mask协议报告REAL275 ADD(-S)86.2%，ConceptPose71.5%。训练、硬件与运行环境不同，资源单列。LCVSP作者仓库明确模型与代码将在接收后发布，当前为网页素材。UNOPose与OPT-Pose可作为公开强精度基线。",
+      "sources": [
+        {
+          "title": "UNOPose",
+          "url": "https://github.com/shanice-l/UNOPose"
+        },
+        {
+          "title": "OPT-Pose",
+          "url": "https://github.com/colin-de/OPT-Pose"
+        },
+        {
+          "title": "LCVSP",
+          "url": "https://arxiv.org/abs/2606.22076"
+        },
+        {
+          "title": "LCVSP发布状态",
+          "url": "https://github.com/chenjiahongbq/LCVSP"
+        }
+      ]
+    },
+    {
+      "layout": "question",
+      "title": "研究问题：有限概念如何覆盖有效几何？",
+      "question": "同样计算 K 个概念，\n怎样保留足够的旋转与平移信息？",
+      "hypothesis": "拟检验：三维支撑互补且能承受单部件遮挡的概念子集，\n比高响应或纯语义多样性选择更稳定",
+      "definition": "固定模型与配准参数，比较 K = 5 / 10 / 15 / 20\n参考预计算与查询时延分别统计",
+      "notes": "原文已有概念数量消融。本题的变量是固定数量下的几何支撑与遮挡稳健选择。概念集中导致几何退化的实际频率将用基线数据测量。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "概念的三维支撑与可观测性",
+      "subtitle": "用位姿信息近似衡量概念互补性",
+      "texts": [
+        {
+          "text": "A(c) = Σₚ w(c,p) · J(p)ᵀJ(p)，  J(p) = [I，−[p]×]",
+          "x": 66,
+          "y": 190,
+          "w": 1138,
+          "h": 95,
+          "size": 34,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "p 按物体中心和半径归一化\nw(c,p) 表示概念 c 在参考三维点 p 上的响应",
+          "x": 66,
+          "y": 300,
+          "w": 1138,
+          "h": 95,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "选择目标：任意一个概念失效后，\n其余概念的信息矩阵仍保留较大的 log det",
+          "x": 66,
+          "y": 424,
+          "w": 1138,
+          "h": 95,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "比较空间分散、语义多样与几何可观测的差异",
+          "x": 66,
+          "y": 575,
+          "w": 1138,
+          "h": 95,
+          "size": 27,
+          "bold": false,
+          "color": "#243B53"
+        }
+      ],
+      "notes": "拟采用max_{|S|≤K} min_{j∈S} logdet(εI+Σ_{c∈S\\{j}} A_c)。信息矩阵是用于选择的近似，真实错误由相同配准器和GT位姿评价。归一化平衡旋转和平移量纲。D-optimal设计是已有数学工具，本题检验它在概念热图支撑、局部遮挡与查询预算中的作用。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究流程：缓存参考，选择查询概念",
+      "items": [
+        {
+          "label": "参考支撑",
+          "text": "从缓存概念热图反投影到点云\n测量三维聚集、覆盖和概念重叠"
+        },
+        {
+          "label": "子集选择",
+          "text": "在K预算内贪心选择互补概念\n加入单部件失效后的信息保留目标"
+        },
+        {
+          "label": "查询与配准",
+          "text": "只计算选定概念的查询热图\n沿用作者对应、RANSAC与ICP"
+        },
+        {
+          "label": "误差分析",
+          "text": "按可见率、视角重叠和对称性分组\n检查准确率与在线成本的关系"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "方案假设。参考端20概念的预计算单独计费。查询端实际热图计算次数与批处理方式记录在日志，时延收益通过测量确认。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "遮挡与跨场景采用独立评价协议",
+      "left": {
+        "title": "LMO：额外遮挡评估",
+        "text": "真实桌面遮挡，8 个物体\nBOP 格式与官方物体掩码\n\n额外同场景遮挡协议\n1000 对，seed 42\n\n开发与留出配对固定\n按可见率分层比较"
+      },
+      "right": {
+        "title": "协议与计算预算",
+        "text": "Oryon 跨场景结果单独报告\n与 LMO 遮挡评价分别统计\n\n固定 K 值及相同查询时间\n预计算与在线推理分别计时\n\n作者推理硬件参考\nRTX 4060 Ti 16 GB"
+      },
+      "bodySize": 26,
+      "sourceLabel": "数据：LINEMOD-Occlusion；LMO 同场景遮挡与 Oryon 跨场景不混排",
+      "notes": "数据直链：https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_test_all.zip，附lmo_base.zip和lmo_models.zip。作者oneshot_lmo_full.yaml指定oryon_style_lm，1000对，seed42，GT mask。作者报告48GB主机RAM、FP16，平均7.65秒/图对。资源数字为作者报告，本项目尚未实跑。REAL275作为后续同协议强方法对照，数据许可另核。 LMO沿用作者same-scene遮挡补充/rebuttal协议，作为额外遮挡评价，不与论文Oryon主表跨场景协议混排。",
+      "sources": [
+        {
+          "title": "LMO官方数据",
+          "url": "https://huggingface.co/datasets/bop-benchmark/lmo"
+        },
+        {
+          "title": "官方配置",
+          "url": "https://github.com/StevenKuang/concept-pose/blob/master/configs/evaluations/oneshot_lmo_full.yaml"
+        },
+        {
+          "title": "作者硬件和时延",
+          "url": "https://arxiv.org/abs/2512.09056"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "对照实验与评价",
+      "headers": [
+        "比较组",
+        "主要设置",
+        "指标"
+      ],
+      "rows": [
+        [
+          "完整与有限预算",
+          "原始20 / 公开15概念\nK = 5 / 10 / 15",
+          "ADD(-S) recall\n旋转、平移误差"
+        ],
+        [
+          "选择策略",
+          "随机 / 热图强度\n语义多样 / 几何选择",
+          "同K准确率\n低可见率分组"
+        ],
+        [
+          "机制消融",
+          "去掉单部件失效目标\n去掉几何项 / 关闭ICP",
+          "BOP AR\n对称性分组"
+        ],
+        [
+          "资源与强对照",
+          "预计算和查询单列\nUNOPose / OPT-Pose",
+          "K–latency曲线\n峰值显存"
+        ]
+      ],
+      "widths": [
+        280,
+        425,
+        439
+      ],
+      "y": 180,
+      "height": 380,
+      "fontSize": 25,
+      "notes": "主指标ADD(-S)在0.1物体直径阈值的recall。BOP AR按VSD、MSSD、MSPD。所有本题变体固定SigLIP2、mask、pair、RANSAC种子和迭代。GT可见率仅用于评价分组。 LMO同场景遮挡和Oryon跨场景分别列表、分别统计，不混为同协议结论。",
+      "sources": [
+        {
+          "title": "ConceptPose评价实现",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        },
+        {
+          "title": "BOP工具",
+          "url": "https://github.com/thodan/bop_toolkit"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "实施安排与预期产物",
+      "items": [
+        {
+          "label": "基线与样本",
+          "text": "先完成两对RGB-D推理\n固定模型、概念库和配对列表"
+        },
+        {
+          "label": "诊断与选择",
+          "text": "测量概念聚集与旋转错误\n实现预算内可观测性选择器"
+        },
+        {
+          "label": "留出与消融",
+          "text": "完成固定K及相同壁钟预算对照\n报告低可见率和对称物体表现"
+        },
+        {
+          "label": "项目产物",
+          "text": "概念选择模块及三维支撑展示\n准确率–预算曲线与重定位演示"
+        }
+      ],
+      "rowOptions": {
+        "y": 180,
+        "gap": 112,
+        "labelW": 230,
+        "bodySize": 27
+      },
+      "notes": "作者代码和VLM权重公开。执行计划使用单16GB GPU，不训练VLM；实际峰值显存与耗时将在smoke阶段测定。阶段代表研究顺序。",
+      "sources": [
+        {
+          "title": "ConceptPose，CVPR 2026",
+          "url": "https://arxiv.org/abs/2512.09056"
+        },
+        {
+          "title": "官方代码",
+          "url": "https://github.com/StevenKuang/concept-pose"
+        }
+      ]
+    }
+  ]
+}

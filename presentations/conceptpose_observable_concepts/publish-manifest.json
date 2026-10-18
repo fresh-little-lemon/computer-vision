@@ -1,0 +1,128 @@
+{
+  "id": "conceptpose_observable_concepts",
+  "title": "面向遮挡物体重定位的几何可观测概念选择",
+  "slide_count": 10,
+  "revision": "v2",
+  "package_root": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts",
+  "recommended_repository_prefix": "presentations/conceptpose_observable_concepts",
+  "primary_files": [
+    "presentations/conceptpose_observable_concepts/conceptpose_observable_concepts.pptx",
+    "presentations/conceptpose_observable_concepts/conceptpose_observable_concepts.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/README.md",
+      "relative_path": "presentations/conceptpose_observable_concepts/README.md",
+      "size_bytes": 1454,
+      "sha256": "e4607529deb90fdebf8b4014091518607ca19ff829de03249cef08fa6f345cfa"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/assets/conceptpose_official_pipeline.jpg",
+      "relative_path": "presentations/conceptpose_observable_concepts/assets/conceptpose_official_pipeline.jpg",
+      "size_bytes": 78704,
+      "sha256": "dfed1fced10d708ed9045ba7c5dbde0c54d7d7e78521851627805fd4e690b5b1"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/assets/credits.json",
+      "relative_path": "presentations/conceptpose_observable_concepts/assets/credits.json",
+      "size_bytes": 513,
+      "sha256": "3138779e62506dd8d28d7c70c2cbb73b60c881fccfc3e7353fb6e03bfe4fe846"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/conceptpose_observable_concepts.pdf",
+      "relative_path": "presentations/conceptpose_observable_concepts/conceptpose_observable_concepts.pdf",
+      "size_bytes": 440362,
+      "sha256": "36a93eb61e30219f38891fc1dc82a9d5f60435a862085f731c852c8efdf17a0f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/conceptpose_observable_concepts.pptx",
+      "relative_path": "presentations/conceptpose_observable_concepts/conceptpose_observable_concepts.pptx",
+      "size_bytes": 128988,
+      "sha256": "eeb1e26db6ac5a0f7ae0f398aeb84ae227304b30b504b164b202dd1df550c282"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/preview.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/preview.png",
+      "size_bytes": 382290,
+      "sha256": "2159cbcbb58ed10d3654a6056a87606aae68865f7eae043e37c37897152f5353"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-01.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-01.png",
+      "size_bytes": 102703,
+      "sha256": "a605257f8db51fb21de59cd56473848f4b9f27e74200591d3a15025c1f98af6c"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-02.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-02.png",
+      "size_bytes": 165603,
+      "sha256": "8c7d1a545d9ae266ad0490ddc08f682f8b8d0a741056832f64249239e5f18cc8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-03.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-03.png",
+      "size_bytes": 601400,
+      "sha256": "b11accba0ae6edff75c57af1d62115bf38b09393c14bcecccefb1fbe5e06aa73"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-04.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-04.png",
+      "size_bytes": 193958,
+      "sha256": "2567cde659ccede247736d11e9f0d0d5ec0dbe7829d4d1d2da48e89f88c946a1"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-05.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-05.png",
+      "size_bytes": 168981,
+      "sha256": "94446fcfa02c2a747f7a2ac245b361b3965198fa4c6240edea9e97babf22e794"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-06.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-06.png",
+      "size_bytes": 163598,
+      "sha256": "c535d9f7cfbdf61a80f8c8a60d9387ffc63674becea1167346df53600823ffae"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-07.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-07.png",
+      "size_bytes": 207611,
+      "sha256": "945e67ca9494518dc856c616ab0c93e16f359721d3ecbf597cf52856bdfa938b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-08.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-08.png",
+      "size_bytes": 208724,
+      "sha256": "01b8ae8fc6a9d096bc8ab47951f1832085acc8a367bc750d362eac574587f724"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-09.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-09.png",
+      "size_bytes": 179794,
+      "sha256": "cf453a5db1a5714a1844fc3c33379089852a98b9e8885cd55dcf3b95ee89ff9e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/previews/slide-10.png",
+      "relative_path": "presentations/conceptpose_observable_concepts/previews/slide-10.png",
+      "size_bytes": 178424,
+      "sha256": "7e3e8b2ce55a735b6c06bdabe58abe50ef7a2fde353dfe7f8dbdbabdff537609"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/source/build.mjs",
+      "relative_path": "presentations/conceptpose_observable_concepts/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/source/slides.json",
+      "relative_path": "presentations/conceptpose_observable_concepts/source/slides.json",
+      "size_bytes": 13775,
+      "sha256": "e385ebd61be00c890de74143aa22966705e9a0f54c0a0c05dc17be0daa1b4bf2"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/conceptpose_observable_concepts/source/topic.json",
+      "relative_path": "presentations/conceptpose_observable_concepts/source/topic.json",
+      "size_bytes": 12255,
+      "sha256": "cc721c5c9c4527486b38e1a8f35cfa7ac1539b7e894c7b8912d39606b4343a63"
+    }
+  ]
+}

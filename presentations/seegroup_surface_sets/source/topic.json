@@ -1,0 +1,212 @@
+{
+  "id": "seegroup_surface_sets",
+  "title": "玻璃隔断场景中的多层表面连续解码",
+  "subtitle": "基于 SeeGroup 的无序深度集合与遮挡边界建模",
+  "language": "zh-CN",
+  "checked_at": "2026-10-18",
+  "project_type": "正式研究候选；方案假设，尚未实跑",
+  "scene_user": "室内AR展示人员拍摄玻璃隔断，希望虚拟标注能区分玻璃表面与玻璃后的物体，并保持相邻像素的遮挡关系一致。",
+  "input_output": {
+    "input": [
+      "单张RGB图像",
+      "SeeGroup公开预训练权重；推理不输入深度传感器或真实层标签"
+    ],
+    "output": [
+      "每像素无序深度候选集合及层存在性",
+      "透明区域的前后遮挡关系与连续表面可视化"
+    ],
+    "boundary": "真实数据主要验证相对深度次序；米制距离和碰撞安全另需传感器校准。",
+    "application": "玻璃隔断、橱窗、陈列柜中的AR遮挡与场景理解"
+  },
+  "baseline": {
+    "paper": "SeeGroup: Multi-Layer Depth Estimation of Transparent Surfaces via Self-Determined Grouping",
+    "authors": "Hongyu Wen, Jia Deng",
+    "venue": "CVPR 2026 Oral",
+    "year": 2026,
+    "first_paper_date": "2026-05-27",
+    "paper_version_used": "arXiv:2605.28735v1",
+    "url": "https://arxiv.org/abs/2605.28735",
+    "code_url": "https://github.com/princeton-vl/SeeGroup",
+    "implementation_url": "https://github.com/princeton-vl/SeeGroup/tree/765cbe45f218553a146f8f887c09310c1e96998e",
+    "variants": "DINOv2 ViT-L / recurrent decomposition / four Laplace components",
+    "weights": [
+      {
+        "url": "https://huggingface.co/Hermera/SeeGroup/resolve/main/seegroup.pth?download=true",
+        "bytes": 4266170584,
+        "sha256_lfs": "c21ccdd1595fbf7bbf6045c5825314cae5d302ad95a9f862c1088bbc4d7b9c77"
+      }
+    ],
+    "license": "仓库 BSD-3-Clause；预训练依赖许可随作者仓库保留",
+    "mechanism": "将沿相机射线的多个表面表示成无序事件；循环分解生成Laplace分量，采用置换不变强度、覆盖和梯度损失。",
+    "existing_decoder": "官方get_depth已有valid_mask过滤、移除depth≤0.02、排序及绝对0.02阈值去重。这些既有机制不作为本题新贡献。"
+  },
+  "nearest_work": [
+    {
+      "name": "Seeing and Seeing Through the Glass / LayeredDepth",
+      "status": "ICCV 2025；2025-03-14首稿；作者代码和基准公开",
+      "url": "https://arxiv.org/abs/2503.11633",
+      "code_url": "https://github.com/princeton-vl/LayeredDepth",
+      "covered": "已经建立真实多层相对深度评估和多头预测基线。",
+      "our_question": "冻结SeeGroup后，联合解码相邻像素的无序表面集合能否改善层存在性与跨层次序？",
+      "comparison": "相同LayeredDepth tuple指标；作者原文测试All quadruplet为61.34%，SeeGroup为70.09%。"
+    },
+    {
+      "name": "One Scene, Two Depths / Laplacian Visual Prompting",
+      "status": "ECCV 2026；2026-06-28首稿；官方代码公开",
+      "url": "https://arxiv.org/abs/2606.29600",
+      "code_url": "https://github.com/Xiaohao-Xu/Ambiguity-in-Space",
+      "covered": "通过RGB/Laplacian两次冻结模型推理探测前景玻璃与背景两种深度假设。",
+      "our_question": "本题直接解码多层集合的空间连续性；两层输入变换作为独立方法对照。",
+      "comparison": "原文DAv2-L的75.5% ML-SRA来自MD-3K两层稀疏序关系，与LayeredDepth quadruplet不直接换算。"
+    },
+    {
+      "name": "SeeGroup原有覆盖损失与梯度损失",
+      "status": "CVPR 2026公开基线内部机制",
+      "url": "https://arxiv.org/html/2605.28735v1",
+      "code_url": "https://github.com/princeton-vl/SeeGroup",
+      "covered": "已有重复分量抑制和局部平滑训练约束。",
+      "our_question": "检验测试时、通道置换不变的邻域集合传输是否提供额外信息；增益须在原始解码与简单平滑之外成立。",
+      "comparison": "同权重、同四分量、同推理分辨率，仅替换集合解码器。"
+    }
+  ],
+  "gap": "透明边界同时包含真实表面出现/消失与候选分量重复。逐像素层有效性选择难以显式约束相邻像素是否属于同一连续表面。该现象在公开模型上的发生频率是本课题第一阶段的测量对象。",
+  "testable_question": "在冻结SeeGroup且相同图像分辨率下，尺度归一的集合去重与遮挡感知邻域传输，能否提高LayeredDepth验证集Mixed quadruplet accuracy，同时减少不存在层的误报并保留薄玻璃边界？",
+  "mathematical_object": "D_p={d_pi,b_pi}；令c_ij=|d_pi-d_qj|/s_I，求带未匹配代价的邻域集合最小传输；目标E=数据强度项+λ·边缘门控集合传输+μ·层数复杂度。s_I为预测深度稳健尺度，统一处理正比例尺度变化。",
+  "proposed_steps": [
+    {
+      "step": "定位层数和边界错误",
+      "method": "缓存四个深度分量、尺度参数与公开有效性输出；用真实tuple的不存在层标签、边界距离和层数分组定位错误。",
+      "hypothesis": "改进空间主要集中在分量重叠、玻璃边缘与多层交叠区域。"
+    },
+    {
+      "step": "构造无序集合解码",
+      "method": "以归一化分量距离建立去重候选，邻域之间通过最小集合传输连接兼容表面；允许层出生和消失，RGB边缘调节连接代价。",
+      "hypothesis": "在不固定通道物理含义的条件下，连续表面的证据可减少重复层及孤立幻层。"
+    },
+    {
+      "step": "边界保留与尺度测试",
+      "method": "在小规模开发集确定复杂度和边缘项；在固定留出验证图像上评估，并对预测深度整体正比例变换做等变性测试。",
+      "hypothesis": "集合约束提升跨层次序，同时不依赖图像的任意深度尺度。"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "LayeredDepth真实数据",
+      "url": "https://huggingface.co/datasets/princeton-vl/LayeredDepth",
+      "download_url": "https://huggingface.co/datasets/princeton-vl/LayeredDepth/resolve/main/data/validation-00000-of-00009.parquet",
+      "size": "首个验证分片409,777,263 bytes；完整公开验证集300张/9分片；测试集1200张",
+      "split": "validation 300 / test 1200；真实测试标注由官方评测服务保留",
+      "evaluation_subset": "验证集按固定图像ID划分开发/留出组，分组清单随实验发布；课程核心离线评估使用公开validation。",
+      "license": "CC0-1.0，HF数据卡",
+      "version_control": "固定HF revision、图像ID与分片SHA256",
+      "scoring_url": "https://github.com/princeton-vl/LayeredDepth"
+    },
+    {
+      "name": "LayeredDepth-Syn",
+      "url": "https://huggingface.co/datasets/princeton-vl/LayeredDepth-Syn",
+      "download_url": "https://huggingface.co/datasets/princeton-vl/LayeredDepth-Syn/resolve/main/data/validation-00000-of-00002.parquet",
+      "size": "首个验证分片401,772,358 bytes；validation 500张",
+      "split": "只用synthetic validation作密集层边界与层数诊断",
+      "evaluation_subset": "固定100张分层样本；最终可扩500张",
+      "license": "BSD-3-Clause，HF数据卡",
+      "version_control": "固定revision和样本清单",
+      "scoring_url": "https://github.com/princeton-vl/SeeGroup"
+    }
+  ],
+  "evaluation": {
+    "primary": [
+      "官方tuple-wise quadruplet/triplet/pair accuracy：All、Mixed和各层分别报告"
+    ],
+    "secondary": [
+      "不存在层tuple的误接受率",
+      "合成集层出现/消失边界F1与密集误差",
+      "每图延迟、峰值显存、尺度等变误差"
+    ],
+    "baselines": [
+      "作者公开SeeGroup解码",
+      "论文峰值解码复现配置",
+      "阈值扫描",
+      "逐通道排序+边缘平滑",
+      "本题集合解码；相同权重"
+    ],
+    "ablations": [
+      "去掉尺度归一",
+      "去掉邻域传输",
+      "去掉层出生/消失代价",
+      "去掉RGB边缘门控"
+    ],
+    "controls": [
+      "调参只用开发组；留出图像ID固定",
+      "真实数据报告序关系；合成数据报告密集误差",
+      "两层MD-3K跨数据集验证单列",
+      "公开test结果与自划验证结果分别列明"
+    ],
+    "readout": "按图像bootstrap置信区间，并检查改进是否以薄层漏检换取整体分数。"
+  },
+  "stages": [
+    {
+      "stage": "1 基线与错误图谱",
+      "goal": "2张GPU smoke后缓存公开验证预测",
+      "deliverable": "命令、原始分量和错误分组表"
+    },
+    {
+      "stage": "2 集合解码原型",
+      "goal": "用小规模开发集实现无序传输和边界门控",
+      "deliverable": "可独立运行的后处理模块及单元测试"
+    },
+    {
+      "stage": "3 控制实验",
+      "goal": "固定留出集完成原始解码、简单后处理与消融",
+      "deliverable": "定量表、失败样例与耗时显存报告"
+    },
+    {
+      "stage": "4 跨场景检验",
+      "goal": "有预算时扩展MD-3K或作者正式测试",
+      "deliverable": "跨数据集结果及适用场景总结"
+    }
+  ],
+  "resources": {
+    "status": "未安装、未下载权重、未运行",
+    "author_report": "356M参数；原文Table4每forward CPU16.29s、GPU9.41s；该表硬件配置未在本轮核到",
+    "planned_inference": "单张16GB级GPU、batch1、作者518输入尺度；实际峰值显存与时延待smoke测量",
+    "training": "方案冻结网络；原文从头方案训练使用4×L40，本课题预算不包含该训练",
+    "smoke_commands": [
+      "git clone https://github.com/princeton-vl/SeeGroup.git",
+      "cd SeeGroup && git checkout 765cbe45f218553a146f8f887c09310c1e96998e",
+      "pip install -r requirements.txt",
+      "bash scripts/download_seegroup_checkpoint.sh",
+      "python val.py --checkpoint-path checkpoints/seegroup.pth --max-samples 2 --num-workers 0"
+    ],
+    "dependencies": "PyTorch/torchvision、OpenCV、mmengine、datasets、wandb等；官方model初始化调用CUDA。"
+  },
+  "assets": [
+    {
+      "path": "assets/seegroup_official_method.png",
+      "caption": "SeeGroup作者方法图，Hongyu Wen与Jia Deng",
+      "sources": [
+        {
+          "title": "作者方法图",
+          "url": "https://raw.githubusercontent.com/princeton-vl/SeeGroup/main/imgs/method.png"
+        },
+        {
+          "title": "SeeGroup论文",
+          "url": "https://arxiv.org/abs/2605.28735"
+        }
+      ]
+    }
+  ],
+  "run_evidence": {
+    "status": "未实跑",
+    "scope": "论文、官方代码、权重文件元数据与数据卡已核验"
+  },
+  "suggested_slide_sequence": [
+    "玻璃隔断的前后遮挡问题",
+    "输入输出与数据示例",
+    "SeeGroup现有解法",
+    "2025–2026近邻与研究问题",
+    "无序集合连续解码假设",
+    "真实数据下载与评估",
+    "对照消融与实施阶段"
+  ],
+  "novelty_boundary": "在现有绝对阈值去重基础上检验尺度归一，并引入邻域无序集合传输与层出生/消失代价。去重或有效性判定本身不是新机制。"
+}

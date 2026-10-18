@@ -1,0 +1,128 @@
+{
+  "id": "unreflect_observation_constraint",
+  "title": "面向亮面商品拍摄的观测约束高光去除",
+  "slide_count": 10,
+  "revision": "v2",
+  "package_root": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint",
+  "recommended_repository_prefix": "presentations/unreflect_observation_constraint",
+  "primary_files": [
+    "presentations/unreflect_observation_constraint/unreflect_observation_constraint.pptx",
+    "presentations/unreflect_observation_constraint/unreflect_observation_constraint.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/README.md",
+      "relative_path": "presentations/unreflect_observation_constraint/README.md",
+      "size_bytes": 1501,
+      "sha256": "1f52f0b25cd4978055a41a35ba9844f359964c35e5220bfbbd4ab4d4105b9abf"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/assets/credits.json",
+      "relative_path": "presentations/unreflect_observation_constraint/assets/credits.json",
+      "size_bytes": 546,
+      "sha256": "a3ccdf85aec2fa0f5153c8a7411cfd92bedebb28c2ef04cbcd8c230a5673a625"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/assets/unreflect_official_architecture.png",
+      "relative_path": "presentations/unreflect_observation_constraint/assets/unreflect_official_architecture.png",
+      "size_bytes": 440771,
+      "sha256": "95b4e7f423c44a3b0594fdfff6303e281032c37521a4cc0661aa074478656ee4"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/preview.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/preview.png",
+      "size_bytes": 376523,
+      "sha256": "0946435954d10bd1ee2ca6bfa2660b2ae97c2ee95ddf12b9653eeda8df449329"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-01.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-01.png",
+      "size_bytes": 88775,
+      "sha256": "df8d4b1ec384200516d1ef59c0bd81357daa895d6ab4b5dc54e3ca078936aa46"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-02.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-02.png",
+      "size_bytes": 161505,
+      "sha256": "172650f4ebce49cb962a3b438034444f82f85fee9435710aa3b14b6022d827ce"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-03.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-03.png",
+      "size_bytes": 572565,
+      "sha256": "479cc0f156a80e29d5e39102d7c68cac4cf88b8bac433fd7545f0fce62727e4f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-04.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-04.png",
+      "size_bytes": 180505,
+      "sha256": "657283f422bb74aa4f80d3389f068447d87dc505b2f87e0d4cf6821450e50e9d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-05.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-05.png",
+      "size_bytes": 161846,
+      "sha256": "7e142a50ff4fa6eb1789ae7c4b473d6a3f3a031e94e3b66d4f2c9bbad0bed5ad"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-06.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-06.png",
+      "size_bytes": 154064,
+      "sha256": "af11858fa0a4b15725242c3193b30f2dbef1ff7056f688ea5096ab846c285681"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-07.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-07.png",
+      "size_bytes": 190810,
+      "sha256": "9e9fc66f8961aa8082a0a6c02c122d02575a776cb5d4e493497bce85894c4c43"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-08.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-08.png",
+      "size_bytes": 214610,
+      "sha256": "ac1a3dbd5c39810f4b019f87985084ead9819cb9ec374f42a5500ad0a3401834"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-09.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-09.png",
+      "size_bytes": 196755,
+      "sha256": "07ad2e47916d3e2c7a81df14b3220b3f87cdac4486a863dd759e7c6f48b10812"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/previews/slide-10.png",
+      "relative_path": "presentations/unreflect_observation_constraint/previews/slide-10.png",
+      "size_bytes": 165300,
+      "sha256": "232bfa3a5ff6a361efa78d022d6fc0fa983f94a8866dccfb32245b458e1dce01"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/source/build.mjs",
+      "relative_path": "presentations/unreflect_observation_constraint/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/source/slides.json",
+      "relative_path": "presentations/unreflect_observation_constraint/source/slides.json",
+      "size_bytes": 13785,
+      "sha256": "0607677d7baf738dbd2cabb95fe0e2bb8acf27574f6cbf737068543f4a0662e9"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/source/topic.json",
+      "relative_path": "presentations/unreflect_observation_constraint/source/topic.json",
+      "size_bytes": 10577,
+      "sha256": "d5ed2bd47b500c45716eae24d2d1842bb4617cb6262e594674263e1b89e7a8eb"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/unreflect_observation_constraint.pdf",
+      "relative_path": "presentations/unreflect_observation_constraint/unreflect_observation_constraint.pdf",
+      "size_bytes": 479126,
+      "sha256": "fa6dfc9f32a590e457ed1a5316e76f48fd8058845c578965baaff014dd65b16a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/unreflect_observation_constraint/unreflect_observation_constraint.pptx",
+      "relative_path": "presentations/unreflect_observation_constraint/unreflect_observation_constraint.pptx",
+      "size_bytes": 491170,
+      "sha256": "795e95582956930aa8904488795ebd91a8028e67122e25c77958898b7155b020"
+    }
+  ]
+}
