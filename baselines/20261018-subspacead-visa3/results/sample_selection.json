@@ -1,0 +1,30 @@
+{
+  "rule": "First CSV row for pcb1 train normal, test normal, test anomaly, before model inference. No outcome-based selection.",
+  "samples": [
+    {
+      "object": "pcb1",
+      "split": "train",
+      "label": "normal",
+      "image": "pcb1/Data/Images/Normal/0499.JPG",
+      "mask": "",
+      "image_sha256": "a31ecabf408bbb5cf660cc829d12e5dc3e1eb9b4336c9aedf8370f553d332e46"
+    },
+    {
+      "object": "pcb1",
+      "split": "test",
+      "label": "normal",
+      "image": "pcb1/Data/Images/Normal/0107.JPG",
+      "mask": "",
+      "image_sha256": "b374416e97d268dd2d5660f13e77b8b9ff4cf35fad08856485038afeebce66bc"
+    },
+    {
+      "object": "pcb1",
+      "split": "test",
+      "label": "anomaly",
+      "image": "pcb1/Data/Images/Anomaly/000.JPG",
+      "mask": "pcb1/Data/Masks/Anomaly/000.png",
+      "image_sha256": "e67db34e1045d7b8f01173a2f3e0138a6d89700e8a83d1426b6de0464e1e5e9d",
+      "mask_sha256": "03e8105040329e7dcce08b9ddf3d3fedde84210750443d1f3abde9ed2fc0ca34"
+    }
+  ]
+}

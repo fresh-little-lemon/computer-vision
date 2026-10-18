@@ -1,0 +1,108 @@
+/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+2026-10-18 10:25:22,620 - INFO - Logging configured.
+2026-10-18 10:25:22,621 - INFO - Configuration saved to /workspace/shared/cv-baseline-runs/outputs/subspacead_visa3/official/visa_mean_layers-4-5-6-7_res224_docrop0_score-reconstruction_clahe0_dropk0_model-dinov2-with-registers-smallpca_ev0.99_i-scoremtop1p_k1_seed42/config.json
+2026-10-18 10:25:22,621 - INFO - Loading feature extraction model: facebook/dinov2-with-registers-small...
+2026-10-18 10:25:25,792 - INFO - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-10-18 10:25:25,930 - INFO - HTTP Request: GET https://huggingface.co/api/models/facebook/dinov2-with-registers-small "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,048 - INFO - HTTP Request: HEAD https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/processor_config.json "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-18 10:25:26,049 - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-18 10:25:26,136 - INFO - HTTP Request: HEAD https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 10:25:26,191 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/dinov2-with-registers-small/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/preprocessor_config.json?[public-download-query-redacted] "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,242 - INFO - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/facebook/dinov2-with-registers-small/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/preprocessor_config.json?[public-download-query-redacted] "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,371 - INFO - HTTP Request: GET https://huggingface.co/api/models/facebook/dinov2-with-registers-small "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,487 - INFO - HTTP Request: HEAD https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 10:25:26,539 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/dinov2-with-registers-small/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/config.json?[public-download-query-redacted] "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,621 - INFO - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/facebook/dinov2-with-registers-small/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/config.json?[public-download-query-redacted] "HTTP/1.1 200 OK"
+2026-10-18 10:25:26,844 - INFO - HTTP Request: HEAD https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/model.safetensors "HTTP/1.1 302 Found"
+2026-10-18 10:25:26,960 - INFO - HTTP Request: GET https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/model.safetensors "HTTP/1.1 302 Found"
+2026-10-18 10:25:30,625 - INFO - HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6765a6a5a2d41c3780972c05/b42abc477e0b4024c8c18fbd631f6a80b529ac4c66527150fcd16a72c4f0af50?[public-download-query-redacted] "HTTP/1.1 200 OK"
+Using device: cpu
+
+Loading weights:   0%|          | 0/224 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 224/224 [00:00<00:00, 3923.89it/s]
+2026-10-18 10:25:33,943 - INFO - Set model attention implementation to 'eager'.
+2026-10-18 10:25:33,943 - INFO - Model loaded successfully.
+2026-10-18 10:25:33,943 - INFO - --- Processing Category: pcb1 ---
+2026-10-18 10:25:33,944 - INFO - --- K-SHOT: Randomly sampling 1 training images ---
+2026-10-18 10:25:33,944 - INFO -   K-Shot image 1/1: 0499.JPG
+2026-10-18 10:25:34,106 - INFO - Feature dim: 384, Tokens per image: 256, Base train images: 1, Total train images (w/ aug): 1, Total train tokens: 256
+2026-10-18 10:25:34,106 - INFO - Starting PCA fit on cpu...
+2026-10-18 10:25:34,106 - INFO - Starting PCA Pass 1/2 (Mean)...
+
+PCA Pass 1/2 (Mean):   0%|          | 0/1 [00:00<?, ?it/s]
+PCA Pass 1/2 (Mean): 100%|██████████| 1/1 [00:00<00:00,  8.57it/s]
+PCA Pass 1/2 (Mean): 100%|██████████| 1/1 [00:00<00:00,  8.55it/s]
+2026-10-18 10:25:34,225 - INFO - Starting PCA Pass 2/2 (Covariance)...
+
+PCA Pass 2/2 (Cov):   0%|          | 0/1 [00:00<?, ?it/s]
+PCA Pass 2/2 (Cov): 100%|██████████| 1/1 [00:00<00:00,  7.35it/s]
+PCA Pass 2/2 (Cov): 100%|██████████| 1/1 [00:00<00:00,  7.34it/s]
+2026-10-18 10:25:34,362 - INFO - Performing eigendecomposition on GPU...
+2026-10-18 10:25:34,380 - INFO - PCA: selected k=154 components to explain 99.00% of variance.
+2026-10-18 10:25:34,380 - WARNING - No validation set found. F1 scores will be N/A.
+2026-10-18 10:25:34,381 - INFO - Performing warm-up inference run...
+2026-10-18 10:25:34,496 - INFO - Warm-up complete.
+2026-10-18 10:25:34,497 - INFO - Evaluating on 2 test images...
+2026-10-18 10:25:34,497 - INFO - Number of test images: 2
+
+Testing pcb1:   0%|          | 0/2 [00:00<?, ?it/s]
+Testing pcb1:  50%|█████     | 1/2 [00:00<00:00,  9.48it/s]2026-10-18 10:25:34,693 - INFO - --- Timing Results for pcb1 ---
+2026-10-18 10:25:34,694 - INFO - Total test images: 2
+2026-10-18 10:25:34,694 - INFO - Batch size: 1 (Processed 2 batches)
+2026-10-18 10:25:34,694 - INFO - Total inference time: 0.1672 s
+2026-10-18 10:25:34,694 - INFO - Avg. time per image: 0.083590 s
+2026-10-18 10:25:34,694 - INFO - Images per second (FPS): 11.96
+2026-10-18 10:25:34,694 - INFO - Avg. time per batch (excl. 1st): 0.080097 s
+2026-10-18 10:25:34,694 - INFO - Median time per batch (excl. 1st): 0.080097 s
+/workspace/shared/cv-baseline-runs/sources/SubspaceAD/main.py:188: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  aupro = np.trapz(pros_s, fprs_s) / fpr_limit
+2026-10-18 10:25:34,743 - INFO - pcb1 Results | I-AUROC: 1.0000 | I-AUPR: 1.0000 | P-AUROC: 0.9954 | AU-PRO: 0.9846 | I-F1: nan | P-F1: nan
+2026-10-18 10:25:34,745 - INFO - 
+--- Benchmark Final Results ---
+2026-10-18 10:25:34,748 - INFO - 
+Category  Seed  Image AUROC  Image AUPR  Pixel AUROC  AU-PRO  Image F1  Pixel F1
+    pcb1    42       1.0000      1.0000       0.9954  0.9846       N/A       N/A
+2026-10-18 10:25:34,750 - INFO - 
+Results saved to /workspace/shared/cv-baseline-runs/outputs/subspacead_visa3/official/visa_mean_layers-4-5-6-7_res224_docrop0_score-reconstruction_clahe0_dropk0_model-dinov2-with-registers-smallpca_ev0.99_i-scoremtop1p_k1_seed42/benchmark_results.csv
+
+Testing pcb1: 100%|██████████| 2/2 [00:00<00:00,  6.54it/s]
+{
+  "command": [
+    "subspace-env/bin/python",
+    "scripts/subspacead_official_capture.py",
+    "--dataset_name",
+    "visa",
+    "--dataset_path",
+    "/workspace/shared/cv-baseline-runs/data/visa_micro/1cls",
+    "--categories",
+    "pcb1",
+    "--model_ckpt",
+    "facebook/dinov2-with-registers-small",
+    "--image_res",
+    "224",
+    "--layers=-4,-5,-6,-7",
+    "--k_shot",
+    "1",
+    "--aug_count",
+    "0",
+    "--batch_size",
+    "1",
+    "--pca_ev",
+    "0.99",
+    "--seed",
+    "42",
+    "--agg_method",
+    "mean",
+    "--outdir",
+    "/workspace/shared/cv-baseline-runs/outputs/subspacead_visa3/official"
+  ],
+  "started_utc": "2026-10-18T17:25:12.662771+00:00",
+  "finished_utc": "2026-10-18T17:25:36.074987+00:00",
+  "elapsed_seconds": 23.412226782998914,
+  "exit_code": 0,
+  "max_rss_mib": 697.046875,
+  "user_cpu_seconds": 15.546286,
+  "system_cpu_seconds": 1.90394
+}

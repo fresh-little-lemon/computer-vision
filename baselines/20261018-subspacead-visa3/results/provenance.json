@@ -1,0 +1,30 @@
+{
+  "source_repo": "https://github.com/CLendering/SubspaceAD",
+  "source_commit": "ef56d5c8ab2f1feb7dda1c93b25cc3f73f0960d7",
+  "algorithm_source_modified": false,
+  "tracked_generated_metadata_or_pyc_modified": true,
+  "hf_model": "facebook/dinov2-with-registers-small",
+  "hf_revision": "0d9846e56b43a21fa46d7f3f5070f0506a5795a9",
+  "model_parameter_elements": 22058112,
+  "model_assets": [
+    {
+      "file": "config.json",
+      "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/config.json",
+      "bytes": 1001,
+      "sha256": "ae98d74b7fc56b1138ce06940184aa886370b9b1686f9239d30eeb6ef1a2cb37"
+    },
+    {
+      "file": "model.safetensors",
+      "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/model.safetensors",
+      "bytes": 88256200,
+      "sha256": "78e7f952c5af83cf6da38f08ff52b062bbe00c1adf39c4c7e0361969f27abae7"
+    },
+    {
+      "file": "preprocessor_config.json",
+      "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/preprocessor_config.json",
+      "bytes": 436,
+      "sha256": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828"
+    }
+  ],
+  "official_main_sha256": "25f03bdb7cdd1face8be6cc67ab7435a63f444bd559c853e2a0a85d94026c207"
+}

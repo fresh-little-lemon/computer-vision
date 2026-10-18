@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "recomputed": {
+    "img_auroc": 1.0,
+    "img_aupr": 1.0,
+    "px_auroc": 0.9953527877904748,
+    "au_pro": 0.9846329600940766
+  },
+  "recorded": {
+    "img_auroc": 1.0,
+    "img_aupr": 1.0,
+    "px_auroc": 0.9953527877904748,
+    "au_pro": 0.9846329600940766,
+    "img_f1": null,
+    "px_f1": null
+  },
+  "official_compute_aupro_sha256": "b7784012d68d1ed0b764932212ba6c08210fa8652d665fd68af2b81e93758300",
+  "test_positive_pixels": 52,
+  "test_total_pixels": 100352,
+  "finite_anomaly_maps": true,
+  "source": "Official unchanged compute_aupro and sklearn roc_auc_score/average_precision_score; saved NPZ only; no model rerun."
+}

@@ -1,0 +1,9 @@
+WARNING: The directory '/home/agent/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+subspacead 0.1.0 requires anomalib, which is not installed.
+tapnet 0.1.0 requires chex, which is not installed.
+tapnet 0.1.0 requires dm-haiku, which is not installed.
+tapnet 0.1.0 requires dm-tree, which is not installed.
+tapnet 0.1.0 requires ipympl, which is not installed.
+tapnet 0.1.0 requires jax, which is not installed.
+tapnet 0.1.0 requires jaxline, which is not installed.
+tapnet 0.1.0 requires optax, which is not installed.

@@ -1,0 +1,6 @@
+Starting data preparation for split: 1cls
+Reading data from: data/visa_selected_raw
+Saving data to:   data/visa_micro/1cls
+Using split file: data/visa_micro.csv
+CSV Headers: ['object', 'split', 'label', 'image', 'mask']
+Data preparation complete.

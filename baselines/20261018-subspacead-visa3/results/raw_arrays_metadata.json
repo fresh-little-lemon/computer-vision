@@ -1,0 +1,48 @@
+{
+  "pro_anomaly_maps": {
+    "shape": [
+      2,
+      224,
+      224
+    ],
+    "dtype": "float32",
+    "finite": true
+  },
+  "pro_gt_masks": {
+    "shape": [
+      2,
+      224,
+      224
+    ],
+    "dtype": "uint8",
+    "finite": true
+  },
+  "img_true": {
+    "shape": [
+      2
+    ],
+    "dtype": "int64",
+    "finite": true
+  },
+  "img_pred_auroc": {
+    "shape": [
+      2
+    ],
+    "dtype": "float64",
+    "finite": true
+  },
+  "px_pred_all_normalized": {
+    "shape": [
+      100352
+    ],
+    "dtype": "float32",
+    "finite": true
+  },
+  "all_inference_times": {
+    "shape": [
+      2
+    ],
+    "dtype": "float64",
+    "finite": true
+  }
+}

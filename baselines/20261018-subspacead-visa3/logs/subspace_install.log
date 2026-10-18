@@ -1,0 +1,68 @@
+WARNING: The directory '/home/agent/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Collecting pandas
+  Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Collecting kornia
+  Downloading kornia-0.8.3-py3-none-any.whl.metadata (22 kB)
+Requirement already satisfied: python-dateutil>=2.8.2 in ./env/lib/python3.12/site-packages (from pandas) (2.9.0.post0)
+Collecting kornia-rs>=0.1.9 (from kornia)
+  Downloading kornia_rs-0.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (19 kB)
+Requirement already satisfied: packaging in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from kornia) (26.3)
+Requirement already satisfied: torch>=2.0.0 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from kornia) (2.14.1+cpu)
+Requirement already satisfied: six>=1.5 in ./env/lib/python3.12/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Requirement already satisfied: filelock in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (3.32.3)
+Requirement already satisfied: typing-extensions>=4.10.0 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (4.16.0)
+Requirement already satisfied: setuptools>=77.0.3 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (78.1.0)
+Requirement already satisfied: sympy>=1.13.3 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (3.6.1)
+Requirement already satisfied: jinja2 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from torch>=2.0.0->kornia) (2026.7.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from sympy>=1.13.3->torch>=2.0.0->kornia) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages (from jinja2->torch>=2.0.0->kornia) (3.0.3)
+Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 31.8 MB/s eta 0:00:00
+Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (10.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.8/10.8 MB 34.4 MB/s eta 0:00:00
+Downloading kornia-0.8.3-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 16.9 MB/s eta 0:00:00
+Downloading kornia_rs-0.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 31.3 MB/s eta 0:00:00
+Installing collected packages: numpy, kornia-rs, pandas, kornia
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.5.4
+    Not uninstalling numpy at /workspace/shared/voxscribe-real-env/lib/python3.12/site-packages, outside environment /workspace/shared/cv-baseline-runs/subspace-env
+    Can't uninstall 'numpy'. No files were found to uninstall.
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+tapnet 0.1.0 requires chex, which is not installed.
+tapnet 0.1.0 requires dm-haiku, which is not installed.
+tapnet 0.1.0 requires dm-tree, which is not installed.
+tapnet 0.1.0 requires ipympl, which is not installed.
+tapnet 0.1.0 requires jax, which is not installed.
+tapnet 0.1.0 requires jaxline, which is not installed.
+tapnet 0.1.0 requires optax, which is not installed.
+Successfully installed kornia-0.8.3 kornia-rs-0.2.0 numpy-2.2.6 pandas-3.0.6
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: python -m pip install --upgrade pip
+WARNING: The directory '/home/agent/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Obtaining file:///workspace/shared/cv-baseline-runs/sources/SubspaceAD
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: subspacead
+  Building editable for subspacead (pyproject.toml): started
+  Building editable for subspacead (pyproject.toml): finished with status 'done'
+  Created wheel for subspacead: filename=subspacead-0.1.0-0.editable-py3-none-any.whl size=5498 sha256=5ccda54cd0408204e433b2358faf3c2e98b12bb32f2be72127d3f783aa4a31f1
+  Stored in directory: /tmp/pip-ephem-wheel-cache-nwc8_r88/wheels/b0/21/c4/c8425b07890e8f45e502d9f60c7817a86e75c77798e1b539e3
+Successfully built subspacead
+Installing collected packages: subspacead
+Successfully installed subspacead-0.1.0
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: python -m pip install --upgrade pip

@@ -1,0 +1,4 @@
+object,split,label,image,mask
+pcb1,train,normal,pcb1/Data/Images/Normal/0499.JPG,
+pcb1,test,normal,pcb1/Data/Images/Normal/0107.JPG,
+pcb1,test,anomaly,pcb1/Data/Images/Anomaly/000.JPG,pcb1/Data/Masks/Anomaly/000.png

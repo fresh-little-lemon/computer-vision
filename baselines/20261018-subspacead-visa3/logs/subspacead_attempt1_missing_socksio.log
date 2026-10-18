@@ -1,0 +1,136 @@
+/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+2026-10-18 10:24:43,493 - INFO - Logging configured.
+2026-10-18 10:24:43,494 - INFO - Configuration saved to /workspace/shared/cv-baseline-runs/outputs/subspacead_visa3/official/visa_mean_layers-4-5-6-7_res224_docrop0_score-reconstruction_clahe0_dropk0_model-dinov2-with-registers-smallpca_ev0.99_i-scoremtop1p_k1_seed42/config.json
+2026-10-18 10:24:43,494 - INFO - Loading feature extraction model: facebook/dinov2-with-registers-small...
+Using device: cpu
+Traceback (most recent call last):
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/image_processing_base.py", line 298, in get_image_processor_dict
+    resolved_processor_file = cached_file(
+                              ^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/utils/hub.py", line 370, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/utils/hub.py", line 634, in cached_files
+    raise e
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/utils/hub.py", line 537, in cached_files
+    hf_hub_download(
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 276, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1047, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1117, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1762, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1669, in get_hf_file_metadata
+    response = _httpx2_follow_hub_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 764, in _httpx2_follow_hub_redirects_with_backoff
+    response = http_backoff(
+               ^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 637, in http_backoff
+    return next(
+           ^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 504, in _http_backoff_base
+    client = get_session()
+             ^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 417, in get_session
+    _GLOBAL_CLIENT = _GLOBAL_CLIENT_FACTORY()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 345, in default_client_factory
+    return httpx2.Client(
+           ^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/httpx2/_client.py", line 674, in __init__
+    else self._init_proxy_transport(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/httpx2/_client.py", line 722, in _init_proxy_transport
+    return HTTPTransport(
+           ^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/httpx2/_transports/default.py", line 187, in __init__
+    raise ImportError(
+ImportError: Using SOCKS proxy, but the 'socksio' package is not installed. Make sure to install httpx using `pip install httpx[socks]`.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/models/auto/image_processing_auto.py", line 625, in from_pretrained
+    config_dict, _ = ImageProcessingMixin.get_image_processor_dict(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/image_processing_base.py", line 330, in get_image_processor_dict
+    raise OSError(
+OSError: Can't load image processor for 'facebook/dinov2-with-registers-small'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'facebook/dinov2-with-registers-small' is the correct path to a directory containing a config.json file
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/shared/cv-baseline-runs/scripts/subspacead_official_capture.py", line 31, in <module>
+    try:runpy.run_path(str(SOURCE),run_name='__main__')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/shared/cv-baseline-runs/sources/SubspaceAD/main.py", line 1371, in <module>
+    main()
+  File "/workspace/shared/cv-baseline-runs/sources/SubspaceAD/main.py", line 260, in main
+    extractor = FeatureExtractor(args.model_ckpt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/cv-baseline-runs/sources/SubspaceAD/src/subspacead/core/extractor.py", line 16, in __init__
+    self.processor = AutoImageProcessor.from_pretrained(model_ckpt)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/models/auto/image_processing_auto.py", line 629, in from_pretrained
+    raise initial_exception
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/models/auto/image_processing_auto.py", line 619, in from_pretrained
+    config_dict, _ = ImageProcessingMixin.get_image_processor_dict(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/shared/voxscribe-real-env/lib/python3.12/site-packages/transformers/image_processing_base.py", line 330, in get_image_processor_dict
+    raise OSError(
+OSError: Can't load image processor for 'facebook/dinov2-with-registers-small'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'facebook/dinov2-with-registers-small' is the correct path to a directory containing a preprocessor_config.json file
+{
+  "command": [
+    "subspace-env/bin/python",
+    "scripts/subspacead_official_capture.py",
+    "--dataset_name",
+    "visa",
+    "--dataset_path",
+    "/workspace/shared/cv-baseline-runs/data/visa_micro/1cls",
+    "--categories",
+    "pcb1",
+    "--model_ckpt",
+    "facebook/dinov2-with-registers-small",
+    "--image_res",
+    "224",
+    "--layers=-4,-5,-6,-7",
+    "--k_shot",
+    "1",
+    "--aug_count",
+    "0",
+    "--batch_size",
+    "1",
+    "--pca_ev",
+    "0.99",
+    "--seed",
+    "42",
+    "--agg_method",
+    "mean",
+    "--outdir",
+    "/workspace/shared/cv-baseline-runs/outputs/subspacead_visa3/official"
+  ],
+  "started_utc": "2026-10-18T17:24:34.367320+00:00",
+  "finished_utc": "2026-10-18T17:24:44.703887+00:00",
+  "elapsed_seconds": 10.336585226999887,
+  "exit_code": 1,
+  "max_rss_mib": 496.5859375,
+  "user_cpu_seconds": 8.668228,
+  "system_cpu_seconds": 1.832767
+}
