@@ -1,0 +1,26 @@
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/loma_hardmatch_sample.py",
+    "--data-root",
+    "data/hardmatch",
+    "--out",
+    "outputs/loma_hardmatch_3",
+    "--count",
+    "3",
+    "--side",
+    "224",
+    "--keypoints",
+    "256",
+    "--threads",
+    "4"
+  ],
+  "started_utc": "2026-10-18T16:56:55.209609+00:00",
+  "finished_utc": "2026-10-18T16:57:05.307714+00:00",
+  "elapsed_seconds": 10.09811860300033,
+  "exit_code": 0,
+  "max_rss_mib": 985.93359375,
+  "user_cpu_seconds": 16.445893,
+  "system_cpu_seconds": 0.8031109999999999
+}

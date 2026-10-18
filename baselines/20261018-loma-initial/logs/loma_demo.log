@@ -1,0 +1,38 @@
+{
+  "status": "smoke_completed",
+  "device": "cpu",
+  "variant": "b128",
+  "input_side": 224,
+  "keypoints": 256,
+  "matches": 38,
+  "load_seconds": 2.8411406589984836,
+  "first_pair_seconds": 0.7092834350005432,
+  "torch_version": "2.14.1+cpu",
+  "note": "No ground-truth accuracy measured. Single cold pair; not steady-state latency."
+}
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/loma_smoke.py",
+    "--variant",
+    "b128",
+    "--side",
+    "224",
+    "--keypoints",
+    "256",
+    "--left",
+    "sources/LoMa/assets/toronto_A.jpg",
+    "--right",
+    "sources/LoMa/assets/toronto_B.jpg",
+    "--out",
+    "outputs/loma_demo/result.json"
+  ],
+  "started_utc": "2026-10-18T16:56:35.566593+00:00",
+  "finished_utc": "2026-10-18T16:56:42.464229+00:00",
+  "elapsed_seconds": 6.897664814001473,
+  "exit_code": 0,
+  "max_rss_mib": 983.34765625,
+  "user_cpu_seconds": 8.745989,
+  "system_cpu_seconds": 1.022416
+}

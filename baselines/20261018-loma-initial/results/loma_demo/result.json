@@ -1,0 +1,12 @@
+{
+  "status": "smoke_completed",
+  "device": "cpu",
+  "variant": "b128",
+  "input_side": 224,
+  "keypoints": 256,
+  "matches": 38,
+  "load_seconds": 2.8411406589984836,
+  "first_pair_seconds": 0.7092834350005432,
+  "torch_version": "2.14.1+cpu",
+  "note": "No ground-truth accuracy measured. Single cold pair; not steady-state latency."
+}

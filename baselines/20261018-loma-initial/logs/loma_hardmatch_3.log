@@ -1,0 +1,95 @@
+Built 99 HardMatch val pairs from data/hardmatch.
+{"index": 0, "pair": "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058", "categories": ["outdoor", "illumination", "viewpoint", "building"], "matches": 53, "estimated_F": true, "used_official_fallback_F": false, "match_seconds": 0.702057654998498, "mAA_10px": 0.048951052129268646, "median_gt_epipolar_error_px": 55.73605712950742, "files_prefix": "00_val000"}
+{"index": 1, "pair": "bell_tower/Denny_Chimes/pair_00052", "categories": ["outdoor", "building"], "matches": 105, "estimated_F": true, "used_official_fallback_F": false, "match_seconds": 0.7290855909996026, "mAA_10px": 0.8333333730697632, "median_gt_epipolar_error_px": 1.0714373931742887, "files_prefix": "01_val001"}
+{"index": 2, "pair": "bell_tower/Denny_Chimes/pair_00053", "categories": ["outdoor", "building"], "matches": 62, "estimated_F": true, "used_official_fallback_F": false, "match_seconds": 0.6493409499998961, "mAA_10px": 0.4909090995788574, "median_gt_epipolar_error_px": 2.706482388837732, "files_prefix": "02_val002"}
+{
+  "status": "sample_smoke_completed",
+  "split": "val",
+  "samples": 3,
+  "variant": "LoMaB128",
+  "side": 224,
+  "keypoints": 256,
+  "device": "cpu",
+  "mAA_10px": 0.457731157541275,
+  "scoring": "Official HardMatch symmetric epipolar errors and mean fractions over thresholds 0..10px",
+  "note": "Reduced-resolution few-pair smoke, not the 900-pair test benchmark or paper reproduction. No direct pointwise match-error ground truth is implied by this F evaluation.",
+  "torch_version": "2.14.1+cpu",
+  "opencv_version": "5.0.0",
+  "threads": 4,
+  "max_rss_mib": 985.93359375,
+  "pairs": [
+    {
+      "index": 0,
+      "pair": "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058",
+      "categories": [
+        "outdoor",
+        "illumination",
+        "viewpoint",
+        "building"
+      ],
+      "matches": 53,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 0.702057654998498,
+      "mAA_10px": 0.048951052129268646,
+      "median_gt_epipolar_error_px": 55.73605712950742,
+      "files_prefix": "00_val000"
+    },
+    {
+      "index": 1,
+      "pair": "bell_tower/Denny_Chimes/pair_00052",
+      "categories": [
+        "outdoor",
+        "building"
+      ],
+      "matches": 105,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 0.7290855909996026,
+      "mAA_10px": 0.8333333730697632,
+      "median_gt_epipolar_error_px": 1.0714373931742887,
+      "files_prefix": "01_val001"
+    },
+    {
+      "index": 2,
+      "pair": "bell_tower/Denny_Chimes/pair_00053",
+      "categories": [
+        "outdoor",
+        "building"
+      ],
+      "matches": 62,
+      "estimated_F": true,
+      "used_official_fallback_F": false,
+      "match_seconds": 0.6493409499998961,
+      "mAA_10px": 0.4909090995788574,
+      "median_gt_epipolar_error_px": 2.706482388837732,
+      "files_prefix": "02_val002"
+    }
+  ]
+}
+{
+  "command": [
+    "env/bin/python",
+    "-u",
+    "scripts/loma_hardmatch_sample.py",
+    "--data-root",
+    "data/hardmatch",
+    "--out",
+    "outputs/loma_hardmatch_3",
+    "--count",
+    "3",
+    "--side",
+    "224",
+    "--keypoints",
+    "256",
+    "--threads",
+    "4"
+  ],
+  "started_utc": "2026-10-18T16:56:55.209609+00:00",
+  "finished_utc": "2026-10-18T16:57:05.307714+00:00",
+  "elapsed_seconds": 10.09811860300033,
+  "exit_code": 0,
+  "max_rss_mib": 985.93359375,
+  "user_cpu_seconds": 16.445893,
+  "system_cpu_seconds": 0.8031109999999999
+}
