@@ -1,0 +1,210 @@
+{
+  "title": "计算机视觉开题PPT合集",
+  "date": "2026-10-18",
+  "deck_count": 9,
+  "slide_count": 89,
+  "binary_delivery": "原生附件：本合集PPTX/PDF及各题独立恢复ZIP",
+  "github_delivery": "文本源：逐页JSON、研究JSON、ArtifactTool JavaScript和实验说明；不宣称PPTX/PDF二进制已在GitHub",
+  "decks": [
+    {
+      "number": 1,
+      "id": "loma_repetition",
+      "title": "建筑立面复拍的重复数量感知匹配",
+      "status": "候选",
+      "slide_count": 10,
+      "revision": "v3",
+      "pptx": "01_loma_repetition/loma_repetition.pptx",
+      "pdf": "01_loma_repetition/loma_repetition.pdf",
+      "github_text_source_directory": "presentations/loma_repetition",
+      "recovery_zip": "loma_repetition-v3-recovery.zip"
+    },
+    {
+      "number": 2,
+      "id": "motion_irregular_time_tapnext",
+      "title": "机器人突发丢帧下的时间间隔感知跟踪",
+      "status": "候选",
+      "slide_count": 9,
+      "revision": "v1",
+      "pptx": "02_motion_irregular_time_tapnext/motion_irregular_time_tapnext.pptx",
+      "pdf": "02_motion_irregular_time_tapnext/motion_irregular_time_tapnext.pdf",
+      "github_text_source_directory": "presentations/motion_irregular_time_tapnext",
+      "recovery_zip": "motion_irregular_time_tapnext-v1-recovery.zip"
+    },
+    {
+      "number": 3,
+      "id": "anycalib_crop_model_selection",
+      "title": "来源不明广角照片的裁切一致相机模型选择",
+      "status": "候选",
+      "slide_count": 10,
+      "revision": "v2",
+      "pptx": "03_anycalib_crop_model_selection/anycalib_crop_model_selection.pptx",
+      "pdf": "03_anycalib_crop_model_selection/anycalib_crop_model_selection.pdf",
+      "github_text_source_directory": "presentations/anycalib_crop_model_selection",
+      "recovery_zip": "anycalib_crop_model_selection-v2-recovery.zip"
+    },
+    {
+      "number": 4,
+      "id": "d2dewarp_target_page",
+      "title": "复杂桌面背景下的目标文档去弯曲",
+      "status": "条件候选",
+      "slide_count": 10,
+      "revision": "v3",
+      "pptx": "04_d2dewarp_target_page/d2dewarp_target_page.pptx",
+      "pdf": "04_d2dewarp_target_page/d2dewarp_target_page.pdf",
+      "github_text_source_directory": "presentations/d2dewarp_target_page",
+      "recovery_zip": "d2dewarp_target_page-v3-recovery.zip"
+    },
+    {
+      "number": 5,
+      "id": "zeroplane_visible_boundaries",
+      "title": "室内数字化中的有限平面边界恢复",
+      "status": "条件候选",
+      "slide_count": 10,
+      "revision": "v2",
+      "pptx": "05_zeroplane_visible_boundaries/zeroplane_visible_boundaries.pptx",
+      "pdf": "05_zeroplane_visible_boundaries/zeroplane_visible_boundaries.pdf",
+      "github_text_source_directory": "presentations/zeroplane_visible_boundaries",
+      "recovery_zip": "zeroplane_visible_boundaries-v2-recovery.zip"
+    },
+    {
+      "number": 6,
+      "id": "seegroup_surface_sets",
+      "title": "玻璃隔断场景中的多层表面连续解码",
+      "status": "候选",
+      "slide_count": 10,
+      "revision": "v2",
+      "pptx": "06_seegroup_surface_sets/seegroup_surface_sets.pptx",
+      "pdf": "06_seegroup_surface_sets/seegroup_surface_sets.pdf",
+      "github_text_source_directory": "presentations/seegroup_surface_sets",
+      "recovery_zip": "seegroup_surface_sets-v2-recovery.zip"
+    },
+    {
+      "number": 7,
+      "id": "conceptpose_observable_concepts",
+      "title": "遮挡物体重定位的几何可观测概念选择",
+      "status": "候选",
+      "slide_count": 10,
+      "revision": "v2",
+      "pptx": "07_conceptpose_observable_concepts/conceptpose_observable_concepts.pptx",
+      "pdf": "07_conceptpose_observable_concepts/conceptpose_observable_concepts.pdf",
+      "github_text_source_directory": "presentations/conceptpose_observable_concepts",
+      "recovery_zip": "conceptpose_observable_concepts-v2-recovery.zip"
+    },
+    {
+      "number": 8,
+      "id": "unreflect_observation_constraint",
+      "title": "亮面商品拍摄的观测约束高光去除",
+      "status": "候选",
+      "slide_count": 10,
+      "revision": "v2",
+      "pptx": "08_unreflect_observation_constraint/unreflect_observation_constraint.pptx",
+      "pdf": "08_unreflect_observation_constraint/unreflect_observation_constraint.pdf",
+      "github_text_source_directory": "presentations/unreflect_observation_constraint",
+      "recovery_zip": "unreflect_observation_constraint-v2-recovery.zip"
+    },
+    {
+      "number": 9,
+      "id": "subspacead_microdefect_phase",
+      "title": "少样本PCB微缺陷的Patch相位诊断与预算化复检",
+      "status": "机制诊断备选",
+      "slide_count": 10,
+      "revision": "v1",
+      "pptx": "09_subspacead_microdefect_phase/subspacead_microdefect_phase.pptx",
+      "pdf": "09_subspacead_microdefect_phase/subspacead_microdefect_phase.pdf",
+      "github_text_source_directory": "presentations/subspacead_microdefect_phase",
+      "recovery_zip": "subspacead_microdefect_phase-v1-recovery.zip"
+    }
+  ],
+  "files": [
+    {
+      "path": "01_loma_repetition/loma_repetition.pptx",
+      "bytes": 3305281,
+      "sha256": "72b77710a30a80b767798d02e456467ec860a88cc16b8b4759e6357333f4a717"
+    },
+    {
+      "path": "01_loma_repetition/loma_repetition.pdf",
+      "bytes": 1044047,
+      "sha256": "6508f8918494f8adbcefd78be0e3d5961c9ed62d9b2807b6c124807f444da8b5"
+    },
+    {
+      "path": "02_motion_irregular_time_tapnext/motion_irregular_time_tapnext.pptx",
+      "bytes": 2150593,
+      "sha256": "73731a2c7205d19de7320cc21ce906a2f27f85798bdc791431e8447d91e01cb5"
+    },
+    {
+      "path": "02_motion_irregular_time_tapnext/motion_irregular_time_tapnext.pdf",
+      "bytes": 891997,
+      "sha256": "d42ae5b91e20878de9b18b886a028b37955609b29e681aaeb914daa418690f69"
+    },
+    {
+      "path": "03_anycalib_crop_model_selection/anycalib_crop_model_selection.pptx",
+      "bytes": 1685603,
+      "sha256": "0a4a82c68b1847979a17d9cd3921803643f43b0c582d76e605babcafbd6e2f99"
+    },
+    {
+      "path": "03_anycalib_crop_model_selection/anycalib_crop_model_selection.pdf",
+      "bytes": 898614,
+      "sha256": "b0611f1324a9d43e380a478933c6275dcc1e38238fcbf1e55342d582ef6ef829"
+    },
+    {
+      "path": "04_d2dewarp_target_page/d2dewarp_target_page.pptx",
+      "bytes": 442578,
+      "sha256": "037e92c3ba88707eb9d1b8bddc5eb939d2d6c8e73981d1677349ba368f6a2953"
+    },
+    {
+      "path": "04_d2dewarp_target_page/d2dewarp_target_page.pdf",
+      "bytes": 529232,
+      "sha256": "2a6f364808da7ff59300099bae1207d2429374a9dd7a75215c69f789fe997828"
+    },
+    {
+      "path": "05_zeroplane_visible_boundaries/zeroplane_visible_boundaries.pptx",
+      "bytes": 4717590,
+      "sha256": "d1409cee0ee781b21568493fa97f706db30a895fef13c8f1c8017a3386516c8b"
+    },
+    {
+      "path": "05_zeroplane_visible_boundaries/zeroplane_visible_boundaries.pdf",
+      "bytes": 1016606,
+      "sha256": "7c58c9f0130b2cf7fd881199988ebf18a5da58713f3514b4804bb336d45cd783"
+    },
+    {
+      "path": "06_seegroup_surface_sets/seegroup_surface_sets.pptx",
+      "bytes": 327978,
+      "sha256": "5c5857b673953bcb16d3c140c4ae36703be2d759360b636820a04a587836b5ee"
+    },
+    {
+      "path": "06_seegroup_surface_sets/seegroup_surface_sets.pdf",
+      "bytes": 422325,
+      "sha256": "029b53349a839842bf537a0111f3047c03564f34d8063602e410eed1482e66df"
+    },
+    {
+      "path": "07_conceptpose_observable_concepts/conceptpose_observable_concepts.pptx",
+      "bytes": 128988,
+      "sha256": "eeb1e26db6ac5a0f7ae0f398aeb84ae227304b30b504b164b202dd1df550c282"
+    },
+    {
+      "path": "07_conceptpose_observable_concepts/conceptpose_observable_concepts.pdf",
+      "bytes": 440362,
+      "sha256": "36a93eb61e30219f38891fc1dc82a9d5f60435a862085f731c852c8efdf17a0f"
+    },
+    {
+      "path": "08_unreflect_observation_constraint/unreflect_observation_constraint.pptx",
+      "bytes": 491170,
+      "sha256": "795e95582956930aa8904488795ebd91a8028e67122e25c77958898b7155b020"
+    },
+    {
+      "path": "08_unreflect_observation_constraint/unreflect_observation_constraint.pdf",
+      "bytes": 479126,
+      "sha256": "fa6dfc9f32a590e457ed1a5316e76f48fd8058845c578965baaff014dd65b16a"
+    },
+    {
+      "path": "09_subspacead_microdefect_phase/subspacead_microdefect_phase.pptx",
+      "bytes": 3289775,
+      "sha256": "f18e50d288922837b924296261187ff7850551303bd41df6844d51c895f60b26"
+    },
+    {
+      "path": "09_subspacead_microdefect_phase/subspacead_microdefect_phase.pdf",
+      "bytes": 1009912,
+      "sha256": "3208bc721f9ea89000008d93674e9b1937e2913b3d629a1a5e46ec1dbd047446"
+    }
+  ]
+}

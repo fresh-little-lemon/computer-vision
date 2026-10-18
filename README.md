@@ -91,7 +91,22 @@
 
 ## PPT与材料状态
 
-LoMa选题10页PPT已交付，[源码与证据](presentations/loma_repetition/README.md)已发布。TAPNext选题9页PPT/PDF/ZIP已交付，[源码与证据](presentations/motion_irregular_time_tapnext/README.md)已发布；AnyCalib及其余候选的PPT正在渲染检查，SubspaceAD按机制诊断备选展示。完成发布后补入对应链接。已有基线材料包含真实预测、可视化、环境信息和来源说明。
+**9题开题PPT已全部制作完成，共89页：8份10页、TAPNext一份9页。** 每题提供可编辑PPTX、PDF、逐页预览和独立恢复ZIP，另提供仅含PPTX/PDF的9题合集ZIP。
+
+PPTX、PDF、图片预览及ZIP通过对话原生附件交付；本GitHub仓库保存逐页内容、生成代码、研究说明和实验记录等文本源。下表链接均为仓库文本源目录，不表示PPT/PDF二进制已上传仓库。
+
+| 选题 | 页数 | 状态 | 文本源 |
+|---|---:|---|---|
+| 建筑立面复拍的重复数量感知匹配 | 10 | 候选 | [说明与源码](presentations/loma_repetition/README.md) |
+| 机器人突发丢帧下的时间间隔感知跟踪 | 9 | 候选 | [说明与源码](presentations/motion_irregular_time_tapnext/README.md) |
+| 来源不明广角照片的裁切一致相机模型选择 | 10 | 候选 | [说明与源码](presentations/anycalib_crop_model_selection/README.md) |
+| 复杂桌面背景下的目标文档去弯曲 | 10 | 条件候选 | [说明与源码](presentations/d2dewarp_target_page/README.md) |
+| 室内数字化中的有限平面边界恢复 | 10 | 条件候选 | [说明与源码](presentations/zeroplane_visible_boundaries/README.md) |
+| 玻璃隔断场景中的多层表面连续解码 | 10 | 候选 | [说明与源码](presentations/seegroup_surface_sets/README.md) |
+| 遮挡物体重定位的几何可观测概念选择 | 10 | 候选 | [说明与源码](presentations/conceptpose_observable_concepts/README.md) |
+| 亮面商品拍摄的观测约束高光去除 | 10 | 候选 | [说明与源码](presentations/unreflect_observation_constraint/README.md) |
+| 少样本PCB微缺陷的Patch相位诊断与预算化复检 | 10 | 机制诊断备选 | [说明与源码](presentations/subspacead_microdefect_phase/README.md) |
+
+LoMa、TAPNext++、AnyCalib和SubspaceAD已纳入真实CPU小样本输出；新增方法及消融结果尚待开展。D2Dewarp、ZeroPlane为条件候选，SubspaceAD为机制诊断备选。
 
 代码、模型权重、数据图像及第三方组件分别遵循各自许可。仓库记录官方下载入口与归属信息，模型和完整数据集由原作者提供。
-
