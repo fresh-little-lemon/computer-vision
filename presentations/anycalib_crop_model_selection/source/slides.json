@@ -1,0 +1,522 @@
+{
+  "id": "anycalib_crop_model_selection",
+  "slides": [
+    {
+      "layout": "cover",
+      "context": "计算机视觉课程 · 课题开题",
+      "title": "来源不明广角照片的\n裁切一致相机模型选择",
+      "subtitle": "基于 AnyCalib 的单图相机族选择与几何约束研究",
+      "notes": "研究计划。AnyCalib为ICCV2025主会论文，已经支持裁切、拉伸和多种相机模型。题目聚焦相机族未知时的选择及可见域几何歧义。当前完成已知pinhole单图CPU基线，拟议机制尚待实验。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "旧照片进入建模流程时，标定信息常缺失",
+      "subtitle": "建筑巡检与实景建模，需要当前照片的像素到射线映射",
+      "images": [
+        {
+          "path": "assets/input_thumbnail.png",
+          "caption": "LaMAR2k真实城市图像，95419735117.jpg，CC BY4.0",
+          "x": 66,
+          "y": 181,
+          "w": 330,
+          "h": 440
+        }
+      ],
+      "texts": [
+        {
+          "text": "输入",
+          "x": 448,
+          "y": 185,
+          "w": 160,
+          "h": 45,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "一张 RGB；相机族未知\n可生成变换已知的裁切视图",
+          "x": 448,
+          "y": 244,
+          "w": 730,
+          "h": 92,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "输出",
+          "x": 448,
+          "y": 371,
+          "w": 160,
+          "h": 45,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "当前图域内参、相机族与射线映射\n同时给出近似等价的候选模型",
+          "x": 448,
+          "y": 430,
+          "w": 730,
+          "h": 98,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "应用：去畸变、照片对齐与后续 SfM",
+          "x": 448,
+          "y": 570,
+          "w": 730,
+          "h": 60,
+          "size": 28,
+          "bold": true,
+          "color": "#243B53"
+        }
+      ],
+      "sourceLabel": "场景示例：LaMAR2k / LaMAR，CC BY4.0；本次真实运行输入",
+      "notes": "左图是公开LaMAR2k首条样本，用于展示真实建筑采集场景。该图的原始相机族和内参可用于评价，题目运行时不输入真值相机族。数字裁切只提供同一图像的已知变换，不增加独立真实视角。当前图域标定与原始传感器尺寸恢复分别定义；本题评价前者。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "LaMAR2k官方子集",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip"
+        },
+        {
+          "title": "LaMAR源数据与许可",
+          "url": "https://github.com/microsoft/lamar-benchmark"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "AnyCalib：先预测射线，再拟合相机模型",
+      "subtitle": "ICCV 2025 主会 · 冻结通用几何表征后，模型选择成为独立问题",
+      "images": [
+        {
+          "path": "assets/method.png",
+          "caption": "AnyCalib作者方法图",
+          "x": 64,
+          "y": 184,
+          "w": 1144,
+          "h": 206
+        }
+      ],
+      "texts": [
+        {
+          "text": "网络预测",
+          "x": 66,
+          "y": 433,
+          "w": 210,
+          "h": 50,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "DINOv2 + 解码器预测视场表示，再转为单位射线",
+          "x": 300,
+          "y": 433,
+          "w": 900,
+          "h": 90,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "几何拟合",
+          "x": 66,
+          "y": 538,
+          "w": 210,
+          "h": 50,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "调用者给定 cam_id，拟合该相机族的内参",
+          "x": 300,
+          "y": 538,
+          "w": 900,
+          "h": 90,
+          "size": 28,
+          "bold": false,
+          "color": "#243B53"
+        }
+      ],
+      "sourceLabel": "方法图：Tirado-Garin等，AnyCalib，ICCV2025；作者官方仓库",
+      "notes": "作者流程已有多相机族拟合、裁切与拉伸图像标定、Gauss-Newton/LM和内参信息矩阵。通用模型anycalib_gen采用约320M参数。官方predict(image, cam_id)指定相机族。这里的技术入口是从候选族中选择，而非重新实现既有拟合器。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "官方方法图",
+          "url": "https://raw.githubusercontent.com/javrtg/AnyCalib/main/assets/method.png"
+        },
+        {
+          "title": "预训练接口",
+          "url": "https://github.com/javrtg/AnyCalib/blob/main/anycalib/model/anycalib_pretrained.py"
+        }
+      ]
+    },
+    {
+      "layout": "question",
+      "title": "一个局部拟合良好的模型，能否跨裁切保持一致？",
+      "subtitle": "候选族：pinhole、radial:1、kb:4、ucm",
+      "question": "同一照片的已知数字变换，\n能否帮助识别不稳定的相机族选择？",
+      "hypothesis": "研究假设：联合像素变换约束与空间留出评价，\n可改善边缘射线精度，并减少不合理畸变",
+      "definition": "多个模型在可见图域内近似等价时，输出候选集合；以射线几何质量作为主要判据。",
+      "notes": "真实缺口尚待诊断：窄视野与非中心裁切可能使单图拟合残差偏向自由度较高的模型，并造成跨裁切选择波动。假设中的增益必须通过等编码预算的多裁切平均和单图BIC对照检验。候选族集合在实验前固定。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "近期选模方法与本题的比较位置",
+      "subtitle": "本题聚焦单张自然图像、已知数字变换与未知相机族的联合几何选择",
+      "headers": [
+        "近邻工作",
+        "已经覆盖",
+        "本题要检验的差异"
+      ],
+      "rows": [
+        [
+          "AnyCalib\nICCV2025",
+          "多相机族拟合\n裁切与拉伸标定",
+          "运行时自动选族\n及可见域歧义"
+        ],
+        [
+          "Generalized Calibration\nSensors Journal2025",
+          "多张标定目标图\nBIC选择模型",
+          "自然图像的\n空间留出约束"
+        ],
+        [
+          "Automatic Calibration\n2026预印本",
+          "独立标定板图\n选择畸变阶数",
+          "相关合成视图\n带来的实际增益"
+        ],
+        [
+          "Perspective Fields\nCVPR2023",
+          "裁切、缩放等变\n几何表示",
+          "等变约束如何\n改善模型选择"
+        ]
+      ],
+      "widths": [
+        390,
+        355,
+        399
+      ],
+      "fontSize": 26,
+      "height": 394,
+      "takeaway": "关键对照：单图 BIC，以及相同推理预算的简单多裁切平均",
+      "notes": "近邻：Generalized Camera Calibration DOI10.1109/JSEN.2025.3581377，使用多张标定图像；Automatic Reproducible Camera Intrinsic Calibration为2026预印本，正式会议未核。Perspective Fields已覆盖编辑等变表征。另有AnyCam-MCT（2026硕士论文/开源模型）聚合多个真实帧，本题仅用一个源图像。创新以同协议实验的机制收益为判断依据。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "Generalized Camera Calibration",
+          "url": "https://doi.org/10.1109/JSEN.2025.3581377"
+        },
+        {
+          "title": "Automatic Reproducible Camera Intrinsic Calibration",
+          "url": "https://arxiv.org/abs/2609.10082"
+        },
+        {
+          "title": "Perspective Fields",
+          "url": "https://arxiv.org/abs/2212.03239"
+        },
+        {
+          "title": "AnyCam-MCT硕士论文/开源模型",
+          "url": "https://huggingface.co/thekman17/anycam-mct"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟改进：把多视图预测绑定为一个几何模型",
+      "subtitle": "冻结 AnyCalib，新增无需训练的选择与约束求解模块",
+      "items": [
+        {
+          "label": "生成与缓存",
+          "text": "原图加 2–3 个非中心裁切，保留边界信息\n记录精确像素变换，并缓存各视图射线"
+        },
+        {
+          "label": "联合拟合",
+          "text": "将各视图射线映射回原坐标\n焦距与主点随已知裁切、缩放变换绑定"
+        },
+        {
+          "label": "留出与约束",
+          "text": "联合空间留出角残差、一致性和模型复杂度\n加入正焦距与投影单调约束"
+        },
+        {
+          "label": "保留歧义",
+          "text": "近似等价的模型保留为候选集合\n报告边缘射线质量和下游去畸变效果"
+        }
+      ],
+      "rowOptions": {
+        "bodySize": 28,
+        "gap": 112,
+        "labelW": 210
+      },
+      "notes": "候选模型参数是各裁切共同几何的变换，不对每个裁切完全独立拟合后投票。空间留出区域与拟合区域按原图坐标分组，避免重叠像素在训练和留出间重复。先比较训练自由版本；将复杂度、物理约束和多裁切各部分分别消融。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "数据划分按源图像和相机隔离",
+      "subtitle": "真实图像检验选模；数字变换提供可控诊断",
+      "bodySize": 27,
+      "left": {
+        "title": "公开数据与用途",
+        "text": "LaMAR2k：真实图与标定\n官方子集约 400MB\n\nLaMAR2k edited：约 224MB\n检查裁切与拉伸变体\n\nMonoVO2k：约 445MB\n补充畸变相机外部验证"
+      },
+      "right": {
+        "title": "固定协议与资源",
+        "text": "先取 20–50 张独立真实图\n同源裁切归入同一划分\n\n已知相机族只作参考上界\n主比较统一为未知相机族\n\ngen 与 edit 分别报告\n冻结网络，缓存后在 CPU 选模"
+      },
+      "sourceLabel": "数据：LaMAR2k / LaMAR2k edited / MonoVO2k；沿用官方划分与评价",
+      "notes": "LaMAR2k与edited为官方数据入口；数字变换图共享源图，不作为独立样本扩充统计量。按相机/场景隔离开发与测试，优化超参数仅使用开发组。anycalib_edit只训练编辑透视图像，畸变与裁切组合需单列。CPU可完成小样本和拟合；批量推理按8–12GB GPU初步规划，实际GPU资源待测。",
+      "sources": [
+        {
+          "title": "LaMAR2k",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip"
+        },
+        {
+          "title": "edited直接下载",
+          "url": "https://drive.google.com/uc?id=1h2HThhQbvqZlMw0OdpF7Y73wodeZMmdj"
+        },
+        {
+          "title": "MonoVO2k直接下载",
+          "url": "https://drive.google.com/uc?id=18rQ-WZcxXogeBqMwWvSkxVVEmZ9C12BZ"
+        },
+        {
+          "title": "权重gen",
+          "url": "https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_gen.pt"
+        },
+        {
+          "title": "许可",
+          "url": "https://github.com/javrtg/AnyCalib/blob/main/LICENSE"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "官方基线已完成一张真实图像的 CPU 运行",
+      "subtitle": "LaMAR首条记录 · 已知 pinhole · 官方 gen 与原预处理",
+      "images": [
+        {
+          "path": "assets/real_calibration_demo.png",
+          "caption": "实际输入、网络射线场与拟合相机角误差；本仓库运行结果",
+          "x": 64,
+          "y": 193,
+          "w": 766,
+          "h": 383
+        }
+      ],
+      "texts": [
+        {
+          "text": "2.592 秒",
+          "x": 860,
+          "y": 190,
+          "w": 348,
+          "h": 54,
+          "size": 36,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "前向；加载 3.640 秒\n峰值 RSS 2759 MiB",
+          "x": 860,
+          "y": 251,
+          "w": 348,
+          "h": 86,
+          "size": 26,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "2.454% / 0.454°",
+          "x": 860,
+          "y": 375,
+          "w": 348,
+          "h": 54,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "最大相对焦距误差\n拟合相机平均射线角误差",
+          "x": 860,
+          "y": 438,
+          "w": 348,
+          "h": 91,
+          "size": 26,
+          "bold": false,
+          "color": "#243B53"
+        },
+        {
+          "text": "单图标定已完成；未知相机族选择与裁切一致性实验待进行",
+          "x": 66,
+          "y": 606,
+          "w": 1140,
+          "h": 55,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "实际运行：CPU FP32 / 4线程 / 95419735117.jpg；2026-10-18",
+      "notes": "源代码commit027a8497d893f4b2596f23d6324c05e4b81064ed，官方anycalib_gen约320.26M参数。输入1920×1440，内部364×280，Python3.12.14、torch2.14.1+cpu。前向2.592438922s，加载3.639581327s，外部进程峰值2758.5546875MiB。最大相对焦距误差0.0245360155，平均射线角误差0.453592211°，vfov误差1.203266144°。角误差是拟合pinhole相机相对GT的完整原分辨率像素网格误差，非网络射线场直接误差。官方loader根据vfov和center构建GT；raw_prediction.npz独立回读重算一致。该图为官方CSV首条，未按质量挑选。无裁切、无未知模型选择、无新增算法。发布前缀baselines/20261018-anycalib-lamar1/，本地结果可追溯。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "LaMAR2k",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "以同推理预算区分选择机制与普通集成",
+      "subtitle": "主要指标：可见域射线角误差，尤其是边缘与尾部",
+      "headers": [
+        "实验组",
+        "比较方法",
+        "读出指标"
+      ],
+      "rows": [
+        [
+          "未知族单图",
+          "最小残差 / BIC\n已知族参考",
+          "角误差中位数与尾部\n物理无效率"
+        ],
+        [
+          "等编码预算",
+          "多裁切简单平均\n多尺度平均 / 本方法",
+          "边缘角误差\n每图时间与内存"
+        ],
+        [
+          "机制消融",
+          "留出 / 复杂度\n单调性 / 联合绑定",
+          "跨裁切一致性\n模型歧义率"
+        ],
+        [
+          "外部测试",
+          "相机 / 场景留出\n中心与非中心裁切",
+          "焦距与主点误差\n畸变分组失败案例"
+        ]
+      ],
+      "widths": [
+        285,
+        430,
+        429
+      ],
+      "fontSize": 26,
+      "height": 394,
+      "takeaway": "判断收益来源：约束是否超过简单平均，且在独立真实图像上成立",
+      "notes": "同一原图各方法使用相同候选族、相同到达图像和相同编码次数；known-family oracle单列。研究模型名正确率时同时考虑可见域射线等价。报告每图而非每裁切的统计区间。完整集评价使用官方协议，几何后处理耗时和网络前向分别报告。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "实施安排与预期结果",
+      "subtitle": "预期产物是可复跑的几何选择模块与分组评价",
+      "items": [
+        {
+          "label": "基线 · 已完成",
+          "text": "完成真实单图 CPU 推理和官方指标重算\n保留原始预测与可复现配置"
+        },
+        {
+          "label": "选模诊断",
+          "text": "在 20–50 张真实图上检查跨裁切选模波动\n分析边缘误差与相机族等价情形"
+        },
+        {
+          "label": "方法原型",
+          "text": "实现共同几何绑定与空间留出选择\n完成相同推理预算的简单方法对照"
+        },
+        {
+          "label": "外部评价",
+          "text": "扩展独立相机与场景，报告消融及失败案例\n形成几何选择模块与去畸变演示"
+        }
+      ],
+      "rowOptions": {
+        "bodySize": 28,
+        "gap": 112,
+        "labelW": 224
+      },
+      "notes": "阶段2将决定是否推进完整选模算法。如果观察到的收益仅来自简单平均，项目结论聚焦误差诊断及基线分析。候选机制的性能与新颖性以实验证据和持续近邻审查为依据。首版训练自由，公开代码与权重链接、数据来源和许可分别记录。",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        }
+      ]
+    }
+  ]
+}

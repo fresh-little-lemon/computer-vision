@@ -1,0 +1,38 @@
+{
+  "status": "prepared",
+  "source_commit": "027a8497d893f4b2596f23d6324c05e4b81064ed",
+  "model": "anycalib_gen",
+  "camera_family_supplied": "pinhole",
+  "sample_index": 0,
+  "selection": "First row of official images.csv; no quality-based selection",
+  "sample_id": "95419735117.jpg",
+  "source_image_sha256": "6ab47190dabd5ee438de5028ef8458c6c0b5b968cd67df16a7dcbe55d096071d",
+  "csv_row": {
+    "": "51",
+    "fname": "95419735117.jpg",
+    "roll": "-0.0240078138375894",
+    "pitch": "-0.3160744492346362",
+    "vfov": "1.0835048515254593",
+    "height": "1920.0",
+    "width": "1440.0"
+  },
+  "original_size": [
+    1920,
+    1440
+  ],
+  "ground_truth_intrinsics": [
+    1595.1767578125,
+    1595.1767578125,
+    720.0,
+    960.0
+  ],
+  "ground_truth_derivation": "Official load_csv_openpano_format: fx=fy=(H/2)/tan(vfov/2), cx=W/2, cy=H/2",
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "python": "3.12.14",
+  "torch_version": "2.14.1+cpu",
+  "seed": 0,
+  "full_benchmark": false,
+  "automatic_camera_model_selection": false
+}

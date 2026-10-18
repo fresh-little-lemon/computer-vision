@@ -1,0 +1,352 @@
+{
+  "id": "d2dewarp_target_page",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "复杂桌面背景下的\n目标文档去弯曲",
+      "subtitle": "基于 D2Dewarp 的页面条件化线图与拓扑约束研究",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "研究计划。面向手机拍摄文档时，背景印刷页干扰目标页去弯曲的问题。使用一次页面点击指定研究对象，冻结视觉网络，研究结构选择和几何修正。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "title": "背景文字会进入目标页的去弯曲结果",
+      "subtitle": "手机扫描教材、报表与资料时，桌面上可能同时出现多张印刷页",
+      "asset": {
+        "path": "assets/d2_fig7_badcase_hires.png",
+        "caption": "D2Dewarp Figure 7原论文失败案例"
+      },
+      "frame": {
+        "x": 64,
+        "y": 210,
+        "w": 740,
+        "h": 355
+      },
+      "sideText": "原论文观察\n背景文字触发错误横线\n\n任务输入\nRGB 照片与页内点击\n\n任务输出\n目标页的平整图像",
+      "caption": "作者示例：输入、水平线、垂直线和去弯曲结果",
+      "sourceLabel": "Li et al., D2Dewarp, CVPR 2026，Figure 7",
+      "notes": "该图来自原论文第8页Figure7，图内红色虚线圈为作者标注。Bad Case Analysis明确说明背景文字导致错误水平线预测、前景隔离失败及输出残留背景。这里展示的是原论文观察，拟议方法的效果将在后续实验验证。图为PDF指定区域渲染，保留原图内容。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "title": "D2Dewarp 用双方向线结构学习变形",
+      "subtitle": "CVPR 2026 主会，公开推理代码与预训练权重",
+      "asset": {
+        "path": "assets/d2-figure2-hires.png",
+        "caption": "D2Dewarp官方整体架构"
+      },
+      "frame": {
+        "x": 64,
+        "y": 184,
+        "w": 744,
+        "h": 405
+      },
+      "sideText": "学习表示\n水平线与垂直线\n\n几何输出\nBackward map\n\n研究接口\n线概率图与变形网格",
+      "sourceLabel": "Li et al., D2Dewarp, CVPR 2026，官方模型示意图",
+      "notes": "原基线已经包含水平与垂直线预测和特征融合。官方predict.py返回pred_h_lst、pred_v_lst与pred_bm，提供本题所需结构与变形接口。研究阶段冻结预训练模型。 图像从官方PDF第3页Figure2区域高清渲染，排除图注正文，图内容未改。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "相关方法已经解决了哪些问题",
+      "headers": [
+        "方法",
+        "已有处理",
+        "本题研究位置"
+      ],
+      "rows": [
+        [
+          "D2Dewarp\nCVPR 2026",
+          "双方向线预测与融合\n学习非刚性文档变形",
+          "区分目标页线条\n与背景页线条"
+        ],
+        [
+          "ForCenNet\nICCV 2025",
+          "前景中心表示\n曲率一致性",
+          "比较页面实例线图\n与前景裁剪的作用"
+        ],
+        [
+          "DocMatcher\nWACV 2025",
+          "结构与文本线匹配\n利用已知参考模板",
+          "研究无模板输入\n页面点击指定目标"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 181,
+      "height": 365,
+      "fontSize": 24,
+      "notes": "本题的具体切口为页面实例条件化的结构选择。前景分割、曲率正则及一般线匹配均有前作，需要作为对照。最终差异由同一点击信息下的简单分割裁剪对照检验。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        },
+        {
+          "title": "ForCenNet, ICCV 2025",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Cai_ForCenNet_Foreground-Centric_Network_for_Document_Image_Rectification_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "DocMatcher, WACV 2025",
+          "url": "https://openaccess.thecvf.com/content/WACV2025/html/Hertlein_DocMatcher_Document_Image_Dewarping_via_Structural_and_Textual_Line_Matching_WACV_2025_paper.html"
+        }
+      ],
+      "takeaway": "比较重点：相同页面点击下，结构选择能否进一步改善去弯曲？",
+      "takeawayY": 588
+    },
+    {
+      "layout": "question",
+      "title": "研究问题：让变形只作用于目标纸面",
+      "question": "一次页内点击，能否帮助线图\n排除背景文字，并保持页面排版顺序？",
+      "questionSize": 42,
+      "hypothesis": "研究假设：线条连通性与纸张边界能够共同约束目标页变形域，\n减少跨页面结构混入",
+      "definition": "输入限定为单张照片与一个点击点。推理无需平整参考图",
+      "notes": "点击仅指定目标页身份。拟先在复杂背景子集验证该机制，再检查简单背景是否保持原基线质量。目标区域及背景文字区域需少量人工标注。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究方法：线图筛选与局部变形修正",
+      "items": [
+        {
+          "label": "目标页种子",
+          "text": "由点击附近的线条交点建立种子\n保留冻结网络输出的线概率与原始网格"
+        },
+        {
+          "label": "页面结构选择",
+          "text": "按线方向、交点顺序和页边界构图\n对穿越纸张边界的连接施加惩罚"
+        },
+        {
+          "label": "低维残差变形",
+          "text": "在目标页内拟合 B-spline 残差\n结合预测保真、交点顺序和正 Jacobian"
+        },
+        {
+          "label": "重采样输出",
+          "text": "输出目标页图像及网格质量检查\n记录背景保留率与文字可读性"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "以上为拟实现方法。先实现训练自由的线图选择及低维几何优化。B-spline残差相对原Backward map作局部修正，Jacobian项约束网格翻转。一般光滑性与拓扑正则是已有工具，本题检验的是页面实例结构选择与它们的组合效果。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "真实拍摄数据与评价方案",
+      "left": {
+        "title": "公开真实文档",
+        "text": "DocUNet：130 张实拍\n配对平整扫描图\n\nDIR300：300 张实拍\n作为跨数据集验证\n\n预先标记复杂背景子集\n统一生成页内点击位置"
+      },
+      "right": {
+        "title": "几何与阅读质量",
+        "text": "MS-SSIM、Local Distortion\n沿用公开评估代码\n\nOCR 字符错误率与编辑距离\n固定 OCR 模型与版本\n\n背景文字保留率、页面覆盖率\n正 Jacobian 比例与额外耗时"
+      },
+      "bodySize": 25,
+      "sourceLabel": "数据：DocUNet / DocGeoNet；主结果与复杂背景子集分开报告",
+      "notes": "DocUNet实拍crop与scan可直接下载。DIR300为作者公开Drive目录。DocUNet第64对照片与GT存在180度方向差异，所有方法采用同一预处理。先检查原始照片是否提供足够多页背景样本，再预先划分验证和测试子集。公开数据没有本题全部页面实例标注，需要为目标子集额外画多边形。论文还报告AD，但本次尚未定位独立AD脚本，正式主指标优先使用已核验脚本的MS-SSIM、LD、CER、ED。",
+      "sources": [
+        {
+          "title": "DocUNet真实数据",
+          "url": "https://www3.cs.stonybrook.edu/~cvl/docunet.html"
+        },
+        {
+          "title": "DocUNet实拍下载",
+          "url": "http://vision.cs.stonybrook.edu/~kema/docwarp/crop.zip"
+        },
+        {
+          "title": "DocGeoNet数据与评估",
+          "url": "https://github.com/fh2019ustc/DocGeoNet"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "实验将区分页面选择与几何修正的作用",
+      "headers": [
+        "实验",
+        "对照设置",
+        "回答的问题"
+      ],
+      "rows": [
+        [
+          "页面选择",
+          "原基线、点击分割加裁剪\n页面条件化线图",
+          "结构选择是否超越\n简单页面裁剪"
+        ],
+        [
+          "变形约束",
+          "仅线图、仅残差变形\n完整方法",
+          "收益来自结构选择\n还是几何优化"
+        ],
+        [
+          "模块消融",
+          "交点顺序、边界惩罚\nJacobian 约束分别移除",
+          "哪些约束改善结果\n哪些约束只是增加计算"
+        ],
+        [
+          "泛化测试",
+          "点击位置扰动\n简单背景与复杂背景",
+          "对交互误差是否敏感\n其他页面是否退化"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 172,
+      "height": 409,
+      "fontSize": 24,
+      "notes": "固定主干、图像尺寸、点击信息与OCR系统，仅在验证集选择参数。所有对照获得相同点击点。先完成简单裁剪对照，再决定是否需要更复杂的图优化。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ],
+      "takeaway": "同一输入与点击，统一图像尺寸、OCR 系统和参数选择流程",
+      "takeawayY": 606
+    },
+    {
+      "layout": "rows",
+      "title": "实验平台与课程知识对应",
+      "items": [
+        {
+          "label": "视觉学习",
+          "text": "使用公开预训练模型与冻结特征\n对比学习表示和后续几何约束的作用"
+        },
+        {
+          "label": "图像几何",
+          "text": "逆映射、非刚性配准与图像重采样\nB-spline 变形与 Jacobian 拓扑检查"
+        },
+        {
+          "label": "经典视觉",
+          "text": "线检测、连通图与页面边界\n图割或图优化完成结构选择"
+        },
+        {
+          "label": "实验平台",
+          "text": "单卡 GPU 批量推理，CPU 完成图优化\n公开几何评估工具与固定 OCR 环境"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "模型权重在作者公开Drive目录中，单文件展示大小862.7MB。平台为计划配置，正式运行时间与内存由基线测量确定。数据下载、设备适配和软件版本记录在独立可行性说明中。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟四周安排与预期产物",
+      "items": [
+        {
+          "label": "第 1 周",
+          "text": "复现基线与复杂背景案例\n完成公开数据协议和点击裁剪对照"
+        },
+        {
+          "label": "第 2 周",
+          "text": "实现页面种子与线图选择\n检查跨页面误连和漏选情况"
+        },
+        {
+          "label": "第 3 周",
+          "text": "加入低维残差变形\n完成各约束与交互误差消融"
+        },
+        {
+          "label": "第 4 周",
+          "text": "完成几何、OCR 与运行成本评估\n制作目标页数字化演示与失败案例分析"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "预期产物是可复现的复杂背景文档评价、页面条件化的结构选择模块和课程演示。方法的有效范围及改善幅度由实验给出。",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ],
+      "sourceLabel": "预期产物：复杂背景诊断、页面结构选择、可复现文档去弯曲评价"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "file": "d2-figure2-hires.png",
+    "title": "D2Dewarp Figure 2",
+    "author": "Li et al.",
+    "source": "https://openaccess.thecvf.com/content/CVPR2026/papers/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.pdf",
+    "modification": "官方PDF第3页Figure2区域渲染，图内容未改"
+  },
+  {
+    "file": "d2_fig7_badcase_hires.png",
+    "title": "D2Dewarp Figure 7",
+    "author": "Li et al.",
+    "source": "https://openaccess.thecvf.com/content/CVPR2026/papers/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.pdf",
+    "modification": "官方PDF第8页Figure7区域渲染，图内容未改"
+  }
+]

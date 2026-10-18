@@ -1,0 +1,263 @@
+{
+  "id": "d2dewarp_target_page",
+  "title": "复杂桌面背景下的目标文档去弯曲：基于页面条件化线图与拓扑约束的D2Dewarp改进",
+  "priority": "A：最新主会、失败案例明确、场景可解释；创新为待验证假设",
+  "real_scenario": "学生拍教材、研究者拍资料、办公室拍报表时，目标纸张下方常有其他印刷页。背景文字可能被当作目标页线条，导致去弯曲结果残留背景或拉扯页面。允许用户在目标页点一下，明确任务对象。",
+  "target_users": [
+    "手机扫描资料的学生",
+    "办公室纸质文档数字化人员"
+  ],
+  "input_output_scope": {
+    "input": "一张真实拍摄RGB文档照片＋目标页内部1个点击点；无模板、无真实平整图作为推理输入",
+    "output": "目标页的矩形去弯曲图、目标页区域、H/V线连通可视化、网格fold-over检查",
+    "excluded": "不做OCR大模型训练、不恢复被遮住的文字、不声称全自动区分多张无边界叠页"
+  },
+  "baselinepaper": {
+    "name": "D2Dewarp: Dual Dimensions Geometric Representation Learning Based Document Image Dewarping",
+    "conference": "CVPR 2026 主会",
+    "year": 2026,
+    "status": "已由CVF正式论文页确认，pp.34734–34744；2025 arXiv是预印本时间",
+    "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html",
+    "pdf": "https://openaccess.thecvf.com/content/CVPR2026/papers/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.pdf",
+    "code": "https://github.com/xiaomore/D2Dewarp",
+    "weights": "https://drive.google.com/drive/folders/1gv0lLaZWlUt1tX7EJDaVhtFhmV-ewQox?usp=sharing",
+    "weights_mirror": "https://pan.baidu.com/s/1qnHjy3-ANlrrgjc7hac3Bg?pwd=2cut",
+    "weights_file_url": "https://drive.google.com/file/d/1KcVaW0CfP5YJv6DZQ9EFzRuE9h9x40ij/view",
+    "weights_file_id": "1KcVaW0CfP5YJv6DZQ9EFzRuE9h9x40ij",
+    "weights_download_command": "gdown 1KcVaW0CfP5YJv6DZQ9EFzRuE9h9x40ij -O model_weight.pt",
+    "weights_verified": "公开model目录GET200，单文件名model_weight.pt，Google Drive展示862.7 MB；未下载，不承诺gdown成功。",
+    "source_snapshot": {
+      "repository": "xiaomore/D2Dewarp",
+      "sha": "1105c0f0e44404d9a8dedb78f689078dba42221c",
+      "commit_url": "https://github.com/xiaomore/D2Dewarp/commit/1105c0f0e44404d9a8dedb78f689078dba42221c",
+      "committed_at": "2026-06-25T11:40:24Z"
+    }
+  },
+  "known_failure": {
+    "evidence": "原论文第8页Fig.7及Bad Case Analysis明确报告：背景文字引发错误H-Line分割，前景隔离失败，输出残留背景。不是本次臆测",
+    "source": "https://openaccess.thecvf.com/content/CVPR2026/papers/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.pdf",
+    "not_claimed": "尚未在本环境独立复现失败，也未证明所提方法优于基线"
+  },
+  "recent_competitors_gap": [
+    {
+      "name": "D2Dewarp",
+      "year": 2026,
+      "status": "CVPR主会",
+      "covered": "双方向H/V线预测、融合；不能再声称“新增垂直线”是创新",
+      "gap": "没有用户指定目标页实例；Fig.7的背景文字干扰可作为明确起点"
+    },
+    {
+      "name": "ForCenNet",
+      "year": 2025,
+      "status": "ICCV主会",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Cai_ForCenNet_Foreground-Centric_Network_for_Document_Image_Rectification_ICCV_2025_paper.pdf",
+      "covered": "前景mask和曲率一致性，泛加前景/曲率loss已被覆盖",
+      "gap": "本题是1点指定页面实例后，按H/V交点连通与页面边界共同筛选，必须和简单mask前置裁剪公平比较"
+    },
+    {
+      "name": "DocMatcher",
+      "year": 2025,
+      "status": "WACV主会，仅近邻，不当满足用户顶会门槛的主基线",
+      "url": "https://openaccess.thecvf.com/content/WACV2025/html/Hertlein_DocMatcher_Document_Image_Dewarping_via_Structural_and_Textual_Line_Matching_WACV_2025_paper.html",
+      "covered": "已知模板的结构/文本线匹配",
+      "gap": "本题无模板，点击只指定页面身份"
+    }
+  ],
+  "research_question": "目标页身份未知导致的线条污染，能否用一个页面内部点击、H/V线交点图及闭合页面边界共同约束，使D2Dewarp的去弯曲域只覆盖目标纸面，同时保持文字/表格线的相对顺序？",
+  "proposed_steps": [
+    {
+      "step": 1,
+      "mechanism": "冻结D2Dewarp，保存原始H/V线概率图和backward map；通过点击附近的线条交点建立种子，提取与其几何连续的线段图",
+      "why": "把所有文字区域区分为页面实例，不直接按“像文字”与否判前景"
+    },
+    {
+      "step": 2,
+      "mechanism": "图边由线方向平滑性、交点行列顺序和纸张边界穿越惩罚决定；优化目标页连通子图。与GrabCut/点击分割+裁剪比较",
+      "why": "专门抵抗另一张纸上的平行文本被错误连入"
+    },
+    {
+      "step": 3,
+      "mechanism": "仅对目标页区域拟合低自由度B-spline残差warp；损失包含原预测保真、选中H/V交点的顺序、网格正Jacobian和页边界一致性",
+      "why": "保持局部排版拓扑，避免修正过程中网格翻转；不把已有一般光滑正则当新贡献"
+    },
+    {
+      "step": 4,
+      "mechanism": "先实现完全训练free后处理；只有验证切口后才考虑冻结主干训练轻量实例门控头",
+      "why": "课程不需要重训114K合成数据的大模型"
+    }
+  ],
+  "hypothesis": "页面条件化的结构选择比全图前景增强更直接降低背景文本误连；改善应主要发生于多页背景子集，干净背景不能显著退化。此为待验证假设，非已证创新。",
+  "datasets": [
+    {
+      "name": "DocUNet真实测试集",
+      "real": true,
+      "size": "130张实拍；官方crop 281MB，scan 416MB",
+      "download_url": "http://vision.cs.stonybrook.edu/~kema/docwarp/crop.zip",
+      "ground_truth_url": "http://vision.cs.stonybrook.edu/~kema/docwarp/scan.zip",
+      "source": "https://www3.cs.stonybrook.edu/~cvl/docunet.html",
+      "license": "官方页面未见可直接断言的完整图像许可；课程研究按作者说明使用，不公开重分发；非需从零训练数据",
+      "download_verification": {
+        "http_status": 200,
+        "size_bytes": 294741912,
+        "ground_truth_size_bytes": 436458210,
+        "warning": "HTTP原链可达；HTTPS变体本次502，不应擅自改协议后宣称可用"
+      },
+      "original_full_photos_url": "http://vision.cs.stonybrook.edu/~kema/docwarp/original.zip",
+      "evaluation_orientation_caveat": "DocGeoNet说明64_1/64_2与GT相差180度。评测前按同一协议修正/核对，所有方法一致；不得只修正某方法。"
+    },
+    {
+      "name": "DIR300真实测试集",
+      "real": true,
+      "size": "300张",
+      "download_url": "https://drive.google.com/drive/folders/1yySouQQ3BlH7OjnUhq4CLuvpX2KXtifX?usp=sharing",
+      "source": "https://github.com/fh2019ustc/DocGeoNet",
+      "license": "需遵守源数据许可；此为作者正式文件夹链接，尚未验证文件级匿名下载"
+    },
+    {
+      "name": "DocReal真实中文测试集",
+      "real": true,
+      "size": "200张",
+      "download_url": "https://drive.google.com/file/d/1fxdUMMCQoTxc-THv1LmO-Ye8XjMyPK--/view?usp=drive_link",
+      "source": "https://github.com/irisXcoding/DocReal",
+      "license": "数据可下载；不把该仓未公开的DocReal算法代码说成已公开",
+      "download_verification": "作者公开链接已确认，本次GET返回429；文件未下载，不能写已可用。"
+    },
+    {
+      "name": "DocDewarpHV可选训练集",
+      "real": false,
+      "download_url": "https://github.com/xiaomore/DocDewarpHV",
+      "use": "仅可选门控头训练；不是本题真实评估集"
+    }
+  ],
+  "evaluation": {
+    "official_metrics": [
+      "MS-SSIM↑",
+      "Local Distortion(LD)↓",
+      "Aligned Distortion(AD)↓",
+      "OCR字符错误率CER↓",
+      "OCR编辑距离ED↓"
+    ],
+    "official_scripts": [
+      "https://github.com/fh2019ustc/DocGeoNet/blob/main/ssim_ld_eval_DocUNet.m",
+      "https://github.com/fh2019ustc/DocGeoNet/blob/main/ssim_ld_eval_DIR300.m",
+      "https://github.com/fh2019ustc/DocGeoNet/blob/main/OCR_eval_DocUNet.py",
+      "https://github.com/fh2019ustc/DocGeoNet/blob/main/OCR_eval_DIR300.py",
+      "http://vision.cs.stonybrook.edu/~kema/docwarp/eval.zip"
+    ],
+    "additional_metrics": [
+      "背景文字保留面积率↓",
+      "目标页面覆盖率↑",
+      "正Jacobian比例↑",
+      "每图额外耗时"
+    ],
+    "protocol": "先冻结原始公开测试集；另人工标记多页/背景文字干扰子集，不使用结果挑难例。点击由目标页mask内点统一采样，并报告±扰动敏感性；训练调参不能看测试OCR GT。",
+    "controls": [
+      "原始D2Dewarp",
+      "点击分割/GrabCut+裁剪+D2Dewarp",
+      "仅页面线图筛选",
+      "仅残差warp约束",
+      "完整方法",
+      "ForCenNet可运行版本（依其资源发布状态）"
+    ],
+    "ablation": [
+      "去掉交点顺序约束",
+      "去掉边界穿越项",
+      "去掉Jacobian项",
+      "点击位置扰动",
+      "简单背景与复杂背景分层"
+    ],
+    "script_coverage": "已GET200的DocGeoNet MATLAB脚本覆盖MS-SSIM/LD，OCR脚本覆盖CER/ED；D2Dewarp论文报告AD，但独立AD脚本尚未定位，不把前两项脚本冒充AD实现。",
+    "annotation_budget": "页面实例mask和背景文字干扰标签并非现成全部提供。先人工查看原始照片，独立预选30–50张并画目标页多边形/背景文字区域；不足时缩小研究结论，不能宣称数据集中已有充分多页难例。点击由该mask内统一规则生成，标注/调参/最终测试分开。"
+  },
+  "baseline_minimal_command": "git clone https://github.com/xiaomore/D2Dewarp.git\ncd D2Dewarp\nmkdir -p outputs\npython predict.py --model_path /path/model_weight.pt --img_path /path/DocUNet/crop --save_path outputs",
+  "resources": {
+    "course_plan": "冻结权重推理+CPU图优化；不要求重训D2Dewarp。推荐单卡GPU做批量基线，具体显存需实际测量",
+    "cpu_status": "官方predict.py硬编码CUDA设备3和.cuda()；不能原样在无GPU环境运行。CPU版需要显式设备映射适配，尚未实测。",
+    "evaluation_dependency": "原论文MS-SSIM/LD/AD采用MATLAB R2019a；OCR官方环境为Windows Tesseract5.0.1.20220118+pytesseract0.3.8，中文PaddleOCR DBNet detv4_teacher_inference + SVTR_LCNet OCRv4_rec_server_infer。替代版本须另报非精确作者环境。",
+    "license": "仓README标CC BY-NC-ND4.0。私有课程实验可研究，但公开发布改编代码/权重需先检查许可证与联系作者；不要宣称MIT",
+    "weight_size": "Google Drive显示862.7 MB；只是磁盘文件大小，不是推理显存/内存需求"
+  },
+  "course_algorithms": [
+    "图像形成与透视投影",
+    "边缘和线检测",
+    "图割/最短路径/连通图",
+    "非刚性图像配准与B-spline变形",
+    "图像重采样与逆映射",
+    "雅可比与拓扑保持",
+    "学习特征与几何约束结合"
+  ],
+  "phases": [
+    {
+      "time": "第1周",
+      "deliverable": "跑通官方权重，复现原图与去弯曲图，整理背景文字失败子集"
+    },
+    {
+      "time": "第2周",
+      "deliverable": "页面点击与线图选择；先完成简单裁剪对照"
+    },
+    {
+      "time": "第3周",
+      "deliverable": "低维warp修正与全部消融"
+    },
+    {
+      "time": "第4周",
+      "deliverable": "OCR/几何指标、显存时延、失败案例、答辩演示"
+    }
+  ],
+  "visual_assets": [
+    {
+      "url": "https://raw.githubusercontent.com/xiaomore/D2Dewarp/main/images/model1.jpeg",
+      "caption": "D2Dewarp整体架构，引用Li et al., CVPR2026",
+      "usage": "作为基线解释图；拟议模块另色标注，不伪装成论文原图的一部分"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xiaomore/D2Dewarp/main/images/model2.jpeg",
+      "caption": "论文H/V融合模块，已有方法"
+    },
+    {
+      "page_1based": 8,
+      "caption": "Fig.7原论文明确失败：背景文字干扰；已渲染并目视确认第8页版面，可裁取左侧Fig.7并引用",
+      "rendered_local_path": "d2_p8_failure.png"
+    }
+  ],
+  "figure_logic": "左：桌面目标页及背景文字，黄色点表示目标页点击；中：全图H/V线→按目标页连通图筛选（背景灰色、目标蓝色）；右：原warp与修正warp网格及OCR区域对比。所有改善结果未获得时用流程示意，禁止生成虚假实验结果。",
+  "run_evidence": {
+    "status": "未跑",
+    "verified": "已读正式论文、官方README和predict.py；权重链接来自官方仓；Drive单文件ID和862.7MB展示已定位；DocUNet crop/scan/eval HEAD200；四个评估脚本GET200",
+    "unknown": "权重文件实际下载、GPU/CPU运行、精确显存、指标改善均未确认"
+  },
+  "novelty_caveat": "查重覆盖D2Dewarp/ForCenNet/DocMatcher等主干近邻；尚未证明目标页线图方案全球首创。若简单点击裁剪已达到同样效果，应收缩为应用验证或放弃。",
+  "research_checked_at": "2026-10-18 UTC",
+  "evidence_boundary": "论文与源码阅读/公开资源可达性核验；未运行模型，未验证拟议创新有效性。HTTP 200不等于文件完整性校验或成功复现。",
+  "assets": [
+    {
+      "path": "assets/d2_fig7_badcase_hires.png",
+      "caption": "D2Dewarp Figure 7原论文失败案例",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    },
+    {
+      "path": "assets/d2-figure2-hires.png",
+      "caption": "D2Dewarp官方整体架构",
+      "sources": [
+        {
+          "title": "Li et al., D2Dewarp, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Li_D2Dewarp_Dual_Dimensions_Geometric_Representation_Learning_Based_Document_Image_Dewarping_CVPR_2026_paper.html"
+        },
+        {
+          "title": "D2Dewarp官方代码与权重",
+          "url": "https://github.com/xiaomore/D2Dewarp"
+        }
+      ]
+    }
+  ],
+  "candidate_status": "条件收录；需完成官方基线与复杂背景诊断"
+}

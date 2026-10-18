@@ -1,0 +1,152 @@
+{
+  "id": "anycalib_crop_model_selection",
+  "title": "面向来源不明广角照片的裁切一致相机模型选择",
+  "slide_count": 10,
+  "revision": "v2",
+  "package_root": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection",
+  "recommended_repository_prefix": "presentations/anycalib_crop_model_selection",
+  "primary_files": [
+    "presentations/anycalib_crop_model_selection/anycalib_crop_model_selection.pptx",
+    "presentations/anycalib_crop_model_selection/anycalib_crop_model_selection.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/README.md",
+      "relative_path": "presentations/anycalib_crop_model_selection/README.md",
+      "size_bytes": 1508,
+      "sha256": "9384ca4dedbef584d5bc52b7aa38a1c47cbc4a3474b9be110a3eba1913f92ca8"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/anycalib_crop_model_selection.pdf",
+      "relative_path": "presentations/anycalib_crop_model_selection/anycalib_crop_model_selection.pdf",
+      "size_bytes": 898614,
+      "sha256": "b0611f1324a9d43e380a478933c6275dcc1e38238fcbf1e55342d582ef6ef829"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/anycalib_crop_model_selection.pptx",
+      "relative_path": "presentations/anycalib_crop_model_selection/anycalib_crop_model_selection.pptx",
+      "size_bytes": 1685603,
+      "sha256": "0a4a82c68b1847979a17d9cd3921803643f43b0c582d76e605babcafbd6e2f99"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/assets/credits.json",
+      "relative_path": "presentations/anycalib_crop_model_selection/assets/credits.json",
+      "size_bytes": 755,
+      "sha256": "246f50767fae1d828e206405f724af54c6956bc6df216eca59257d5c4c49171f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/assets/input_thumbnail.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/assets/input_thumbnail.png",
+      "size_bytes": 393153,
+      "sha256": "63023183e1baaef6807d8982372d998ab8c9b401785bd95d202c9601019922ac"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/assets/method.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/assets/method.png",
+      "size_bytes": 485800,
+      "sha256": "b34d9da7b710a393f08a6f9166c41ca0194520309d270170b719d6a8049e9f21"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/assets/real_calibration_demo.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/assets/real_calibration_demo.png",
+      "size_bytes": 758860,
+      "sha256": "25f9cfbda0ffb92c3d3124205ce4b01406a30e9112ef9bf267d749634c5657ff"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/evidence/manifest.json",
+      "relative_path": "presentations/anycalib_crop_model_selection/evidence/manifest.json",
+      "size_bytes": 1049,
+      "sha256": "3a1abab630e736108ed8f5cf76c7919ea3e80e15ed25cc626505aafa76ab44b9"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/evidence/result.json",
+      "relative_path": "presentations/anycalib_crop_model_selection/evidence/result.json",
+      "size_bytes": 2696,
+      "sha256": "6c2489f2b3e76e322b4320d47f7428ffd005d1ee4a1f1a66a6bbfdc5597b600f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/preview.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/preview.png",
+      "size_bytes": 517686,
+      "sha256": "f766339349e2c4b05986eeac4e709a6af17c7433796842dce5e942e3e7f68b9f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-01.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-01.png",
+      "size_bytes": 96375,
+      "sha256": "5ce2fe2f331415064dfe752007994d30ca5cccd417dc7992d7c06c6f18f9315d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-02.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-02.png",
+      "size_bytes": 632863,
+      "sha256": "6143b8f06b4c4cd9d4ba2b766def490e164438cb609c29810d7bef8956518c73"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-03.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-03.png",
+      "size_bytes": 583497,
+      "sha256": "e12fb599c781fb540a3870ac417ee23416aaac588bccf41c5c0025dea255bd13"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-04.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-04.png",
+      "size_bytes": 192425,
+      "sha256": "3a9075d6ce608f7959280a91694b217c094f38d708d622d0d3f792be980e821e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-05.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-05.png",
+      "size_bytes": 294328,
+      "sha256": "76488c294cd68b107c311dc33354f6ec07a92fb59ca10053badbc2cfce9c6191"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-06.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-06.png",
+      "size_bytes": 252883,
+      "sha256": "ea1cdebb9b47f40af689f7c377657c85849d263b564b7ccdac95e1302dc8c8d1"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-07.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-07.png",
+      "size_bytes": 240664,
+      "sha256": "e9bab65731e9c2ffb70a4f9c52d18df777fe6d70a53143a0a5a8d9e9a337f47c"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-08.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-08.png",
+      "size_bytes": 581610,
+      "sha256": "faf26088207f7cdf57d04edff6e5c19df07f963e44af70694b130ec126aebb38"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-09.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-09.png",
+      "size_bytes": 257612,
+      "sha256": "cdf462b041eb4a94fe45bfb6c04a98ca209cc1f7c4c509e48f1eabfe2bbe7b9b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/previews/slide-10.png",
+      "relative_path": "presentations/anycalib_crop_model_selection/previews/slide-10.png",
+      "size_bytes": 224029,
+      "sha256": "d0d2eeb1928b474ff985ce78b830fa63facf217489f1f96f4bf7ea20dd36e8d3"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/source/build.mjs",
+      "relative_path": "presentations/anycalib_crop_model_selection/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/source/slides.json",
+      "relative_path": "presentations/anycalib_crop_model_selection/source/slides.json",
+      "size_bytes": 20466,
+      "sha256": "ba5b8139f505d127b886a4bdea5127cec54bee33bf4d73148b604574e6e4be8b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/anycalib_crop_model_selection/source/topic.json",
+      "relative_path": "presentations/anycalib_crop_model_selection/source/topic.json",
+      "size_bytes": 11510,
+      "sha256": "4ae0e5096ccc087d9f49bf417c1931b9ae761f322f40d9ab5cc5e0f64a350644"
+    }
+  ]
+}

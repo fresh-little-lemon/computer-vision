@@ -1,0 +1,22 @@
+[
+  {
+    "file": "method.png",
+    "title": "AnyCalib official method figure",
+    "author": "Tirado-Garin et al.",
+    "source": "https://github.com/javrtg/AnyCalib",
+    "use": "原作者方法介绍，非本次结果"
+  },
+  {
+    "files": [
+      "input_thumbnail.png",
+      "real_calibration_demo.png"
+    ],
+    "title": "LaMAR2k official first image and actual AnyCalib output",
+    "author": "LaMAR dataset authors; derived visualization from actual run",
+    "source": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "sample": "95419735117.jpg",
+    "modification": "缩放展示、官方模型预测及与GT角误差热图"
+  }
+]

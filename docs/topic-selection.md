@@ -1,21 +1,22 @@
 # 计算机视觉课程选题总表
 
-更新：2026-10-18。当前候选7项（含D2Dewarp与ZeroPlane两项条件收录），另有SubspaceAD机制诊断备选；备选与淘汰方向单列。所有拟议改进均处于机制设计或待验证阶段；已运行结果来自官方基线。
+更新：2026-10-18。当前候选8项（含D2Dewarp与ZeroPlane两项条件收录），另有SubspaceAD机制诊断备选；备选与淘汰方向单列。所有拟议改进均处于机制设计或待验证阶段；已运行结果来自官方基线。
 
 ## 决策总表
 
 | 编号 | 场景与选题 | 基线论文 | 基线实测状态 | 首轮资源 | 紧接着做什么 |
 |---|---|---|---|---|---|
-| C1 | 建筑立面复拍的重复数量感知匹配 | LoMa，ECCV2026 Oral | CPU真实3对完成 | 已测约1.55GiB RSS | 冻结评分的重复数量实验，再对真实裁切完整重跑 |
-| C2 | 机器人突发丢帧的时间感知点跟踪 | TAPNext，ICCV2025；TAPNext++，CVPR2026 Findings | CPU真实16帧单点完成 | 已测约3.68GiB RSS | 固定到达帧清单，对比均匀与突发丢帧 |
+| C1 | 建筑立面复拍的重复数量感知匹配 | LoMa，ECCV2026 Oral | CPU真实3对完成 | 已测1550MiB RSS | 冻结评分的重复数量实验，再对真实裁切完整重跑 |
+| C2 | 机器人突发丢帧的时间感知点跟踪 | TAPNext，ICCV2025；TAPNext++，CVPR2026 Findings | CPU真实16帧单点完成 | 已测3676MiB RSS | 固定到达帧清单，对比均匀与突发丢帧 |
 | C3 | 来源不明广角照片的相机族选择 | AnyCalib，ICCV2025 | CPU已知pinhole单图完成 | 已测约2759MiB RSS | 裁切后的选模与边缘偏差诊断 |
 | C4〔条件〕 | 复杂桌面目标页面去弯曲 | D2Dewarp，CVPR2026 | 官方失败案例已核，推理待测 | 推荐GPU；CPU需设备适配 | 取得权重、复现背景字干扰，核验改编发布许可 |
-| C5〔备选〕 | 少样本PCB微缺陷相位稳定检测 | SubspaceAD，CVPR2026 | 下载入口与小模型命令已核，待测 | CPU Small/224烟测；论文Giant/672分列 | 正常子空间固定后的0/3/7像素相位诊断 |
+| C5〔备选〕 | 少样本PCB微缺陷相位稳定检测 | SubspaceAD，CVPR2026 | CPU Small/224真实1+2张完成 | 已测697MiB RSS；论文Giant/672分列 | 正常子空间固定后的0/3/7像素相位诊断 |
 | C6〔条件〕 | 室内有限平面边界恢复 | ZeroPlane，CVPR2025 Highlight | 权重/数据可达，推理待测 | 7.106GB权重；先按16–24GB GPU规划 | 预定义接触/遮挡难例，检查基线错连是否显著 |
 | C7 | 玻璃隔断的多层表面连续解码 | SeeGroup，CVPR2026 Oral | 代码、权重元数据与真实数据已核 | 4.27GB权重；16GB级GPU规划 | 小样本层存在性与边界诊断 |
 | C8 | 遮挡物体重定位的概念选择 | ConceptPose，CVPR2026 | 官方资源已核，未运行 | 作者16GB GPU/48GB RAM | 固定LMO两对，检查三维支撑 |
+| C9 | 亮面商品的观测约束高光去除 | UnReflectAnything，CVPR2026 Oral | 代码/权重元数据已核，未运行 | 3.44GB权重；16GB GPU规划 | 核验PSD条款，真实双图推理与颜色残差诊断 |
 
-资源规划不等同实测下限。当前CPU运行结果的RSS包括模型及相关数据加载；GPU规划需经单图或单对检查确定。
+资源标注区分实测与规划。当前CPU结果的RSS包括模型及相关数据加载；GPU需求经单图或单对检查后更新。
 
 ## C1 建筑立面复拍的重复数量感知匹配
 
@@ -34,6 +35,8 @@
 | 真实数据 | [HardMatch ZIP](https://github.com/davnords/storage/releases/download/hardmatch/hardmatch.zip)，约660MB |
 | 官方协议 | [HardMatch代码与划分](https://github.com/davnords/HardMatch) |
 | 实跑记录 | [官方预处理3对实验](../baselines/20261018-loma-official-preprocess/README.md) |
+
+**数据版本。** [HardMatch官方说明](https://github.com/davnords/HardMatch)记录公开数据因许可替换约10对，当前公开demo的预期mAA为0.5061，与论文版本不同。公开新版本、论文报告和本次3对validation结果分别列示；跨方法比较固定同一归档哈希、数据清单和划分。
 
 **评价。** 官方种子1337按类别划分100对validation和900对test，按官方规则排除dynamic及GT不足的样本，保留有效样本清单。主指标mAA@10px；另报真对应候选保留率、几何失败率、候选边数和端到端耗时。F评分与点对点真值误差分别处理。对照原LoMa、top-k+MAGSAC、PTR、类级方案；重复类构造与归一化分别消融。
 
@@ -80,10 +83,11 @@
 | 权重 | [通用gen](https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_gen.pt)、[编辑edit](https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_edit.pt) |
 | 真实数据 | [LaMAR2k](https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip)，约400MB；[edited](https://drive.google.com/uc?id=1h2HThhQbvqZlMw0OdpF7Y73wodeZMmdj)，约224MB |
 | 畸变外部测试 | [MonoVO2k](https://drive.google.com/uc?id=18rQ-WZcxXogeBqMwWvSkxVVEmZ9C12BZ)，约445MB |
+| 实跑记录 | [已知pinhole单图实验](../baselines/20261018-anycalib-lamar1/README.md) |
 
 **评价。** 射线角误差中位数、尾部和边缘分区、焦距/主点误差、物理无效率及耗时。已知模型作为oracle参考，主比较为未知模型条件。多个模型在窄视野中可能等价，因此优先比较可见图域射线精度。anycalib_edit只训练编辑透视图像，畸变与裁切组合单列检查。
 
-**当前实测。** 官方gen与原预处理，LaMAR首CSV图95419735117.jpg，已知pinhole；CPU推理2.592秒、加载3.640秒，进程峰值约2759MiB。官方函数评分最大相对焦距误差2.454%、平均射线角0.454°、vfov误差1.203°。本次为已知模型单图标定，未知模型选择与跨裁切实验待进行。
+**当前实测。** 官方gen与原预处理，LaMAR首CSV图95419735117.jpg，已知pinhole；CPU推理2.592秒、加载3.640秒，进程峰值约2759MiB。官方函数评分最大相对焦距误差2.454%、拟合pinhole相机的平均射线角误差0.454°、vfov误差1.203°。本次为已知模型单图标定，未知模型选择与跨裁切实验待进行。
 
 **资源与下一步。** DINOv2-L、该图内部364×280；首版冻结网络与CPU优化。代码权重Apache-2.0，LaMAR数据CC BY4.0；MonoVO归档条款待核。下一步在20–50张独立真实图像验证选模不一致是否存在。
 
@@ -126,7 +130,9 @@
 
 **评价。** 图像AUROC/AUPR、像素AUROC、AU-PRO，另报微缺陷组件召回、热图逆映射一致性与总token预算。对照官方重叠patch、固定四相位均值/max、等预算全图高分辨率和候选复检。五seed固定支持图，所有PCB类别均报告；原始真实测试与派生相位扰动分开。
 
-**资源与状态。** 未执行推理。算法训练自由，仅使用冻结DINOv2权重和正常图PCA。CPU先用Small/224、batch1、少样本检查；该配置与论文Giant/672分开。作者论文实验用H100，正式Giant基准按GPU条件安排。下一步先测0/3/7像素相位效应，效应显著后再开发复检。
+**当前实测。** 官方源码未改，CPU四线程，DINOv2-registers-Small/224、mean层[-4,-5,-6,-7]、1shot、aug0、PCA99%（154维）、seed42。固定CSV首条：正常支持图0499.JPG；测试正常0107.JPG和异常000.JPG。热身后测试前向分别0.087083和0.080097秒；完整含下载与启动23.412秒，峰值RSS697.047MiB。异常图得分3.386228、正常图2.218978，定义为像素top1%均值，非概率。两测试图仅有52个GT阳性像素；完整集指标和相位机制待评价，复跑材料待发布。
+
+**资源与下一步。** 算法训练自由，仅使用冻结DINOv2权重和正常图PCA。此次Small/224与论文Giant/672配置分别报告；作者论文使用H100，正式Giant基准按GPU条件安排。机制诊断备选状态保留。下一步先测0/3/7像素相位效应，效应显著后再开发复检。
 
 ## C6 室内有限平面边界恢复
 
@@ -151,9 +157,9 @@
 
 **真实用户与输入输出。** 室内玻璃隔断、展示柜和玻璃门同时呈现前景表面及后方物体。输入单张RGB，输出每像素的无序多层表面集合、存在性和相对深度关系。
 
-**研究机制。** 冻结SeeGroup四个Laplace分量，按归一化分量距离去重，在邻域间通过集合传输连接兼容表面，允许层出生和消失，并用RGB边缘调整连接代价。各通道的物理身份保持置换不变。原模型已有覆盖损失与梯度损失，拟研究测试时联合集合解码的独立作用。
+**已有解码与研究机制。** SeeGroup官方`get_depth`已经使用`valid_mask`过滤、移除depth≤0.02、排序，并按绝对差0.02去重。拟冻结四个Laplace分量，将已有绝对阈值替换为按分量尺度归一的兼容性判据，再通过邻域集合传输连接兼容表面，允许层出生和消失，并用RGB边缘调整连接代价。各通道的物理身份保持置换不变。原模型亦已有覆盖损失与梯度损失；拟议贡献限定为尺度归一判据与测试时邻域联合解码。
 
-**直接近邻。** [LayeredDepth，ICCV2025](https://arxiv.org/abs/2503.11633)已建立真实多层深度与tuple评价；[One Scene, Two Depths，ECCV2026](https://arxiv.org/abs/2606.29600)通过输入变换获取玻璃前后两种深度假设。不同数据集的tuple accuracy与ML-SRA分别报告。原SeeGroup解码、阈值扫描和简单边缘平滑是关键对照。
+**直接近邻。** [LayeredDepth，ICCV2025](https://arxiv.org/abs/2503.11633)已建立真实多层深度与tuple评价；[One Scene, Two Depths，ECCV2026](https://arxiv.org/abs/2606.29600)通过输入变换获取玻璃前后两种深度假设。不同数据集的tuple accuracy与ML-SRA分别报告。原SeeGroup完整`get_depth`解码、绝对阈值扫描、仅尺度归一及简单边缘平滑是关键对照。
 
 | 资源 | 链接 |
 |---|---|
@@ -173,19 +179,38 @@
 
 **研究机制。** 概念热图可能集中在同一部件，语义清晰但三维支撑重复。拟依据三维支撑的信息互补性选择K个概念，考虑单部件因遮挡失效后的可观测性。概念数量已有基线实验，本题比较相同K及相同实际时间预算的选择规则。
 
-**直接近邻。** [UNOPose，CVPR2025](https://github.com/shanice-l/UNOPose)、[OPT-Pose，CVPR2026](https://arxiv.org/abs/2603.23370)是单RGB-D参考位姿强基线；[LCVSP，2026预印本](https://arxiv.org/abs/2606.22076)已有跨视图语义与几何训练，正式会议及资源待核。已有训练方法的作者报告精度高于ConceptPose，本题目标为冻结模型、固定预算下的可观测性收益。
+**直接近邻。** [UNOPose，CVPR2025](https://github.com/shanice-l/UNOPose)、[OPT-Pose，CVPR2026](https://arxiv.org/abs/2603.23370)是单RGB-D参考位姿强基线；[LCVSP，2026预印本](https://arxiv.org/abs/2606.22076)已有跨视图语义与几何训练，正式会议未核，作者仓库注明代码/模型于接收后发布。已有训练方法的作者报告精度高于ConceptPose，本题目标为冻结模型、固定预算下的可观测性收益。
 
 | 资源 | 链接 |
 |---|---|
 | 论文 | [ConceptPose，CVPR2026](https://arxiv.org/abs/2512.09056) |
 | 作者代码 | [StevenKuang/concept-pose](https://github.com/StevenKuang/concept-pose) |
 | VLM权重 | [SigLIP2模型页](https://huggingface.co/google/siglip2-giant-opt-patch16-384)、[分片1](https://huggingface.co/google/siglip2-giant-opt-patch16-384/resolve/main/model-00001-of-00002.safetensors)、[分片2](https://huggingface.co/google/siglip2-giant-opt-patch16-384/resolve/main/model-00002-of-00002.safetensors) |
-| 真实LMO数据 | [测试图像](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_test_all.zip)、[基础标注](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_base.zip)、[物体模型](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_models.zip) |
-| 跨数据验证 | [REAL275](http://download.cs.stanford.edu/orion/nocs/real_test.zip)、[GT](http://download.cs.stanford.edu/orion/nocs/gts.zip)、[Oryon固定配对](https://github.com/jcorsetti/oryon/releases/download/v1.0.0-data/oryon_data.zip) |
+| 额外遮挡压力集LMO | [测试图像](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_test_all.zip)、[基础标注](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_base.zip)、[物体模型](https://huggingface.co/datasets/bop-benchmark/lmo/resolve/main/lmo_models.zip) |
+| 论文主协议素材与配对 | [REAL275](http://download.cs.stanford.edu/orion/nocs/real_test.zip)、[GT](http://download.cs.stanford.edu/orion/nocs/gts.zip)、[Oryon固定配对](https://github.com/jcorsetti/oryon/releases/download/v1.0.0-data/oryon_data.zip) |
 
-**评价。** ADD(-S) recall、BOP AR、对称性分层旋转/平移误差及K–精度和K–延迟曲线。对照完整20概念、配置15概念、随机K、热图能量top-K、语义多样性K与几何可观测K。固定mask、pair、RANSAC种子和迭代；参考预计算与在线耗时分列。
+**评价协议。** 论文主表对齐REAL275及Oryon/Horyon的固定cross-scene配对协议；LMO使用作者same-scene遮挡rebuttal配置，作为额外压力评估，两者分表记录。主指标ADD(-S) recall、对称性分层旋转/平移误差及K–精度和K–延迟曲线；LMO另报BOP AR。对照完整20概念、配置15概念、随机K、热图能量top-K、语义多样性K与几何可观测K。固定mask、pair、RANSAC种子和迭代；参考预计算与在线耗时分列。
 
 **资源与状态。** 尚未运行。作者报告使用RTX4060Ti16GB与48GB RAM、FP16。方案冻结VLM，参考概念离线缓存，需PyTorch3D等依赖。代码MIT，SigLIP2为Apache-2.0，LMO为CC-BY-SA-4.0；REAL275归档许可另核。下一步固定LMO两对并运行，再检查低可见率下的三维支撑退化。
+
+## C9 面向亮面商品拍摄的观测约束高光去除
+
+**真实用户与输入输出。** 商品摄影拍摄印刷包装、塑料器皿与釉面商品，需要消除高光并保留原有颜色和细纹理。输入单张普通RGB，输出漫反射图像、高光残差和饱和区域。核心对象为不透明电介质亮面材质，透明折射、彩色金属镜面和完全饱和区域单列分析。
+
+**研究机制。** 冻结UnReflectAnything，把漫反射输出作为先验。在线性RGB近似下用 `I=clip(D+s·l)` 建模局部反射：未饱和通道施加观测等式残差，饱和通道施加单侧截断约束；估计非负镜面分量与局部照明色度，并保留可见纹理梯度。研究目标是高光掩码内部尚可观测的颜色测量。
+
+**直接近邻。** [One-Step Specular Highlight Removal / ProbLoRA，ICCV2025](https://openaccess.thecvf.com/content/ICCV2025/papers/Atmis_One-Step_Specular_Highlight_Removal_with_Adapted_Diffusion_Models_ICCV_2025_paper.pdf)已有单步扩散去高光；[StableDelight](https://github.com/Stable-X/StableDelight)已有结构相似性和纹理锐度改进；UnReflectAnything官方已有掩码外原图composite。故关键对照是同一掩码、阈值/膨胀扫描、简单混合和传统二色分解，判断掩码内观测约束的独立作用。
+
+| 资源 | 链接 |
+|---|---|
+| 论文 | [UnReflectAnything，CVPR2026 Oral](https://arxiv.org/abs/2512.09583) |
+| 作者代码 | [alberto-rota/UnReflectAnything](https://github.com/alberto-rota/UnReflectAnything) |
+| 权重直链 | [full_model_weights.pt](https://huggingface.co/AlbeRota/UnReflectAnything/resolve/main/weights/full_model_weights.pt)，约3.44GB，当前HF文件元数据已核 |
+| 真实数据 | [PSD作者仓库](https://github.com/jianweiguo/SpecularityNet-PSD)、[作者归档下载](https://drive.google.com/file/d/1PUrUyUd1ys6pue8jPGchCGVdFBAf8eqg/view?usp=sharing)，13,380张真实图像、2,210场景 |
+
+**评价。** 全图、高光内、边界带和掩码外的PSNR/SSIM，另报ΔE00、纹理边缘保留、高光残差能量与延迟。按物理场景隔离，先固定100个适用材质留出场景；统一输入尺寸和色彩空间。消融饱和分通道约束、照明色度、预测先验和梯度项。偏振参考漫反射的残余误差纳入案例分析。
+
+**资源与状态。** HF当前3.44GB权重文件已核实存在；按[固定源码commit](https://github.com/alberto-rota/UnReflectAnything/tree/363ebb5c87d9f4f49b63f744fded8d3786a051b3)记录运行入口。该commit与当前权重的加载兼容性待实跑验证，尚未下载权重或推理。官方CLI有CPU选项；先按16GB单卡、batch1、约448输入规划，速度与显存待测。首版冻结模型，仅做轻量约束求解。代码MIT，DINOv3预训练部分单独遵循其模型许可。PSD作者公开下载，README独立数据许可未标，归档使用与再分发条款待核。下一步核验数据条款，完成两张真实图像推理，再检查未饱和残差是否对应颜色恢复空间。
 
 ## 备选与淘汰记录
 
@@ -204,7 +229,7 @@
 
 ## 证据与版本
 
-- 本表实测数值读取LoMa官方预处理3对summary、TAPNext++ 16帧result与AnyCalib单图result
+- 本表实测数值读取LoMa官方预处理3对summary、TAPNext++ 16帧result、AnyCalib单图result与SubspaceAD Small/224两测试图记录
 - 论文年份按正式会议区分；TAPNext++为CVPR2026 Findings，TAPNext为ICCV2025主会
 - 权重链接可达、脚本可导入、真实推理成功、完整指标复现、新方法有效是不同阶段，表内按实际完成阶段记录
 - 每次正式实验保存官方源码commit、环境、参数、数据清单、权重与数据哈希

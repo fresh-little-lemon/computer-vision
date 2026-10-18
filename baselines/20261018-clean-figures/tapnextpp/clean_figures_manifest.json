@@ -1,0 +1,19 @@
+{
+  "video": "bike-packing",
+  "source_frame_indices": [
+    0,
+    5,
+    10,
+    15
+  ],
+  "query_index": 0,
+  "gt_marker": "green cross",
+  "prediction_marker": "red circle",
+  "layout": "2x2 row-major:0,5,10,15",
+  "source": "Official TAP-Vid DAVIS archive",
+  "original_video": "https://www.youtube.com/watch?v=2JMcuDkvX8I",
+  "original_video_provenance": "Official archive tapvid_davis/SOURCES.md",
+  "annotation_license": "CC BY 4.0",
+  "video_license": "Original video owned by its creator; official TAPNet README states DAVIS source videos have creator-specific Creative Commons licenses. No exact YouTube license variant independently reverified.",
+  "scope": "Research result illustration, not dataset or video redistribution"
+}

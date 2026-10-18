@@ -1,0 +1,134 @@
+{
+  "id": "d2dewarp_target_page",
+  "title": "复杂桌面背景下的目标文档去弯曲：基于页面条件化线图与拓扑约束的D2Dewarp改进",
+  "slide_count": 10,
+  "revision": "v3",
+  "package_root": "/workspace/shared/cv-decks/publish/d2dewarp_target_page",
+  "recommended_repository_prefix": "presentations/d2dewarp_target_page",
+  "primary_files": [
+    "presentations/d2dewarp_target_page/d2dewarp_target_page.pptx",
+    "presentations/d2dewarp_target_page/d2dewarp_target_page.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/README.md",
+      "relative_path": "presentations/d2dewarp_target_page/README.md",
+      "size_bytes": 1413,
+      "sha256": "095eaefb15ce270355c87a002314d5668e482dee3a33141571e19cf5059dd5de"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/assets/credits.json",
+      "relative_path": "presentations/d2dewarp_target_page/assets/credits.json",
+      "size_bytes": 740,
+      "sha256": "0d9a8c2336f427b1ac9e07809b031775a1c5daeb98acc27bfb4da417981675e2"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/assets/d2-figure2-hires.png",
+      "relative_path": "presentations/d2dewarp_target_page/assets/d2-figure2-hires.png",
+      "size_bytes": 167284,
+      "sha256": "dd4c88937242ac9385aa842affc1e3b4ef692673a8a5777d02fa7f8f6cd48ae4"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/assets/d2_fig7_badcase_hires.png",
+      "relative_path": "presentations/d2dewarp_target_page/assets/d2_fig7_badcase_hires.png",
+      "size_bytes": 225527,
+      "sha256": "d5347a4ad963bf532bb009ddf4b8eca08e3004ae03a73c3d22d5ae8c0c905420"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/d2dewarp_target_page.pdf",
+      "relative_path": "presentations/d2dewarp_target_page/d2dewarp_target_page.pdf",
+      "size_bytes": 529232,
+      "sha256": "2a6f364808da7ff59300099bae1207d2429374a9dd7a75215c69f789fe997828"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/d2dewarp_target_page.pptx",
+      "relative_path": "presentations/d2dewarp_target_page/d2dewarp_target_page.pptx",
+      "size_bytes": 442578,
+      "sha256": "037e92c3ba88707eb9d1b8bddc5eb939d2d6c8e73981d1677349ba368f6a2953"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/preview.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/preview.png",
+      "size_bytes": 390346,
+      "sha256": "db535b6213d5b26f9f482b8b7a3b257a6565823d3189eb9a5a7cf54526086c1d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-01.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-01.png",
+      "size_bytes": 81600,
+      "sha256": "c6587f7cfaa00a97e95a04d91d2c1bfafcff2983955c206c29cb84debceefbb9"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-02.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-02.png",
+      "size_bytes": 448179,
+      "sha256": "211bf9709c9f40c73d6dfe776dbee26f421e79f905ef3ca13792411330e6d17d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-03.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-03.png",
+      "size_bytes": 248123,
+      "sha256": "5b8973bd3a2358eedcfd3e484c90a911820b198368cbb28b154edcaa34d4d890"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-04.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-04.png",
+      "size_bytes": 198539,
+      "sha256": "0ad645291996ed65561032bdffe338958fa8313ba3635984a75c8cb918b4bc7b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-05.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-05.png",
+      "size_bytes": 153633,
+      "sha256": "678a6b9d98be5e6710b2ad9bb071074945f3f57ee3f2cdca954e75a1ff50af8a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-06.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-06.png",
+      "size_bytes": 216685,
+      "sha256": "1ea46b3003639dbbf25155e11586e14349d154a04c784cb9c324f6a3224814c3"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-07.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-07.png",
+      "size_bytes": 188274,
+      "sha256": "5a52c7cdc91036994bafdb0697ab767f192335d92f98da66636f377752575996"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-08.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-08.png",
+      "size_bytes": 241845,
+      "sha256": "a453faa65d11405e7a0170bff711f1dec32417a6975e5bca28e96111b3c8c8ea"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-09.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-09.png",
+      "size_bytes": 183844,
+      "sha256": "6d6c69eb978db9538fac69d89ab2f30c3fed880533f3b565afc0a498b2bf76b5"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/previews/slide-10.png",
+      "relative_path": "presentations/d2dewarp_target_page/previews/slide-10.png",
+      "size_bytes": 188497,
+      "sha256": "30c9c4a704070d040a4dccf65de3a653791d96b16b5f15f531c439bab8da6c83"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/source/build.mjs",
+      "relative_path": "presentations/d2dewarp_target_page/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/source/slides.json",
+      "relative_path": "presentations/d2dewarp_target_page/source/slides.json",
+      "size_bytes": 15186,
+      "sha256": "4d7a3e06afeedeb5ce93d1fc210790d58f2b6b474bd1a9ff2af5540aa6b87742"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/d2dewarp_target_page/source/topic.json",
+      "relative_path": "presentations/d2dewarp_target_page/source/topic.json",
+      "size_bytes": 14951,
+      "sha256": "5893dba0a353b4c104310af1aa2d8693cf50a46f6291c561ef70349f6bb74db9"
+    }
+  ]
+}

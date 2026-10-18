@@ -1,0 +1,233 @@
+{
+  "id": "anycalib_crop_model_selection",
+  "title": "面向来源不明广角照片的裁切一致相机模型选择",
+  "status": "正式候选：官方已知pinhole单图CPU运行完成，未知相机族选择缺口待验证",
+  "scenario": "建筑巡检、房屋实景建模和二手网络照片缺少EXIF，照片还经历数字裁切与非等比缩放；后续去畸变和SfM需要稳定的像素到射线映射",
+  "input_output_scope": {
+    "input": "一张RGB图像及由该图生成、变换已知的2–3个裁切/缩放视图；无标定板，无额外真实拍摄视角",
+    "output": "候选相机族、当前图像坐标系内参、射线场与模型歧义标记",
+    "scope": "比较pinhole、radial:1、kb:4、ucm等中央相机族；评估可见图域内射线精度，原始未裁切传感器尺寸不作为恢复目标"
+  },
+  "baseline_paper": {
+    "name": "AnyCalib: On-Manifold Learning for Model-Agnostic Single-View Camera Calibration",
+    "venue": "ICCV 主会",
+    "year": 2025,
+    "paper_url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf",
+    "arxiv_url": "https://arxiv.org/abs/2503.12701",
+    "code_url": "https://github.com/javrtg/AnyCalib",
+    "checkpoint_urls": [
+      "https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_gen.pt",
+      "https://github.com/javrtg/AnyCalib/releases/download/v1.0.0/anycalib_edit.pt"
+    ]
+  },
+  "known_baseline_scope": "AnyCalib已经支持裁切/拉伸图像和任意运行时指定相机族；其predict(image, cam_id)由调用者给定cam_id。新题聚焦未知相机族时的选择及歧义，而非重新宣称支持裁切",
+  "problem_evidence": {
+    "verified": "官方predict要求cam_id；同一预测射线可分别拟合多个相机族，官方已有Gauss-Newton/LM、RANSAC与内参信息矩阵",
+    "hypothesis": "在窄视野和非中心裁切下，仅用单视图拟合残差容易偏向高自由度模型，且合成裁切后的选择可能不一致；幅度待实测"
+  },
+  "neighbors": [
+    {
+      "name": "AnyCalib，ICCV2025主会",
+      "covered": "射线学习、多相机族拟合、裁切与拉伸图像标定",
+      "gap": "显式cam_id输入；尚需研究自动选择和选择歧义的可见域几何后果",
+      "url": "https://github.com/javrtg/AnyCalib"
+    },
+    {
+      "name": "Generalized Camera Calibration，IEEE Sensors Journal2025",
+      "covered": "标定图像采集、BIC选择相机模型",
+      "gap": "多张标定目标图像；本题仅一张自然图像及其已知数字变换",
+      "url": "https://doi.org/10.1109/JSEN.2025.3581377"
+    },
+    {
+      "name": "Automatic Reproducible Camera Intrinsic Calibration，2026预印本",
+      "covered": "标定板图像筛选、held-out图像选择畸变阶数",
+      "gap": "其独立观测来自额外标定板图；本题使用相关的合成视图，需显式检验其增益来源",
+      "url": "https://arxiv.org/abs/2609.10082"
+    },
+    {
+      "name": "AnyCam-MCT，2026硕士论文/开源模型",
+      "covered": "跨真实帧聚合AnyCalib特征进行视频标定",
+      "gap": "本题不增加真实帧，不训练跨帧Transformer",
+      "url": "https://huggingface.co/thekman17/anycam-mct"
+    },
+    {
+      "name": "Perspective Fields，CVPR2023",
+      "covered": "对裁切、缩放等编辑等变的几何表示",
+      "gap": "编辑等变性作为已知原理；拟研究的是它对未知相机族选择的约束",
+      "url": "https://arxiv.org/abs/2212.03239"
+    }
+  ],
+  "research_question": "同一张自然图像上的已知数字变换，能否帮助排除只在局部拟合良好却几何外推不稳定的相机族？",
+  "proposed_steps": [
+    "冻结AnyCalib。对原图及2–3个保留足够边界的非中心裁切生成射线预测，记录精确像素变换",
+    "把各视图射线映射回原图坐标，在共同像素区域联合拟合候选相机族；焦距和主点按已知图像变换绑定",
+    "在空间留出区域统计射线角残差与跨裁切一致误差，结合径向投影单调性、正焦距和模型复杂度选择候选",
+    "若多个模型在可见域内射线近似等价，输出模型集合与射线映射；把下游去畸变/相对位姿变化作为选择效果检验"
+  ],
+  "hypothesis": "跨裁切一致性提供对网络预测偏差的约束；与单视图BIC及普通多裁切平均相比，可改善边缘射线精度或减少不合理畸变",
+  "datasets": [
+    {
+      "name": "LaMAR2k",
+      "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip",
+      "role": "真实图像与标定信息；单图smoke及跨裁切试验",
+      "size": "官方说明解压约400MB",
+      "license": "CC BY 4.0，LaMAR官方数据许可；GeoCalib发布的2k子集",
+      "license_source": "https://docs.google.com/forms/d/e/1FAIpQLSehbzuYLkNjb8oXahsT2Bnnjzax1AQAjWIuGHb32ZbSqzjTSA/viewform"
+    },
+    {
+      "name": "LaMAR2k edited",
+      "url": "https://drive.google.com/uc?id=1h2HThhQbvqZlMw0OdpF7Y73wodeZMmdj",
+      "role": "官方裁切/拉伸测试变体",
+      "size": "官方说明约224MB",
+      "license": "CC BY 4.0，沿用LaMAR源数据许可"
+    },
+    {
+      "name": "MonoVO2k",
+      "url": "https://drive.google.com/uc?id=18rQ-WZcxXogeBqMwWvSkxVVEmZ9C12BZ",
+      "role": "真实畸变相机外部测试；按原相机/序列分组",
+      "size": "官方说明约445MB",
+      "license": "遵循TUM MonoVO源数据使用条款，归档条款待核"
+    }
+  ],
+  "license": {
+    "code_weights": "Apache-2.0",
+    "url": "https://github.com/javrtg/AnyCalib/blob/main/LICENSE",
+    "data_status": "LaMAR许可已核为CC BY4.0；MonoVO归档条款待核"
+  },
+  "metrics": [
+    "射线角误差的中位数/尾部与边缘分区",
+    "相对焦距误差",
+    "归一化主点误差",
+    "跨裁切射线一致性",
+    "物理无效模型率",
+    "可见域模型歧义率",
+    "额外推理次数及CPU峰值内存/耗时"
+  ],
+  "controls": [
+    "官方已知相机族作为oracle参考",
+    "单图最小残差选模",
+    "单图BIC选模",
+    "多裁切射线简单平均",
+    "跨裁切一致性",
+    "跨裁切一致性+物理约束",
+    "等推理预算下多尺度平均"
+  ],
+  "ablations": [
+    "裁切数1/2/3与保留视野比例",
+    "中心/非中心裁切",
+    "仅残差/加入复杂度/加入单调约束",
+    "pinhole与畸变图像分层",
+    "anycalib_gen与anycalib_edit分别报告"
+  ],
+  "stages": [
+    "官方权重+真实单图CPU运行与输出检查",
+    "20–50张真实图像验证模型选择不一致和边缘误差",
+    "训练自由的联合几何拟合原型与消融",
+    "按设备/场景划分验证和测试，完整集及下游几何评价"
+  ],
+  "real_run": {
+    "status": "官方gen在LaMAR真实首图上完成CPU推理与官方指标重算",
+    "source_commit": "027a8497d893f4b2596f23d6324c05e4b81064ed",
+    "sample": "LaMAR2k images.csv首条95419735117.jpg，index0，已知pinhole，无crop",
+    "device": "CPU FP32，4线程，Python3.12.14，torch2.14.1+cpu",
+    "inference_seconds": 2.592438922,
+    "load_seconds": 3.639581327,
+    "process_peak_rss_mib": 2758.5546875,
+    "metrics": {
+      "max_relative_focal_error": 0.0245360154658556,
+      "fitted_camera_mean_ray_angular_error_deg": 0.453592211,
+      "vfov_error_deg": 1.203266144
+    },
+    "metric_scope": "官方函数在1920×1440完整像素网格上计算拟合pinhole相机相对GT的角误差；网络射线场直接误差另评",
+    "research_scope": "单图已知相机族；未知相机族选择与裁切一致性尚待实验",
+    "local_result": "result.json",
+    "publication_prefix": "baselines/20261018-anycalib-lamar1/"
+  },
+  "resources": {
+    "cpu": "官方PyTorch单图已实测：Gen约320M参数，输入1920×1440，内部364×280，CPU4线程，前向2.592s，进程峰值2759MiB",
+    "gpu_inference_estimate": "单卡8–12GB用于多图批量实验的初步安排",
+    "training": "首版训练自由；缓存射线后，选模和优化在CPU运行"
+  },
+  "figures": [
+    {
+      "url": "https://raw.githubusercontent.com/javrtg/AnyCalib/main/assets/method.png",
+      "use": "作者官方方法图，署名AnyCalib/ICCV2025"
+    },
+    {
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf",
+      "use": "裁切标定示例；论文表格标为作者报告"
+    }
+  ],
+  "decision_gate": "若跨裁切仅复现简单平均/BIC效果，或收益来自oracle相机族信息，则缩为基线诊断报告；正式改进须在未知相机族及独立真实图像上成立",
+  "audit_date": "2026-10-18",
+  "formal_candidate": true,
+  "risks": [
+    "anycalib_edit只在编辑后的透视图像上训练；畸变与裁切组合需要单独检验，gen和edit分别报告",
+    "窄视野中多个相机族可能射线等价，模型名准确率只作辅助",
+    "合成裁切不增加独立场景观测，关键对照是等预算简单平均"
+  ],
+  "assets": [
+    {
+      "path": "assets/input_thumbnail.png",
+      "caption": "LaMAR2k真实城市图像，95419735117.jpg，CC BY4.0",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "LaMAR2k官方子集",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip"
+        },
+        {
+          "title": "LaMAR源数据与许可",
+          "url": "https://github.com/microsoft/lamar-benchmark"
+        }
+      ]
+    },
+    {
+      "path": "assets/method.png",
+      "caption": "AnyCalib作者方法图",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "官方方法图",
+          "url": "https://raw.githubusercontent.com/javrtg/AnyCalib/main/assets/method.png"
+        },
+        {
+          "title": "预训练接口",
+          "url": "https://github.com/javrtg/AnyCalib/blob/main/anycalib/model/anycalib_pretrained.py"
+        }
+      ]
+    },
+    {
+      "path": "assets/real_calibration_demo.png",
+      "caption": "实际输入、网络射线场与拟合相机角误差；本仓库运行结果",
+      "sources": [
+        {
+          "title": "AnyCalib，ICCV2025主会",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Tirado-Garin_AnyCalib_On-Manifold_Learning_for_Model-Agnostic_Single-View_Camera_Calibration_ICCV_2025_paper.pdf"
+        },
+        {
+          "title": "作者代码与接口",
+          "url": "https://github.com/javrtg/AnyCalib"
+        },
+        {
+          "title": "LaMAR2k",
+          "url": "https://cvg-data.inf.ethz.ch/GeoCalib_ECCV2024/lamar2k.zip"
+        }
+      ]
+    }
+  ]
+}
