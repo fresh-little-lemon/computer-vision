@@ -1,0 +1,408 @@
+{
+  "id": "subspacead_microdefect_phase",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "少样本 PCB 微缺陷检测的\n采样相位与预算化复检",
+      "subtitle": "基于 SubspaceAD 的局部残差保留研究",
+      "context": "计算机视觉课程 · 机制诊断备选",
+      "notes": "研究计划。面向小批量PCB换型只有少数正常参考图的场景，研究固定Patch采样网格对微小异常响应的影响，以及相同计算预算下的局部复检。 当前作为机制诊断备选，尚未证明采样相位导致本题设定中的微缺陷失效。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "title": "小批量换型需要少样本缺陷定位",
+      "subtitle": "正常参考图容易获取，异常样本与像素标注成本较高",
+      "asset": {
+        "path": "assets/visa_samples.png",
+        "caption": "VisA官方真实工业正常与异常样例"
+      },
+      "frame": {
+        "x": 64,
+        "y": 173,
+        "w": 720,
+        "h": 467
+      },
+      "sideText": "输入\n1–4 张正常参考图\n一张待检 PCB 图像\n\n输出\n像素异常热图\n需要复检的局部区域\n\n主评估\nVisA 的 PCB1–4",
+      "sourceLabel": "图像：VisA 官方样例，Zou et al.，CC BY 4.0",
+      "notes": "图为VisA官方样例总览，第一行区域中的四种PCB对应主评估对象，绿色框为正常样例，红色框为异常及局部放大。使用该图说明数据情境，不将其中所有缺陷都称为微缺陷。正式评价按GT连通组件面积定义微缺陷组。",
+      "sources": [
+        {
+          "title": "VisA真实工业数据",
+          "url": "https://github.com/amazon-science/spot-diff"
+        },
+        {
+          "title": "VisA数据许可CC BY 4.0",
+          "url": "https://github.com/amazon-science/spot-diff/blob/main/LICENSE-DATASET"
+        }
+      ]
+    },
+    {
+      "layout": "free",
+      "title": "SubspaceAD 用正常子空间衡量异常",
+      "subtitle": "CVPR 2026 主会，冻结 DINOv2 特征，以 PCA 重建残差评分",
+      "images": [
+        {
+          "path": "assets/subspace_overview.png",
+          "caption": "SubspaceAD官方方法概览",
+          "x": 64,
+          "y": 218,
+          "w": 1144,
+          "h": 324
+        }
+      ],
+      "texts": [
+        {
+          "text": "正常参考图拟合 PCA，待检图的局部重建残差形成异常热图",
+          "x": 66,
+          "y": 585,
+          "w": 1138,
+          "h": 66,
+          "size": 28,
+          "bold": true,
+          "color": "#1769AA"
+        }
+      ],
+      "sourceLabel": "Lendering et al., SubspaceAD, CVPR 2026，官方方法示意",
+      "notes": "图中Ours属于SubspaceAD作者方法。基线无需使用异常样本训练主干，PCA仅由正常支持图拟合。本课题固定特征模型与PCA拟合协议，研究推理采样和残差合并。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "已有工作覆盖多种增强与背景处理",
+      "headers": [
+        "方法",
+        "已有处理",
+        "本题比较位置"
+      ],
+      "rows": [
+        [
+          "SubspaceAD\nCVPR 2026",
+          "子空间残差评分\n官方实现含重叠切块",
+          "相同算力下的\n局部采样与证据合并"
+        ],
+        [
+          "AnomalyDINO\nWACV 2025",
+          "冻结 DINOv2\n局部特征异常检测",
+          "保持相同主干\n分析采样网格影响"
+        ],
+        [
+          "SPARC / ShiftSplit-AD\n2026 预印本",
+          "空间子空间适配\n低秩及稀疏残差处理",
+          "分离部署分布变化\n与采样相位效应"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 181,
+      "height": 365,
+      "fontSize": 24,
+      "notes": "SubspaceAD当前配置已有重叠patch、背景mask、镜面过滤与增强。SPARC和ShiftSplit-AD分别覆盖空间子空间适配与残差分解。平移TTA也是必要的强对照。研究目标是微缺陷相位失效证据及等预算局部复检，而非重命名现成增强。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        },
+        {
+          "title": "AnomalyDINO, WACV 2025",
+          "url": "https://openaccess.thecvf.com/content/WACV2025/html/Damm_AnomalyDINO_Boosting_Patch-Based_Few-Shot_Anomaly_Detection_With_DINOv2_WACV_2025_paper.html"
+        },
+        {
+          "title": "SPARC, 2026",
+          "url": "https://arxiv.org/abs/2608.18585"
+        },
+        {
+          "title": "ShiftSplit-AD, 2026",
+          "url": "https://arxiv.org/abs/2608.27610"
+        }
+      ],
+      "takeaway": "比较重点：同样的特征提取预算，怎样保留微缺陷的局部证据？",
+      "takeawayY": 589
+    },
+    {
+      "layout": "question",
+      "title": "研究问题：缺陷位置与 Patch 网格的关系",
+      "question": "同一个微缺陷稍微平移，\n异常残差会不会被不同的采样网格稀释？",
+      "questionSize": 42,
+      "hypothesis": "研究假设：跨网格相位定位一致的局部响应，\n可以区分持续缺陷证据与单次采样噪声",
+      "definition": "固定预处理尺寸，采用 0 / 3 / 7 像素平移，逆映射后在共同有效区域比较",
+      "notes": "DINOv2本题使用14像素Patch。相位扰动定义在固定预处理尺寸之后，GT使用最近邻同步平移，结果逆映射至原坐标并剔除padding非共同区域。相位敏感性尚待测量，第一周先检验缺陷大小与分数波动的关系。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究方法：按需复检并保留组件证据",
+      "items": [
+        {
+          "label": "首遍残差",
+          "text": "用冻结正常子空间计算异常图\n记录局部峰值与高频结构候选"
+        },
+        {
+          "label": "选择复检区",
+          "text": "按固定 token 预算选择小窗口\n在局部使用偏移采样重新提取特征"
+        },
+        {
+          "label": "组件对应",
+          "text": "将响应逆映射到同一像素坐标\n寻找位置一致的小型异常组件"
+        },
+        {
+          "label": "证据合并",
+          "text": "保留持续组件的局部峰值证据\n过滤填充边界响应并生成最终热图"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "复检区域只由输入图与模型残差选择，不使用测试GT。第一阶段固定采样尺度研究网格偏移；如引入局部高分辨率，则增加独立的同分辨率、同参考特征对照以分离尺度影响。组件证据合并和普通平均、最大值分别比较。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "真实 PCB 评价与相位诊断分开报告",
+      "left": {
+        "title": "数据与支持图协议",
+        "text": "VisA PCB1–4 作为主数据\n使用官方训练与测试划分\n\n每类 1 / 2 / 4 张正常支持图\n固定种子重复 5 次\n\n按真实缺陷组件面积分组\n另设相位扰动诊断集"
+      },
+      "right": {
+        "title": "指标与计算预算",
+        "text": "图像 AUROC、AUPR\n像素 AUROC、AU-PRO\n\n微缺陷召回与正常误报率\n逆映射后的热图一致性\n\n总 token 数与处理像素数\n每图时间与峰值内存"
+      },
+      "bodySize": 25,
+      "sourceLabel": "数据：VisA；主结果使用原始真实测试图，相位变换仅作机制诊断",
+      "notes": "VisA直链公开可达，数据CC BY4.0。预注册微缺陷面积分组阈值，例如占图像面积不超过0.1%，同时报告全部PCB测试数据。每次正常支持图抽样独立运行，禁止用测试异常拟合PCA。官方AU-PRO积分范围FPR不超过0.3。少量接口样本仅验证流程，正式性能需完整测试与重复抽样。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        },
+        {
+          "title": "VisA真实工业数据",
+          "url": "https://github.com/amazon-science/spot-diff"
+        },
+        {
+          "title": "VisA数据许可CC BY 4.0",
+          "url": "https://github.com/amazon-science/spot-diff/blob/main/LICENSE-DATASET"
+        },
+        {
+          "title": "VisA直接下载",
+          "url": "https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "实验将分离采样、融合与额外计算的作用",
+      "headers": [
+        "实验",
+        "比较设置",
+        "回答的问题"
+      ],
+      "rows": [
+        [
+          "相位诊断",
+          "原图与多个像素平移\n固定支持图和正常子空间",
+          "微缺陷的响应\n是否对相位敏感"
+        ],
+        [
+          "相同预算",
+          "四相位均值或最大值\n重叠切块、统一高分辨率",
+          "局部复检是否优于\n同等计算的常规方法"
+        ],
+        [
+          "合并机制",
+          "组件对应开启或移除\n均值替代局部证据保留",
+          "收益是否来自\n跨相位组件持续性"
+        ],
+        [
+          "候选与泛化",
+          "残差、高频与均匀选区\nPCB 类别及缺陷大小分层",
+          "选区规则何时有效\n是否遗漏低响应缺陷"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 172,
+      "height": 409,
+      "fontSize": 24,
+      "notes": "所有对照使用相同主干、参考图、输出坐标系与总特征提取预算。复检候选选区可能漏掉首遍低响应缺陷，应通过均匀选区对照和按面积分层召回检查。额外计算与方法收益独立报告。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ],
+      "takeaway": "固定正常参考、特征模型与总 token 预算，保留简单 TTA 对照",
+      "takeawayY": 606
+    },
+    {
+      "layout": "free",
+      "title": "真实 PCB 小样本已完成 CPU 推理",
+      "subtitle": "每排依次为输入、GT、异常热图；上排异常 000，下排正常 0107",
+      "images": [
+        {
+          "path": "assets/test_0_three_panel_clean.png",
+          "caption": "VisA PCB1固定异常测试样本000，真实输入、GT及实际异常热图",
+          "x": 64,
+          "y": 183,
+          "w": 690,
+          "h": 230
+        },
+        {
+          "path": "assets/test_1_three_panel_clean.png",
+          "caption": "VisA PCB1固定正常测试样本0107，真实输入、GT及实际异常热图",
+          "x": 64,
+          "y": 429,
+          "w": 690,
+          "h": 230
+        }
+      ],
+      "texts": [
+        {
+          "text": "1 张正常参考 + 2 张测试",
+          "x": 790,
+          "y": 190,
+          "w": 415,
+          "h": 55,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "DINOv2-S / 224\nCPU，4 线程\nPCA 保留 99% 方差",
+          "x": 790,
+          "y": 260,
+          "w": 415,
+          "h": 142,
+          "size": 27
+        },
+        {
+          "text": "约 0.08–0.09 秒 / 图",
+          "x": 790,
+          "y": 424,
+          "w": 415,
+          "h": 48,
+          "size": 29,
+          "bold": true,
+          "color": "#1769AA"
+        },
+        {
+          "text": "热身后推理，峰值约 697 MiB\n\n针脚附近有响应，\n背景及正常图也仍有响应",
+          "x": 790,
+          "y": 487,
+          "w": 415,
+          "h": 168,
+          "size": 25
+        }
+      ],
+      "sourceLabel": "VisA PCB1；两图热图共用原始色阶；本次 Small/224 配置仅验证运行可行性",
+      "notes": "官方SubspaceAD代码，DINOv2-registers-Small/224，1正常训练+2固定首条测试，PCA99%实际154维，mean[-4,-5,-6,-7]，aug0，seed42，CPU4线程。正常参考0499.JPG，异常000.JPG，正常0107.JPG。热身后0.087083/0.080097秒，峰值约697MiB。异常/正常top1%原始分数3.3862/2.2190，不是概率。无验证集，F1为N/A。仅52阳性GT像素，不能用2样本AUROC宣称benchmark或精准分割。本页不证明相位问题或拟议方法收益。图像缩放、GT最近邻缩放，异常图采用共同inferno色阶[0.350582,4.089952]。不是论文giant672配置。",
+      "sources": [
+        {
+          "title": "SubspaceAD官方代码",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        },
+        {
+          "title": "VisA，Zou et al.，CC BY4.0",
+          "url": "https://github.com/amazon-science/spot-diff"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "机制诊断与后续研究安排",
+      "items": [
+        {
+          "label": "已跑通基线",
+          "text": "扩展真实 PCB 的少样本推理\n测量微缺陷相位敏感性与正常误报"
+        },
+        {
+          "label": "局部复检",
+          "text": "实现候选区域与局部偏移复检\n建立原坐标下的组件对应"
+        },
+        {
+          "label": "机制检验",
+          "text": "完成等预算 TTA 与切块对照\n检验选区和证据合并的独立作用"
+        },
+        {
+          "label": "外部评价",
+          "text": "完成多种子、跨类别与成本评价\n整理微缺陷漏检和正常误报案例"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "预期贡献是相位敏感性诊断和相同计算预算下的局部组件证据保留方案。第一阶段若未观察到稳定的相位现象，应据实调整问题范围。方法改进幅度由后续实验确定。",
+      "sources": [
+        {
+          "title": "Lendering et al., SubspaceAD, CVPR 2026",
+          "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+        },
+        {
+          "title": "SubspaceAD官方实现",
+          "url": "https://github.com/CLendering/SubspaceAD"
+        }
+      ],
+      "sourceLabel": "诊断备选：先测量采样相位效应，再检验局部复检的独立收益"
+    }
+  ]
+}

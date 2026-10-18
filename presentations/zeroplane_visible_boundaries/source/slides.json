@@ -1,0 +1,369 @@
+{
+  "id": "zeroplane_visible_boundaries",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "室内数字化中的\n有限平面边界恢复",
+      "subtitle": "基于 ZeroPlane 的遮挡关系与投影交线研究",
+      "context": "计算机视觉课程 · 课题开题",
+      "notes": "研究计划。面向室内AR贴附和简化场景数字化，从单张RGB照片恢复可见平面及其有限边界。研究接触边与遮挡边的几何差异。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "title": "室内贴附需要知道平面在哪里结束",
+      "subtitle": "墙面、地面和门洞边界决定虚拟内容可以放置的范围",
+      "asset": {
+        "path": "assets/zeroplane_input.png",
+        "caption": "ZeroPlane官方CVPR demo实拍输入"
+      },
+      "frame": {
+        "x": 64,
+        "y": 181,
+        "w": 744,
+        "h": 455
+      },
+      "sideText": "输入\n单张室内 RGB 照片\n\n输出\n可见平面的法向与距离\n有限轮廓与遮挡关系\n\n初期实验\n采用已知相机内参",
+      "sourceLabel": "场景图：ZeroPlane 官方 demo/cvpr_demo.png",
+      "notes": "这张图是ZeroPlane仓库发布的真实室内演示输入。墙角、门框和前后墙面提供本研究的应用情境，并非该图已被验证存在模型失败。第一阶段使用NYUv2/7Scenes内参，分离标定误差。研究只输出可见支持区域。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "image",
+      "title": "ZeroPlane 提供单图平面重建基线",
+      "subtitle": "CVPR 2025 主会 Highlight，公开模型与跨场景评价代码",
+      "asset": {
+        "path": "assets/zeroplane_teaser.png",
+        "caption": "ZeroPlane官方跨场景结果示意"
+      },
+      "frame": {
+        "x": 64,
+        "y": 195,
+        "w": 744,
+        "h": 370
+      },
+      "sideText": "基线表示\n平面实例与三维参数\n\n研究对象\n实例的有限可见边界\n\n实验方式\n冻结预训练网络",
+      "sourceLabel": "Liu et al., ZeroPlane, CVPR 2025，官方结果示意",
+      "notes": "该图为作者发布的基线结果，包含室内外场景。ZeroPlane原论文明确讨论的限制主要是缺乏真实室外训练数据，本题的室内边界问题属于待实测的研究假设。初期将先量化接触、遮挡两类边界误差。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "最新近邻强调平面性与几何约束",
+      "headers": [
+        "方法",
+        "已有处理",
+        "本题比较重点"
+      ],
+      "rows": [
+        [
+          "ZeroPlane\nCVPR 2025",
+          "单图平面实例分割\n及三维平面恢复",
+          "有限可见边界\n及相邻面关系"
+        ],
+        [
+          "PlaneRAS\nICCV 2025",
+          "平面基元表示\n与空间约束",
+          "接触边和遮挡边\n分别施加何种约束"
+        ],
+        [
+          "Pixel-wise Planarity\n2026 预印本",
+          "冻结几何主干\n平面性预测与区域生长",
+          "同数据上比较边界\n精度及额外计算"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 181,
+      "height": 365,
+      "fontSize": 24,
+      "notes": "Pixel-wise Planarity已覆盖冻结MoGe2、深度法向和平面性预测、区域生长、RANSAC。本题的研究切口是根据接触/遮挡关系选择不同边界约束。其2026预印本身份已核验，主会录用状态未作为本研究依据。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        },
+        {
+          "title": "PlaneRAS, ICCV 2025",
+          "url": "https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_PlaneRAS_Learning_Planar_Primitives_for_3D_Plane_Recovery_ICCV_2025_paper.html"
+        },
+        {
+          "title": "Pixel-wise Planarity, 2026",
+          "url": "https://arxiv.org/abs/2609.13246"
+        }
+      ],
+      "takeaway": "研究位置：将二维边界解释与三维平面关系共同纳入优化",
+      "takeawayY": 591
+    },
+    {
+      "layout": "two_column",
+      "title": "相似的二维边缘可能对应不同几何关系",
+      "left": {
+        "title": "真实接触边",
+        "text": "例如墙角与墙地交界\n\n相邻平面在三维中相交\n交线投影应贴合图像边界\n\n拟约束\n投影交线到观测边界的距离"
+      },
+      "right": {
+        "title": "前后遮挡边",
+        "text": "例如近处墙体遮住远处墙面\n\n边界来自可见性的变化\nT 形交汇与深度顺序提供线索\n\n拟约束\n前后次序与可见区域一致性"
+      },
+      "bodySize": 26,
+      "sourceLabel": "研究假设：按边界类型选择约束，能够减少轮廓越界与错误连接",
+      "notes": "本页为研究问题的几何分析，不是已获得的实验结果。接触与遮挡需要分别建模：遮挡边不应被强迫满足两个可见面在边界处相交。实际关系分类会存在不确定性，应保留原mask证据并在验证集评估。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟研究方法：关系图上的有限边界优化",
+      "items": [
+        {
+          "label": "建立候选图",
+          "text": "读取平面 mask、法向与距离\n检测图像线段及 T 形交汇"
+        },
+        {
+          "label": "比较关系假设",
+          "text": "对相邻面分别评价接触与遮挡\n结合交线投影、深度序和图像边界"
+        },
+        {
+          "label": "优化有限边界",
+          "text": "更新多边形顶点与少量平面残差\n保留原 mask 证据与可见范围约束"
+        },
+        {
+          "label": "输出与检查",
+          "text": "生成有限平面及其邻接关系\n记录接触误差、遮挡次序与越界区域"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "主干冻结，优化变量限于平面参数小残差与多边形顶点。接触边使用三维交线投影距离，遮挡边使用深度顺序约束。数据项避免轮廓全部被拉直。初期重点验证边界类别建模是否优于简单连通域清理和统一平面平滑。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "two_column",
+      "title": "公开室内数据与两层评价",
+      "left": {
+        "title": "真实场景与标注",
+        "text": "NYUv2：真实室内 RGB-D\n使用 ZeroPlane 公开平面标注\n\n7Scenes：跨房间验证\n保持原始公开评价划分\n\n预选边界子集\n补充接触与遮挡类型标注"
+      },
+      "right": {
+        "title": "平面质量与边界质量",
+        "text": "RI、VOI、Segmentation Covering\n深度与法向阈值下的平面召回\n\n可见边界 F1\n接触交线重投影误差\n\n遮挡次序错误率、越界面积\n时延与峰值内存"
+      },
+      "bodySize": 25,
+      "sourceLabel": "数据与官方评价：ZeroPlane；边界类型为拟新增标注",
+      "notes": "NYUv2处理包直链HEAD200，大小2528721991bytes。7Scenes为作者公开处理数据。主指标保持官方脚本，新增边界类别评价单列。历史平面GT存在噪声，不以其支持未经核验的毫米级精度主张。新增子集在模型比较前确定，标注复核后冻结。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        },
+        {
+          "title": "NYUv2平面数据下载",
+          "url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/nyuv2_plane.zip"
+        },
+        {
+          "title": "7Scenes平面数据下载",
+          "url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/sevenscenes_plane.zip"
+        },
+        {
+          "title": "ZeroPlane官方评价目录",
+          "url": "https://github.com/jcliu0428/ZeroPlane/tree/main/ZeroPlane/evaluation"
+        }
+      ]
+    },
+    {
+      "layout": "table",
+      "title": "实验检验关系建模是否带来独立收益",
+      "headers": [
+        "实验",
+        "比较设置",
+        "回答的问题"
+      ],
+      "rows": [
+        [
+          "简单后处理",
+          "原基线、连通域清理\n统一平面平滑",
+          "收益是否来自\n常规轮廓清理"
+        ],
+        [
+          "几何关系",
+          "统一约束\n接触与遮挡分别约束",
+          "边界类型是否需要\n不同几何模型"
+        ],
+        [
+          "机制消融",
+          "移除 T 形交汇\n移除交线投影或 mask 保真",
+          "哪些线索有效\n哪些约束容易误判"
+        ],
+        [
+          "泛化与成本",
+          "NYUv2 与 7Scenes\n曼哈顿与非曼哈顿场景",
+          "跨场景是否稳定\n改进需要多少计算"
+        ]
+      ],
+      "widths": [
+        280,
+        430,
+        434
+      ],
+      "y": 172,
+      "height": 409,
+      "fontSize": 24,
+      "notes": "Pixel-wise Planarity作为最新公开模型对照，单列其模型与资源成本。主要因果消融保持ZeroPlane输出和同一图像线段不变，仅改边界关系与约束。参数在验证集确定，真实测试场景保持隔离。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        },
+        {
+          "title": "Pixel-wise Planarity代码",
+          "url": "https://github.com/alpayozkan/PixelwisePlanarity"
+        }
+      ],
+      "takeaway": "固定平面预测与线段输入，分别统计接触边和遮挡边",
+      "takeawayY": 606
+    },
+    {
+      "layout": "rows",
+      "title": "实验平台与课程知识对应",
+      "items": [
+        {
+          "label": "投影几何",
+          "text": "相机内参、三维平面和交线\n重投影误差与深度次序"
+        },
+        {
+          "label": "图像结构",
+          "text": "直线检测、T 形交汇与轮廓\n分割 mask 和有限多边形表示"
+        },
+        {
+          "label": "优化方法",
+          "text": "建立相邻面关系图\n带数据保真项的低维几何优化"
+        },
+        {
+          "label": "实验平台",
+          "text": "单卡 GPU 完成冻结模型推理\nCPU 完成线段分析与图优化"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "作者checkpoint大小7105876663bytes，含Detectron2与CUDA算子依赖。平台为拟用配置，显存门槛须通过实际加载测量。当前课程不需要从零训练DUSt3R或其他几何基础模型。完整依赖说明另附。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "layout": "rows",
+      "title": "拟四周安排与预期产物",
+      "items": [
+        {
+          "label": "第 1 周",
+          "text": "复现公开平面评价\n检查接触与遮挡边界的实际误差"
+        },
+        {
+          "label": "第 2 周",
+          "text": "实现线段与相邻面关系图\n完成两类几何假设比较"
+        },
+        {
+          "label": "第 3 周",
+          "text": "优化有限轮廓与平面小残差\n完成简单后处理及模块消融"
+        },
+        {
+          "label": "第 4 周",
+          "text": "完成跨数据集与分场景评价\n制作室内可见表面数字化演示"
+        }
+      ],
+      "rowOptions": {
+        "y": 182,
+        "gap": 110,
+        "labelW": 220,
+        "bodySize": 27
+      },
+      "notes": "预期产物为有限平面边界问题分析、关系感知的几何优化模块和公开数据上的可复现实验。先由失效诊断决定最有价值的关系类型，再完成方法和评价。",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ],
+      "sourceLabel": "预期贡献：边界类型分析、有限平面优化、真实室内场景评价"
+    }
+  ]
+}

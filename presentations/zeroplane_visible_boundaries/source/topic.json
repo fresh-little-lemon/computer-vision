@@ -1,0 +1,246 @@
+{
+  "id": "zeroplane_visible_boundaries",
+  "title": "室内数字化中的有限平面边界恢复：基于遮挡关系与投影交线的ZeroPlane改进",
+  "priority": "B：课程几何关系强，资源公开；必须先验证窄切口，避免与2026像素平面性方法重复",
+  "real_scenario": "用一张手机照片做室内AR放置或简化房间模型时，墙、台面和柜门需要有可信的可见边界。只预测无限平面法向/距离不够：跨过前景椅子、显示器或门洞的连接会产生穿插或虚假的支撑面。",
+  "target_users": [
+    "轻量室内数字化用户",
+    "室内AR摆放应用开发者"
+  ],
+  "input_output_scope": {
+    "input": "一张室内RGB照片；若内参未知使用基线的设置；课程第一阶段采用NYUv2/7Scenes的已知内参以分离问题",
+    "output": "每个可见平面实例的法向、距离、有限多边形轮廓与邻接/遮挡关系；只重建可见支持区域",
+    "excluded": "不臆造被家具遮住的几何，不承诺绝对尺寸测量安全性，不做全屋SLAM或生成完整不可见家具"
+  },
+  "baselinepaper": {
+    "name": "Towards In-the-wild 3D Plane Reconstruction from a Single Image (ZeroPlane)",
+    "conference": "CVPR 2025 主会 Highlight",
+    "year": 2025,
+    "status": "CVF已确认主会，pp.27027–27037；官方仓标Highlight",
+    "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html",
+    "pdf": "https://openaccess.thecvf.com/content/CVPR2025/papers/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.pdf",
+    "code": "https://github.com/jcliu0428/ZeroPlane",
+    "weights": "https://huggingface.co/jcleo0428/ZeroPlane-Dust3R/resolve/main/dust3r_encoder_released.pth",
+    "weights_size_bytes": 7105876663,
+    "weights_download_verification": "HEAD200，7,105,876,663 bytes；未下载与运行",
+    "source_snapshot": {
+      "repository": "jcliu0428/ZeroPlane",
+      "sha": "c8d7503d27738749a65f702129113b5f38c9c058",
+      "commit_url": "https://github.com/jcliu0428/ZeroPlane/commit/c8d7503d27738749a65f702129113b5f38c9c058",
+      "committed_at": "2025-10-06T09:05:03Z"
+    }
+  },
+  "known_failure": {
+    "evidence": "原论文的显式limitations主要是户外真实数据不足，不能冒充作者已报告室内遮挡失败。本题有限轮廓/遮挡错连是从输出表示与应用需求提出的待诊断问题，必须先在NYUv2难例验证。2026 Pixel-wise Planarity原文报告既有方法分组不精确与GT几何不一致，支持需要检查几何边界但不直接证明本方法有效。",
+    "source": "https://arxiv.org/abs/2609.13246",
+    "first_gate": "预先定义遮挡/门洞子集；若ZeroPlane基线边界问题不显著或简单mask连通域处理就解决，则不宣称研究贡献"
+  },
+  "recent_competitors_gap": [
+    {
+      "name": "Pixel-wise Planarity for High-Precision Monocular Plane Segmentation",
+      "year": 2026,
+      "status": "2026-09 arXiv已核验；第三方标ECCV2026，但此处不在未核验会议官网时升级会议状态",
+      "url": "https://arxiv.org/abs/2609.13246",
+      "code": "https://github.com/alpayozkan/PixelwisePlanarity",
+      "covered": "深度+法向+像素平面性联合区域生长、RANSAC平面拟合、严格毫米级评估。不可把此组合当创新",
+      "gap": "本题只研究有限可见多边形及相邻平面投影交线/遮挡类型约束，需和该完整方法比较"
+    },
+    {
+      "name": "PlaneRAS",
+      "year": 2025,
+      "status": "ICCV主会",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_PlaneRAS_Learning_Planar_Primitives_for_3D_Plane_Recovery_ICCV_2025_paper.html",
+      "covered": "显式平面基元重建/聚合/渲染，平面几何一致性已不是空白",
+      "gap": "不能仅说加空间约束；本题需验证边界类型判别的收益"
+    },
+    {
+      "name": "MoGe-3",
+      "year": 2026,
+      "status": "2026-07 arXiv；官方仓2026-08发布，未确认其顶会主会",
+      "url": "https://arxiv.org/abs/2607.17967",
+      "covered": "精细单目几何稀疏体素迭代修正，不能再以泛细节增强为创新"
+    },
+    {
+      "name": "MoRe",
+      "year": 2026,
+      "status": "WACV主会，作为近邻",
+      "url": "https://openaccess.thecvf.com/content/WACV2026/papers/Jung_MoRe_Monocular_Geometry_Refinement_via_Graph_Optimization_for_Cross-View_Consistency_WACV_2026_paper.pdf",
+      "covered": "跨视图点/法向联合图优化；本题固定单视图，不把多视图对齐称新"
+    }
+  ],
+  "research_question": "在冻结单图平面基线的情况下，将接触交线与遮挡轮廓分开建模，能否降低可见平面边界错连，同时保留原有平面法向/距离精度？",
+  "proposed_steps": [
+    {
+      "step": 1,
+      "mechanism": "提取ZeroPlane实例mask、法向、距离和像素深度；检测RGB线段及T-junction候选；建立相邻平面图",
+      "why": "把可见边界问题与平面参数估计分开"
+    },
+    {
+      "step": 2,
+      "mechanism": "对相邻平面对比两种假设：真实平面接触时3D交线应重投影到2D边界；遮挡时前后深度关系应解释T-junction，不能强迫相交",
+      "why": "同样的2D边缘可能对应墙角或前景遮挡，二者应使用不同几何约束"
+    },
+    {
+      "step": 3,
+      "mechanism": "图优化只更新少量法向/距离残差及有限多边形顶点，保留mask证据项；对遮挡边施加深度序约束，对接触边施加投影交线距离约束",
+      "why": "避免一刀切曼哈顿世界正交化或全部轮廓拉直"
+    },
+    {
+      "step": 4,
+      "mechanism": "以原mask、连通域/形态学清理、统一平面平滑、PixelwisePlanarity为对照，评估遮挡边与接触边分别收益",
+      "why": "确定收益来自边界类型建模，而不是简单后处理"
+    }
+  ],
+  "hypothesis": "只在高证据的接触边使用交线约束，同时在遮挡边保持前后序，可减少门洞填平与前景穿插；非曼哈顿房间不应被强制正交。该假设尚未实测。",
+  "datasets": [
+    {
+      "name": "NYUv2真实室内平面标注（ZeroPlane发布）",
+      "real": true,
+      "download_url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/nyuv2_plane.zip",
+      "source": "https://github.com/jcliu0428/ZeroPlane",
+      "license": "作者公开处理数据；底层NYUv2图像/深度许可仍适用，不能仅因代码MIT而称所有数据MIT",
+      "size_bytes": 2528721991,
+      "download_verification": "HEAD200；未下载与解压"
+    },
+    {
+      "name": "7Scenes真实室内平面标注（ZeroPlane发布）",
+      "real": true,
+      "download_url": "https://huggingface.co/datasets/jcleo0428/ZeroPlane_dataset/resolve/main/sevenscenes_plane.zip",
+      "source": "https://github.com/jcliu0428/ZeroPlane",
+      "license": "遵循微软7Scenes原数据使用条款及作者处理数据说明"
+    },
+    {
+      "name": "自采室内桌面照片（可选定性）",
+      "real": true,
+      "download_url": null,
+      "use": "仅自己房间、不拍身份隐私；无测距GT时仅做可视化，不能充当定量真值"
+    }
+  ],
+  "evaluation": {
+    "official_metrics": [
+      "Rand Index(RI)↑",
+      "Variation of Information(VOI)↓",
+      "Segmentation Covering(SC)↑",
+      "室内平面召回：深度误差阈值0.05/0.1/0.6m",
+      "平面召回：法向角阈值5°/10°/30°"
+    ],
+    "official_scripts": [
+      "https://github.com/jcliu0428/ZeroPlane/blob/main/train_net.py",
+      "https://github.com/jcliu0428/ZeroPlane/tree/main/ZeroPlane/evaluation"
+    ],
+    "additional_metrics": [
+      "可见平面边界F1",
+      "接触交线重投影误差",
+      "遮挡次序错误率",
+      "门洞/前景越界面积",
+      "耗时与峰值显存"
+    ],
+    "protocol": "先原始官方split复现，再定义固定难例子集并进行人工边界类型标注；新增GT由两人盲标/复核，不能依据最终输出挑图。遵循PixelwisePlanarity警告，毫米级误差不直接用粗糙历史平面GT当绝对正确真值。",
+    "controls": [
+      "ZeroPlane官方权重",
+      "ZeroPlane+连通域/形态学清理",
+      "ZeroPlane+统一平面平滑",
+      "PixelwisePlanarity最新公开模型",
+      "本题完整方法"
+    ],
+    "ablation": [
+      "不区分遮挡/接触的统一约束",
+      "移除T-junction",
+      "移除3D交线投影",
+      "移除原mask保真项",
+      "非曼哈顿场景分层"
+    ]
+  },
+  "baseline_minimal_command": "git clone https://github.com/jcliu0428/ZeroPlane.git\ncd ZeroPlane\nconda env create -f environment.yml\nconda activate zeroplane\n# 依官方说明安装与CUDA匹配的PyTorch和Detectron2，并编译MSDeformAttn\nmkdir -p checkpoints\nwget -O checkpoints/dust3r_encoder_released.pth https://huggingface.co/jcleo0428/ZeroPlane-Dust3R/resolve/main/dust3r_encoder_released.pth\npython demo/demo.py --config-file configs/ZeroPlaneNYUV2/dust3r_large_dpt_bs16_50ep.yaml --input ./demo/cvpr_demo.png --out ./demo/demo_out --resize_w 640 --resize_h 480 --opts MODEL.WEIGHTS ./checkpoints/dust3r_encoder_released.pth",
+  "official_eval_command": "python train_net.py --eval-only --num-gpus 1 --config-file configs/ZeroPlaneNYUV2/dust3r_large_dpt_bs16_50ep.yaml MODEL.WEIGHTS ./checkpoints/dust3r_encoder_released.pth OUTPUT_DIR ./visualizations/nyuv2_test_vis INPUT.LARGE_RESOLUTION_INPUT False INPUT.LARGE_RESOLUTION_EVAL False TEST.NO_VIS True",
+  "resources": {
+    "course_plan": "冻结模型批量推理+CPU线段检测/小图优化，不从零重训DUSt3R",
+    "gpu": "作者给出单卡demo入口；本次未执行。显存下限未知，16–24GB单卡仅为待验证规划建议，不是已证实最低配置。",
+    "cpu_status": "存在Detectron2/MSDeformAttn编译依赖，非当前9CPU/10GB无GPU环境的优先烟测题",
+    "code_license": "官方仓MIT；预训练权重/源数据应分别检查其条款",
+    "weight_size": "7.106GB（6.62GiB）checkpoint，载入峰值与推理还需额外内存；不建议当前10GB内存CPU环境作为首跑"
+  },
+  "course_algorithms": [
+    "针孔成像与投影几何",
+    "平面与交线",
+    "消失线/线段检测",
+    "T-junction遮挡线索",
+    "RANSAC与最小二乘",
+    "图优化与鲁棒损失",
+    "实例分割与Transformer视觉学习"
+  ],
+  "phases": [
+    {
+      "time": "第1周",
+      "deliverable": "复现单图平面mask/mesh，完成遮挡边界失败证据；若没有问题及时停止"
+    },
+    {
+      "time": "第2周",
+      "deliverable": "边界类型提取与几何图"
+    },
+    {
+      "time": "第3周",
+      "deliverable": "投影交线/遮挡序联合优化和消融"
+    },
+    {
+      "time": "第4周",
+      "deliverable": "对照最新PixelwisePlanarity、真实场景演示和误差报告"
+    }
+  ],
+  "visual_assets": [
+    {
+      "url": "https://raw.githubusercontent.com/jcliu0428/ZeroPlane/main/imgs/teaser.png",
+      "caption": "ZeroPlane跨域单图平面恢复，Liu et al., CVPR2025",
+      "usage": "仅基线展示，不标为本题结果"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/jcliu0428/ZeroPlane/main/demo/cvpr_demo.png",
+      "caption": "官方单图demo输入；需检查实际图像后使用"
+    },
+    {
+      "page_1based": 1,
+      "caption": "Fig.1真实室内外平面示意",
+      "rendered_local_path": "zeroplane_p1.png"
+    }
+  ],
+  "figure_logic": "左：桌面被椅子/显示器遮挡的输入图；中上：两相交平面→墙角投影线；中下：前景遮挡→T型接点及深度序；右：有限可见多边形图，红色虚线表示禁止连接区域。拟议图是机制示意，无性能改善图。",
+  "run_evidence": {
+    "status": "未跑",
+    "verified": "官方论文、代码README、权重直链、NYUv2和7Scenes下载入口已核对",
+    "unknown": "GPU运行、显存、独立失败统计、新机制增益未测"
+  },
+  "novelty_caveat": "这是课程可操作的窄研究假设，不是已确认新颖成果。2026 PixelwisePlanarity已覆盖平面性+区域生长，PlaneRAS已覆盖显式平面几何；若最终只做平面拟合/平滑，应淘汰。",
+  "research_checked_at": "2026-10-18 UTC",
+  "evidence_boundary": "论文与源码阅读/公开资源可达性核验；未运行模型，未验证拟议创新有效性。HTTP 200不等于文件完整性校验或成功复现。",
+  "assets": [
+    {
+      "path": "assets/zeroplane_input.png",
+      "caption": "ZeroPlane官方CVPR demo实拍输入",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    },
+    {
+      "path": "assets/zeroplane_teaser.png",
+      "caption": "ZeroPlane官方跨场景结果示意",
+      "sources": [
+        {
+          "title": "Liu et al., ZeroPlane, CVPR 2025",
+          "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+        },
+        {
+          "title": "ZeroPlane官方实现",
+          "url": "https://github.com/jcliu0428/ZeroPlane"
+        }
+      ]
+    }
+  ],
+  "candidate_status": "条件收录；需确认GPU资源并完成公开基线与边界诊断"
+}

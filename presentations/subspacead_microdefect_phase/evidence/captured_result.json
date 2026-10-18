@@ -1,0 +1,76 @@
+{
+  "metrics": {
+    "img_auroc": 1.0,
+    "img_aupr": 1.0,
+    "px_auroc": 0.9953527877904748,
+    "au_pro": 0.9846329600940766,
+    "img_f1": null,
+    "px_f1": null
+  },
+  "train_paths": [
+    "0499.JPG"
+  ],
+  "test_paths": [
+    "000.JPG",
+    "0107.JPG"
+  ],
+  "test_image_scores": [
+    3.386228084564209,
+    2.2189781665802
+  ],
+  "test_inference_seconds": [
+    0.08708308700079215,
+    0.08009662899712566
+  ],
+  "actual_config": {
+    "seed": 42,
+    "dataset_name": "visa",
+    "dataset_path": "1cls",
+    "categories": [
+      "pcb1"
+    ],
+    "model_ckpt": "facebook/dinov2-with-registers-small",
+    "image_res": 224,
+    "patch_size": null,
+    "patch_overlap": 0.0,
+    "batch_size": 1,
+    "k_shot": 1,
+    "agg_method": "mean",
+    "layers": "-4,-5,-6,-7",
+    "grouped_layers": null,
+    "docrop": false,
+    "use_clahe": false,
+    "aug_count": 0,
+    "aug_list": [
+      "rotate"
+    ],
+    "no_aug_categories": [
+      "transistor"
+    ],
+    "pca_dim": null,
+    "pca_ev": 0.99,
+    "whiten": false,
+    "use_kernel_pca": false,
+    "kernel_pca_kernel": "rbf",
+    "kernel_pca_gamma": null,
+    "score_method": "reconstruction",
+    "drop_k": 0,
+    "img_score_agg": "mtop1p",
+    "pro_integration_limit": 0.3,
+    "bg_mask_method": null,
+    "mask_threshold_method": "percentile",
+    "percentile_threshold": 0.15,
+    "dino_saliency_layer": 6,
+    "use_specular_filter": false,
+    "specular_tau": 0.6,
+    "specular_size_threshold_factor": 1.5,
+    "outdir": "visa_mean_layers-4-5-6-7_res224_docrop0_score-reconstruction_clahe0_dropk0_model-dinov2-with-registers-smallpca_ev0.99_i-scoremtop1p_k1_seed42",
+    "vis_count": 0,
+    "save_intro_overlays": false,
+    "no_log_file": false,
+    "debug_limit": null,
+    "batched_zero_shot": false
+  },
+  "source_main_sha256": "25f03bdb7cdd1face8be6cc67ab7435a63f444bd559c853e2a0a85d94026c207",
+  "capture": "Read-only Python profile return-event observer of official main locals; no algorithm function replaced. Timing includes observer overhead."
+}

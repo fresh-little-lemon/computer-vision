@@ -1,0 +1,58 @@
+[
+  {
+    "path": "assets/visa_samples.png",
+    "caption": "VisA官方真实工业正常与异常样例",
+    "sources": [
+      {
+        "title": "VisA真实工业数据",
+        "url": "https://github.com/amazon-science/spot-diff"
+      },
+      {
+        "title": "VisA数据许可CC BY 4.0",
+        "url": "https://github.com/amazon-science/spot-diff/blob/main/LICENSE-DATASET"
+      }
+    ]
+  },
+  {
+    "path": "assets/subspace_overview.png",
+    "caption": "SubspaceAD官方方法概览",
+    "sources": [
+      {
+        "title": "Lendering et al., SubspaceAD, CVPR 2026",
+        "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Lendering_SubspaceAD_Training-Free_Few-Shot_Anomaly_Detection_via_Subspace_Modeling_CVPR_2026_paper.html"
+      },
+      {
+        "title": "SubspaceAD官方实现",
+        "url": "https://github.com/CLendering/SubspaceAD"
+      }
+    ]
+  },
+  {
+    "path": "assets/test_0_three_panel_clean.png",
+    "caption": "VisA PCB1固定异常测试样本000，真实输入、GT及实际异常热图",
+    "sources": [
+      {
+        "title": "SubspaceAD官方代码",
+        "url": "https://github.com/CLendering/SubspaceAD"
+      },
+      {
+        "title": "VisA，Zou et al.，CC BY4.0",
+        "url": "https://github.com/amazon-science/spot-diff"
+      }
+    ]
+  },
+  {
+    "path": "assets/test_1_three_panel_clean.png",
+    "caption": "VisA PCB1固定正常测试样本0107，真实输入、GT及实际异常热图",
+    "sources": [
+      {
+        "title": "SubspaceAD官方代码",
+        "url": "https://github.com/CLendering/SubspaceAD"
+      },
+      {
+        "title": "VisA，Zou et al.，CC BY4.0",
+        "url": "https://github.com/amazon-science/spot-diff"
+      }
+    ]
+  }
+]

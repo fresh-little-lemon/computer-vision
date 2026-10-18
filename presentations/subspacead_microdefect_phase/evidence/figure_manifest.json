@@ -1,0 +1,20 @@
+{
+  "source_npz": "raw_predictions.npz",
+  "rows": [
+    "test bad 000.JPG",
+    "test good 0107.JPG"
+  ],
+  "columns": [
+    "real input resized224",
+    "official GT nearest-resized224",
+    "official raw anomaly map inferno, same scale both images"
+  ],
+  "common_color_limits": [
+    0.35058197379112244,
+    4.089951515197754
+  ],
+  "image_score": "Official mean of top1% raw anomaly pixels; not a calibrated probability",
+  "gt_positive_pixels": 52,
+  "interpolation": "Input PIL default bicubic RGB resize for illustration; no changes to evaluated maps/GT",
+  "license": "VisA, Zou et al., 2022, CC BY4.0 https://github.com/amazon-science/spot-diff ; image crops not used, only resize, panel arrangement, score/GT visualization."
+}

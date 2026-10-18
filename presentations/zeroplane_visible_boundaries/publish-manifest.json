@@ -1,0 +1,134 @@
+{
+  "id": "zeroplane_visible_boundaries",
+  "title": "室内数字化中的有限平面边界恢复：基于遮挡关系与投影交线的ZeroPlane改进",
+  "slide_count": 10,
+  "revision": "v2",
+  "package_root": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries",
+  "recommended_repository_prefix": "presentations/zeroplane_visible_boundaries",
+  "primary_files": [
+    "presentations/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pptx",
+    "presentations/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/README.md",
+      "relative_path": "presentations/zeroplane_visible_boundaries/README.md",
+      "size_bytes": 1469,
+      "sha256": "ff20e6bd2746255cabd395f047baef153e2391164cdd706e469b826b84b78811"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/assets/credits.json",
+      "relative_path": "presentations/zeroplane_visible_boundaries/assets/credits.json",
+      "size_bytes": 946,
+      "sha256": "b8e521e8e2a96f874b415c607559976cc94bde378f1cb1f76997e9376abc5760"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/assets/zeroplane_input.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/assets/zeroplane_input.png",
+      "size_bytes": 4413678,
+      "sha256": "9037b6dac4d2bc777d69da8a034a408cf0229b7738502fc81b3f160479fc0586"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/assets/zeroplane_teaser.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/assets/zeroplane_teaser.png",
+      "size_bytes": 256857,
+      "sha256": "150dee772d0e08855e7eb980152237990626d4e4eac2c70e60dca808cf308ef4"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/preview.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/preview.png",
+      "size_bytes": 426300,
+      "sha256": "041b9a356fbe13697b92f2c260f1a5312496d676a6d37fa61f00308361198367"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-01.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-01.png",
+      "size_bytes": 84498,
+      "sha256": "4a90907b6e897dfe6195ab49d7e2676b06a82e10544a69c03c8175aa07857e4d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-02.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-02.png",
+      "size_bytes": 1164726,
+      "sha256": "d3dd9a6000e2e38bcb389b39b0e1692bd2417d96d8e28a9ccb2324a9cc9133ed"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-03.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-03.png",
+      "size_bytes": 809508,
+      "sha256": "05f0a52c08ae7a42e75dc0c78ff033b4ec7dcc0d8b722e00a6f423d199f7be9b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-04.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-04.png",
+      "size_bytes": 189990,
+      "sha256": "7032411e9ed1376899807b416c4a31b7cb16936bd6292669bf9879a9ddf289de"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-05.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-05.png",
+      "size_bytes": 183557,
+      "sha256": "3bbcd02651af7a810e2381df9be01f33e78f00ba08fecb9ccd5f8e65f4cc7f53"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-06.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-06.png",
+      "size_bytes": 207868,
+      "sha256": "386551ee70e48e926a9231fdbe3f4bd1069be2fe701a3b5f73bd30ba222881cc"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-07.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-07.png",
+      "size_bytes": 189917,
+      "sha256": "150e9cb6c4becf9d6e46de6ca80e0810b985af4b367c51b2d6bfe20e20dbc56e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-08.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-08.png",
+      "size_bytes": 232336,
+      "sha256": "bbd6ebcd023faddbdb554399ee9dacac86ec65a699c593f41a7dcb9996a1d71b"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-09.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-09.png",
+      "size_bytes": 170030,
+      "sha256": "f9189f6bd57d94a62bdd52782356c34a2a361197789a618536cb8f58a19aa426"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/previews/slide-10.png",
+      "relative_path": "presentations/zeroplane_visible_boundaries/previews/slide-10.png",
+      "size_bytes": 179024,
+      "sha256": "74754d6d7f7daab3111cf17bd1a50fcf49b9cfa5455bc1c008d19c473fb4b426"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/source/build.mjs",
+      "relative_path": "presentations/zeroplane_visible_boundaries/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/source/slides.json",
+      "relative_path": "presentations/zeroplane_visible_boundaries/source/slides.json",
+      "size_bytes": 15316,
+      "sha256": "b18c4bf4da7196996a9107c9d44094c47c8e54fec8d9b53be12213fc68e3378e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/source/topic.json",
+      "relative_path": "presentations/zeroplane_visible_boundaries/source/topic.json",
+      "size_bytes": 13712,
+      "sha256": "84032b48857ca6e86e37cc24d797849f543177629972c930c0752812abb18919"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pdf",
+      "relative_path": "presentations/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pdf",
+      "size_bytes": 1016606,
+      "sha256": "7c58c9f0130b2cf7fd881199988ebf18a5da58713f3514b4804bb336d45cd783"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pptx",
+      "relative_path": "presentations/zeroplane_visible_boundaries/zeroplane_visible_boundaries.pptx",
+      "size_bytes": 4717590,
+      "sha256": "d1409cee0ee781b21568493fa97f706db30a895fef13c8f1c8017a3386516c8b"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "id": "subspacead_microdefect_phase",
+  "title": "少样本PCB微缺陷检测：面向Patch采样相位的残差保留与预算化复检",
+  "slide_count": 10,
+  "revision": "v1",
+  "package_root": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase",
+  "recommended_repository_prefix": "presentations/subspacead_microdefect_phase",
+  "primary_files": [
+    "presentations/subspacead_microdefect_phase/subspacead_microdefect_phase.pptx",
+    "presentations/subspacead_microdefect_phase/subspacead_microdefect_phase.pdf"
+  ],
+  "files": [
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/README.md",
+      "relative_path": "presentations/subspacead_microdefect_phase/README.md",
+      "size_bytes": 1565,
+      "sha256": "07c1258022f2bea0ed1fb9150e14e3c6f8a6e039b1610c0041e3f215d4ceae67"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/assets/credits.json",
+      "relative_path": "presentations/subspacead_microdefect_phase/assets/credits.json",
+      "size_bytes": 1744,
+      "sha256": "201bdb5a3940d1003343e497a19c164fbcf08bcdacb5423091c5a467761fced7"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/assets/subspace_overview.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/assets/subspace_overview.png",
+      "size_bytes": 93816,
+      "sha256": "62ee07887427442d60db0412e8ba40d556bf6a7a9ef0c16c5084f77d20f0b81d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/assets/test_0_three_panel_clean.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/assets/test_0_three_panel_clean.png",
+      "size_bytes": 378570,
+      "sha256": "c562344167c55c8ee966484a4a16931d957f399c33333cd88c99eaa3a79427b5"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/assets/test_1_three_panel_clean.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/assets/test_1_three_panel_clean.png",
+      "size_bytes": 376705,
+      "sha256": "7b524fe42830087a0151bad9865ed9392c899be773a7cb88d3a31b58a5b62c00"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/assets/visa_samples.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/assets/visa_samples.png",
+      "size_bytes": 2390610,
+      "sha256": "d707e2e95d3b98336c99e2b8aa6049f65f1f7044542f2839a63df74b9ba3a629"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/evidence/captured_result.json",
+      "relative_path": "presentations/subspacead_microdefect_phase/evidence/captured_result.json",
+      "size_bytes": 2023,
+      "sha256": "d8eb9c5fc4846808e616ad6190ce65e2a9bc9c4cb61c23695de284bd458d0002"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/evidence/figure_manifest.json",
+      "relative_path": "presentations/subspacead_microdefect_phase/evidence/figure_manifest.json",
+      "size_bytes": 739,
+      "sha256": "db8c37780a81b303220dd68952c08f9e413d5c109a8b0d22c6ead8944cf268c2"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/preview.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/preview.png",
+      "size_bytes": 486757,
+      "sha256": "eb40967e9a9f7595fb71440fb76b172eb88ee6331c06b1aef3d0af4bd8deb04d"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-01.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-01.png",
+      "size_bytes": 107334,
+      "sha256": "9315f3dff0b36e8a1a65c1d28acf46a4c72b46e76f8d5c291da6e28692ba4ded"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-02.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-02.png",
+      "size_bytes": 1125417,
+      "sha256": "b0bf58b3bd55019870be9fcc8905d1bb7207414e9ef4027535668c798cf03e3c"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-03.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-03.png",
+      "size_bytes": 409490,
+      "sha256": "856ebd4958561751381786bf35f1062ab907b9164dd4979641b5081d7b521158"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-04.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-04.png",
+      "size_bytes": 204140,
+      "sha256": "04ade036c4c0cff7441c15be386db68fae7c4a0c3f5778865a45aa1d18b5286a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-05.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-05.png",
+      "size_bytes": 163750,
+      "sha256": "a03321140e0ae1c5c5c82664bb258decfdb9b1bb0220c5f8d66201c72e02be2e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-06.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-06.png",
+      "size_bytes": 189929,
+      "sha256": "ca8fe7fd133df988f7411251cec2a1f42c6690bc766d93207cd74dd53c6ae739"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-07.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-07.png",
+      "size_bytes": 208316,
+      "sha256": "adf1d887e4e064282ab0649e9731915c0bc3b8e6cf775c9a878171f54246f848"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-08.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-08.png",
+      "size_bytes": 247754,
+      "sha256": "29b025073d7621308a4e281e9bf0e7e99b01564efbe414f344e2ae2ebbf7e14a"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-09.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-09.png",
+      "size_bytes": 776377,
+      "sha256": "2e7bde8f4f62d66d0adf9703bed168d400b43ef45cb023c08b1c7c684a9b2c3e"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/previews/slide-10.png",
+      "relative_path": "presentations/subspacead_microdefect_phase/previews/slide-10.png",
+      "size_bytes": 208144,
+      "sha256": "ae0213fbaa593225d60086d0dc2a0c62441cffbefdba48f0c5f2e22dfaeff149"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/source/build.mjs",
+      "relative_path": "presentations/subspacead_microdefect_phase/source/build.mjs",
+      "size_bytes": 6413,
+      "sha256": "b5b1ed61a4e1e391cec103a73f270ab18a11397a4fd4e7c23144dd54c924789f"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/source/slides.json",
+      "relative_path": "presentations/subspacead_microdefect_phase/source/slides.json",
+      "size_bytes": 16932,
+      "sha256": "f2b56bf4957ced1d75e37f2599294ef27f218ccd4ec59c99af5c8ff62a0c5184"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/source/topic.json",
+      "relative_path": "presentations/subspacead_microdefect_phase/source/topic.json",
+      "size_bytes": 15864,
+      "sha256": "01258d63eda33ca5c378e2f3f2d80a4710779182633285097a970b35320abeff"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/subspacead_microdefect_phase.pdf",
+      "relative_path": "presentations/subspacead_microdefect_phase/subspacead_microdefect_phase.pdf",
+      "size_bytes": 1009912,
+      "sha256": "3208bc721f9ea89000008d93674e9b1937e2913b3d629a1a5e46ec1dbd047446"
+    },
+    {
+      "local_path": "/workspace/shared/cv-decks/publish/subspacead_microdefect_phase/subspacead_microdefect_phase.pptx",
+      "relative_path": "presentations/subspacead_microdefect_phase/subspacead_microdefect_phase.pptx",
+      "size_bytes": 3289775,
+      "sha256": "f18e50d288922837b924296261187ff7850551303bd41df6844d51c895f60b26"
+    }
+  ]
+}

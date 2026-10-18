@@ -1,0 +1,30 @@
+[
+  {
+    "path": "assets/zeroplane_input.png",
+    "caption": "ZeroPlane官方CVPR demo实拍输入",
+    "sources": [
+      {
+        "title": "Liu et al., ZeroPlane, CVPR 2025",
+        "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+      },
+      {
+        "title": "ZeroPlane官方实现",
+        "url": "https://github.com/jcliu0428/ZeroPlane"
+      }
+    ]
+  },
+  {
+    "path": "assets/zeroplane_teaser.png",
+    "caption": "ZeroPlane官方跨场景结果示意",
+    "sources": [
+      {
+        "title": "Liu et al., ZeroPlane, CVPR 2025",
+        "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_In-the-wild_3D_Plane_Reconstruction_from_a_Single_Image_CVPR_2025_paper.html"
+      },
+      {
+        "title": "ZeroPlane官方实现",
+        "url": "https://github.com/jcliu0428/ZeroPlane"
+      }
+    ]
+  }
+]
