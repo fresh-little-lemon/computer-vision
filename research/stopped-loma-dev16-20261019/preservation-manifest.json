@@ -1,0 +1,45 @@
+{
+  "status": "STOPPED_NOT_RUN",
+  "files": [
+    {
+      "path": "STOPPED_README.md",
+      "sha256": "c8f6baf5bb87426f5578704c386603f061034ccd9bb76828bdab57cdb60540b6"
+    },
+    {
+      "path": "STOPPED_STATUS.json",
+      "sha256": "c83d6d880e675cbdbcec5656636f4483afd42fe7a7dd85cdbc538f23b0d5c8e2"
+    },
+    {
+      "path": "analyze_cached_dev.py",
+      "sha256": "d721131bf7ae45650f13e0e7ef240cba3b92cf1d6c372d82dbbd057b51cb3079"
+    },
+    {
+      "path": "dev_only_manifest.json",
+      "sha256": "90ba5148b9c2e21a317af2b591937d4cff96186d1945952052a841a45e87f74c"
+    },
+    {
+      "path": "diagnose_dev.py",
+      "sha256": "2154289f5ba4ed84da95c95d8da2ab14e537a55da4dbb1c33855bb7757042556"
+    },
+    {
+      "path": "run.command",
+      "sha256": "56ab3a3ff061887ea9edb53d2079f587e813f72a77da658cee5bd48290a5f02a"
+    },
+    {
+      "path": "run_guarded.py",
+      "sha256": "a4a38dbbf855399b4560098194a6d3e0c17b9a5ca0604e26375a130d3a53ca03"
+    },
+    {
+      "path": "runtime_freeze.json",
+      "sha256": "bc8b2849b88bd43fe97bf5f3aa153c77c59f97c582f09e54d22113d56507fe14"
+    },
+    {
+      "path": "test_diagnostic.log",
+      "sha256": "f53b1adcd2b4254e8f4430fff26b5a42bfa380ca47ae0f6ff891c55e29f8f826"
+    },
+    {
+      "path": "test_diagnostic.py",
+      "sha256": "42215eb5379ec381a3b5d66f5f2837a49bce32447823650d0e62f6ca7eb1f5d7"
+    }
+  ]
+}

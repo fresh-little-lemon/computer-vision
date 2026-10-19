@@ -1,0 +1,1 @@
+PYTHONDONTWRITEBYTECODE=1 TORCH_HOME=/workspace/shared/cv-baseline-runs/cache/torch OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 HF_HUB_OFFLINE=1 /workspace/shared/cv-baseline-runs/env/bin/python -u /workspace/shared/cv-loma-dev16-20261019/run_guarded.py

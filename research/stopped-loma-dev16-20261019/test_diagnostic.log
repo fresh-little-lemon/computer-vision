@@ -1,0 +1,1 @@
+PASS: deterministic candidate ties, empty matches, reachable-GT recall, temperature identity, count-matched cells, official dev-GT path, official metric recomputation

@@ -1,0 +1,30 @@
+{
+  "status": "STOPPED_BY_USER_BEFORE_MODEL_LAUNCH",
+  "stopped_utc": "2026-10-19T14:05:25.401217+00:00",
+  "user_stop_message_ids": [
+    "Sentinel_78ab9b8b02e88191a3acb856e9193788",
+    "Sentinel_ce077ff52c7c8191a201597d9b6ff249"
+  ],
+  "model_forward_runs": 0,
+  "dev_scenes_run": 0,
+  "heldout_scenes_run": 0,
+  "related_running_processes": [],
+  "observer_gate_file_exists": false,
+  "events_file_exists": false,
+  "raw_output_file_count": 0,
+  "result_file_count": 0,
+  "completed_work": [
+    "Static implementation of external capture observer and separate cache analyzer",
+    "Small synthetic helper unit tests and exact prior-dev GT/metric recomputation",
+    "Static code review; runtime resources/config/source hashes prepared"
+  ],
+  "unfinished": [
+    "Observer on/off equality test never run",
+    "All 16 dev forward passes never run",
+    "No new method or candidate-control experiment results",
+    "Watchdog race/error-cleanup and final-check fixes identified in static review remain unresolved; code must not be launched as-is",
+    "Top-k shared timing accounting remains incomplete"
+  ],
+  "preservation": "All existing files retained; frozen publish_checkpoint untouched; no deletions",
+  "further_execution_authorized": false
+}

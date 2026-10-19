@@ -1,0 +1,222 @@
+{
+  "status": "DEV_ONLY_APPROVED",
+  "source_split_sha256": "933ea9f90a492e073a0358e8882c3fe5ce89eed9de6f0828c416de9c5298d69d",
+  "dev": [
+    {
+      "group_id": "bell_tower/Denny_Chimes/pair_00052",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "bell_tower/Denny_Chimes/pair_00052",
+      "all_group_pairs": [
+        "bell_tower/Denny_Chimes/pair_00052",
+        "bell_tower/Denny_Chimes/pair_00053"
+      ],
+      "scene_keys": [
+        "bell_tower/Denny_Chimes"
+      ],
+      "previously_observed": true
+    },
+    {
+      "group_id": "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058",
+      "all_group_pairs": [
+        "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova/pair_00058"
+      ],
+      "scene_keys": [
+        "bell_tower/Bell_tower_of_the_church_of_the_Intercession,_Lozova"
+      ],
+      "previously_observed": true
+    },
+    {
+      "group_id": "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00428",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00428",
+      "all_group_pairs": [
+        "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00428",
+        "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00429",
+        "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00430",
+        "old_town/Historic_islands_on_Odra_river_in_wrocław/pair_00431"
+      ],
+      "scene_keys": [
+        "old_town/Historic_islands_on_Odra_river_in_wrocław"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "chapel/Chapelle_Notre-Dame_de_la_Pépiole/pair_00139",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "chapel/Chapelle_Notre-Dame_de_la_Pépiole/pair_00139",
+      "all_group_pairs": [
+        "chapel/Chapelle_Notre-Dame_de_la_Pépiole/pair_00139"
+      ],
+      "scene_keys": [
+        "chapel/Chapelle_Notre-Dame_de_la_Pépiole"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "bell_tower/bell_tower_in_Kizhi/pair_00051",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "bell_tower/bell_tower_in_Kizhi/pair_00051",
+      "all_group_pairs": [
+        "bell_tower/bell_tower_in_Kizhi/pair_00051"
+      ],
+      "scene_keys": [
+        "bell_tower/bell_tower_in_Kizhi"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "bell_tower/Q32999255/pair_00054",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "bell_tower/Q32999255/pair_00054",
+      "all_group_pairs": [
+        "bell_tower/Q32999255/pair_00054"
+      ],
+      "scene_keys": [
+        "bell_tower/Q32999255"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "chapel/St._Michaels_Church/pair_00131",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "chapel/St._Michaels_Church/pair_00131",
+      "all_group_pairs": [
+        "chapel/St._Michaels_Church/pair_00131"
+      ],
+      "scene_keys": [
+        "chapel/St._Michaels_Church"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "old_town/Centro_histórico_de_Caminha/pair_00427",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "old_town/Centro_histórico_de_Caminha/pair_00427",
+      "all_group_pairs": [
+        "old_town/Centro_histórico_de_Caminha/pair_00427"
+      ],
+      "scene_keys": [
+        "old_town/Centro_histórico_de_Caminha"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "chapel/chapelle_du_château_du_Bois-Cornillé/pair_00137",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "chapel/chapelle_du_château_du_Bois-Cornillé/pair_00137",
+      "all_group_pairs": [
+        "chapel/chapelle_du_château_du_Bois-Cornillé/pair_00137"
+      ],
+      "scene_keys": [
+        "chapel/chapelle_du_château_du_Bois-Cornillé"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "chapel/Kapelle_Maria_vom_Guten_Rat/pair_00132",
+      "official_split": "val",
+      "stratum": "building",
+      "pair": "chapel/Kapelle_Maria_vom_Guten_Rat/pair_00133",
+      "all_group_pairs": [
+        "chapel/Kapelle_Maria_vom_Guten_Rat/pair_00132",
+        "chapel/Kapelle_Maria_vom_Guten_Rat/pair_00133"
+      ],
+      "scene_keys": [
+        "chapel/Kapelle_Maria_vom_Guten_Rat"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "cannon/Si_Jagur/pair_00071",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "cannon/Si_Jagur/pair_00071",
+      "all_group_pairs": [
+        "cannon/Si_Jagur/pair_00071",
+        "cannon/Si_Jagur/pair_00072"
+      ],
+      "scene_keys": [
+        "cannon/Si_Jagur"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "glacier/Tour_Noir_Glacier/pair_00310",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "glacier/Tour_Noir_Glacier/pair_00310",
+      "all_group_pairs": [
+        "glacier/Tour_Noir_Glacier/pair_00310"
+      ],
+      "scene_keys": [
+        "glacier/Tour_Noir_Glacier"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "old_town/Q124791654/pair_00426",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "old_town/Q124791654/pair_00426",
+      "all_group_pairs": [
+        "old_town/Q124791654/pair_00426"
+      ],
+      "scene_keys": [
+        "old_town/Q124791654"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "glacier/Q132166550/pair_00305",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "glacier/Q132166550/pair_00305",
+      "all_group_pairs": [
+        "glacier/Q132166550/pair_00305"
+      ],
+      "scene_keys": [
+        "glacier/Q132166550"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "glacier/Q131193083/pair_00311",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "glacier/Q131193083/pair_00311",
+      "all_group_pairs": [
+        "glacier/Q131193083/pair_00311",
+        "glacier/Q131193083/pair_00312",
+        "glacier/Q131193083/pair_00313"
+      ],
+      "scene_keys": [
+        "glacier/Q131193083"
+      ],
+      "previously_observed": false
+    },
+    {
+      "group_id": "cannon/Bibi_Mariam_Cannon/pair_00074",
+      "official_split": "val",
+      "stratum": "nonbuilding",
+      "pair": "cannon/Bibi_Mariam_Cannon/pair_00074",
+      "all_group_pairs": [
+        "cannon/Bibi_Mariam_Cannon/pair_00074"
+      ],
+      "scene_keys": [
+        "cannon/Bibi_Mariam_Cannon"
+      ],
+      "previously_observed": false
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "status": "FROZEN_BEFORE_INFERENCE",
+  "frozen_utc": "2026-10-19T14:04:47.507717+00:00",
+  "stage": "16_dev_diagnostic_only",
+  "heldout_access_forbidden": true,
+  "new_method_test": false,
+  "model": "LoMaB128",
+  "num_keypoints": 2048,
+  "filter_threshold": 0.1,
+  "mp": false,
+  "compile": false,
+  "torch_threads": 4,
+  "torch_interop_threads": 1,
+  "opencv_threads": 1,
+  "cpu_affinity_max_logical_cpus": 4,
+  "seed": 0,
+  "opencv_seed_per_evaluation": 0,
+  "point_dtype": "native float32 matching official model output",
+  "official_F_parameters": [
+    "USAC_MAGSAC",
+    0.25,
+    0.999,
+    100000
+  ],
+  "main_GT_radius_px": 3,
+  "sensitivity_GT_radii_px": [
+    1,
+    5
+  ],
+  "min_reachable_gt_per_scene": 3,
+  "min_qualifying_scenes": 5,
+  "missing_detection_dominant_definition": "More than half of B0-unretained sparse GT lies outside the detector-reachable set at 3px; this is descriptive, not an attribution of all image failures",
+  "controls": {
+    "threshold": [
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ],
+    "temperature": [
+      0.5,
+      1,
+      2
+    ],
+    "top_k": [
+      1,
+      2
+    ],
+    "mutual": [
+      false,
+      true
+    ],
+    "budget": "min(2048,max(8,2*M0))",
+    "equal_count": "minimum edge count across four top-k/mutual cells"
+  },
+  "limits": {
+    "rss_gib": 3,
+    "incremental_disk_gib": 1,
+    "min_free_disk_gib": 2,
+    "wall_seconds": 900
+  },
+  "script_hashes": {
+    "run_guarded.py": "a4a38dbbf855399b4560098194a6d3e0c17b9a5ca0604e26375a130d3a53ca03",
+    "analyze_cached_dev.py": "d721131bf7ae45650f13e0e7ef240cba3b92cf1d6c372d82dbbd057b51cb3079",
+    "diagnose_dev.py": "2154289f5ba4ed84da95c95d8da2ab14e537a55da4dbb1c33855bb7757042556",
+    "test_diagnostic.py": "42215eb5379ec381a3b5d66f5f2837a49bce32447823650d0e62f6ca7eb1f5d7"
+  },
+  "source_hashes": {
+    "LoMa": {
+      "commit": "8fb59c458f2a2ef44314f462467b229c27786bf0"
+    },
+    "HardMatch": {
+      "commit": "13b499c9200e63bdc0eb8e647411fb300e9f6d9b"
+    },
+    "LoMa/src/loma/loma.py": {
+      "sha256": "36213e1f3901318700bf9d454027bc9a8b048b440a8009a8226d9c16a5eb7ca1"
+    },
+    "HardMatch/src/hardmatch/benchmark.py": {
+      "sha256": "92267b00cf63d4c985f5b5d10ccec90e7bbcd77319989574abb76d9464a4965f"
+    },
+    "HardMatch/src/hardmatch/dataset.py": {
+      "sha256": "808123acf47dcfc64ed6113fe70d2c2492ed38c4e6e7edec6e82bc7197866da8"
+    },
+    "HardMatch/src/hardmatch/geometry.py": {
+      "sha256": "a28be04691b7192749f9250c7045ccfeca62c214c2f8a8beeb3384b0adbc1bc2"
+    }
+  },
+  "dev_manifest_sha256": "90ba5148b9c2e21a317af2b591937d4cff96186d1945952052a841a45e87f74c",
+  "notes": [
+    "The two strict mutual cells coincide mathematically and are not independent methods.",
+    "Sparse GT cannot label unannotated edges as false.",
+    "First off/on timings are cold/warm and are not an observer-overhead estimate.",
+    "No new method or heldout improvement can be concluded from dev controls."
+  ]
+}
