@@ -12,7 +12,7 @@ proposed_split.json已经按元数据生成，未运行其图像模型、未读�
 - 使用种子字符串cv-loma-pilot-20261019-v1的SHA256排序；不得因难、易、低分、坏图而换样本。损坏或缺失只记录为数据失败并按预声明规则处理
 - 除上述已暴露dev组固定外，抽样与表现无关；没有手选“容易提高”的heldout
 - 其余562个test连通场景组完全保留；如果pilot已看结果，后续正式验证使用剩余独立组，不能把整个官方test再次说成从未见过
-- proposed_split.json SHA256：0609926d0d0c0365f676a582956bc97188712f9716e8f55df7fab3c66c692055
+- proposed_split.json SHA256：933ea9f90a492e073a0358e8882c3fe5ce89eed9de6f0828c416de9c5298d69d
 - 该小样本pilot不等同官方完整benchmark，也不直接同论文整集成绩比较
 
 ## 四、先执行的最小预实验：只做16个dev场景的机制否证

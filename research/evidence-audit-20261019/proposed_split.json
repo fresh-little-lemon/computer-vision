@@ -1,5 +1,5 @@
 {
-  "status": "PROPOSED_NOT_EXECUTED_PENDING_ROOT_REVIEW",
+  "status": "PROPOSED_NOT_EXECUTED_PENDING_REVIEW",
   "seed": "cv-loma-pilot-20261019-v1",
   "grouping": "Connected components of physical scene directory, source image URL and exact image SHA256. No heldout GT values or model scores used. Same-name generic scene names alone not merged. Near-duplicate residual risk remains.",
   "dev": [

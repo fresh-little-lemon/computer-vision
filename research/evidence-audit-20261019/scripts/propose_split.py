@@ -34,7 +34,7 @@ for g,rs in groups.items():
   seen=[r for r in candidates if r['pair']in known]
   if seen:representative=sorted(seen,key=lambda r:r['pair'])[0]
  groups_ready.append(dict(group_id=g,official_split=rs[0]['official_split'],stratum='building'if building else'nonbuilding',pair=representative['pair'],all_group_pairs=sorted(r['pair']for r in rs),scene_keys=sorted({r['scene_key']for r in rs}),previously_observed=g in forced))
-out={'status':'PROPOSED_NOT_EXECUTED_PENDING_ROOT_REVIEW','seed':seed,'grouping':'Connected components of physical scene directory, source image URL and exact image SHA256. No heldout GT values or model scores used. Same-name generic scene names alone not merged. Near-duplicate residual risk remains.','dev':[],'heldout':[],'excluded_cross_split_components':excluded}
+out={'status':'PROPOSED_NOT_EXECUTED_PENDING_REVIEW','seed':seed,'grouping':'Connected components of physical scene directory, source image URL and exact image SHA256. No heldout GT values or model scores used. Same-name generic scene names alone not merged. Near-duplicate residual risk remains.','dev':[],'heldout':[],'excluded_cross_split_components':excluded}
 for role,split,names in [('dev','val',{'building':10,'nonbuilding':6}),('heldout','test',{'building':20,'nonbuilding':12})]:
  for stratum,n in names.items():
   candidates=[g for g in groups_ready if g['official_split']==split and g['stratum']==stratum]

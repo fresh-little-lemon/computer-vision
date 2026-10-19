@@ -17,7 +17,7 @@
     {
       "path": "PILOT_PROTOCOL_NOT_RUN.md",
       "bytes": 7319,
-      "sha256": "34ce176b0721e2056fa0abc2b374f654b102cb0d8f46fadf5d8606f38df32a0d"
+      "sha256": "e2515522ad0b7d8acd64348f49f5fd12323a78ea7042d430960ded1151f86589"
     },
     {
       "path": "README.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "proposed_split.json",
-      "bytes": 20679,
-      "sha256": "0609926d0d0c0365f676a582956bc97188712f9716e8f55df7fab3c66c692055"
+      "bytes": 20674,
+      "sha256": "933ea9f90a492e073a0358e8882c3fe5ce89eed9de6f0828c416de9c5298d69d"
     },
     {
       "path": "scripts/audit_inputs.py",
@@ -41,8 +41,8 @@
     },
     {
       "path": "scripts/propose_split.py",
-      "bytes": 3433,
-      "sha256": "80afa8bc40fe2fc98359df91a61734f408ce0d7fa6e11b6a58e15ee2f297b44f"
+      "bytes": 3428,
+      "sha256": "04b78b91bf1d510617a45ab6fcf2ccb21c366f1a59307c7d507d315e0e890121"
     }
   ]
 }
