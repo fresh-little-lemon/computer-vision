@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-10-19T13:55:35.011565+00:00",
+  "status": "AUDIT_ONLY_PILOT_NOT_RUN",
+  "new_inference_runs": 0,
+  "new_method_runs": 0,
+  "improvement_verified": false,
+  "formally_recommended_topics": 0,
+  "has_new_downloads": false,
+  "contains_weights_or_images": false,
+  "proposed_pilot_requires_review": true,
+  "files": [
+    {
+      "path": "EVIDENCE_AUDIT.md",
+      "bytes": 4829,
+      "sha256": "3b1a292ce3343fee6b6d3d9c57b4ef899633b308dcadcd877f9d5ba3ce84e88b"
+    },
+    {
+      "path": "PILOT_PROTOCOL_NOT_RUN.md",
+      "bytes": 7319,
+      "sha256": "34ce176b0721e2056fa0abc2b374f654b102cb0d8f46fadf5d8606f38df32a0d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1606,
+      "sha256": "f90714478c13cd577cfd24efbedef047c6a767ef0bde8ecf9d1f0105e390b96a"
+    },
+    {
+      "path": "input_audit.json",
+      "bytes": 5823,
+      "sha256": "fe70879048acfc37ab8a2548827a9077a61b3a32648c78c37534af78852d451f"
+    },
+    {
+      "path": "proposed_split.json",
+      "bytes": 20679,
+      "sha256": "0609926d0d0c0365f676a582956bc97188712f9716e8f55df7fab3c66c692055"
+    },
+    {
+      "path": "scripts/audit_inputs.py",
+      "bytes": 3665,
+      "sha256": "be744d594e9ab0974e9fcd6435e933cd920ea09856d6e9afa8b5bfa797d1ec6e"
+    },
+    {
+      "path": "scripts/propose_split.py",
+      "bytes": 3433,
+      "sha256": "80afa8bc40fe2fc98359df91a61734f408ce0d7fa6e11b6a58e15ee2f297b44f"
+    }
+  ]
+}
